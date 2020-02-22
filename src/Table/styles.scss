@@ -1,0 +1,11 @@
+.table {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+
+  .table-body {
+    overflow: visible;
+    width: 90vw;
+  }
+}
