@@ -22,41 +22,34 @@ function generateLinePoints(sides) {
   };
 }
 
-function TableBody({ players = 10 }) {
+function TableBody({ players = 10, layout }) {
   const points = generatePoints(players);
   const linePoints = generateLinePoints(players);
 
   return (
-    <svg
-      className="table-body"
-      viewBox={`-50 0 ${RADIUS * 2 + 50} ${RADIUS * 2 - 290}`}
-    >
-      <g transform="scale(1, 0.65) rotate(3)">
-        <g>
-          {[...Array(players)].map((e, i) => (
-            <polygon
-              key={i}
-              points={points}
-              fill="#08D362"
-              transform={`rotate(${((i * 360) / players).toFixed(
-                2
-              )},${RADIUS},${RADIUS})`}
-            />
-          ))}
-        </g>
-        <g transform="scale(0.9 0.9)" transform-origin="center" opacity="0.09">
-          {[...Array(players)].map((e, i) => (
-            <line
-              key={i}
-              stroke="#000"
-              strokeWidth="3"
-              {...linePoints}
-              transform={`rotate(${((i * 360) / players).toFixed(
-                2
-              )},${RADIUS},${RADIUS})`}
-            />
-          ))}
-        </g>
+    <svg className={`table-body`} viewBox={`0 0 1000 1000`}>
+      <g>
+        {[...Array(players)].map((e, i) => (
+          <polygon
+            key={i}
+            points={points}
+            fill="#08D362"
+            transform={`rotate(${((i * 360) / players).toFixed(2)})`}
+          />
+        ))}
+      </g>
+      <g className="inner-border">
+        {[...Array(players)].map((e, i) => (
+          <line
+            key={i}
+            stroke="#000"
+            strokeWidth="3"
+            {...linePoints}
+            transform={`rotate(${((i * 360) / players).toFixed(
+              2
+            )},${RADIUS},${RADIUS})`}
+          />
+        ))}
       </g>
     </svg>
   );
