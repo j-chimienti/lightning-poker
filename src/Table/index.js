@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import Body from "./body";
 import "./styles.scss";
 import { HORIZONTAL_LAYOUT, VERTICAL_LAYOUT } from "./defs";
+import useTable from "./use-table";
 
-function Table() {
+function Table({ match }) {
   const [layout, setLayot] = useState(HORIZONTAL_LAYOUT);
+  const { tableId } = match.params;
+
+  const [table = {}] = useTable(tableId);
 
   useEffect(() => {
     window.onresize = () => {

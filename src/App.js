@@ -1,5 +1,7 @@
 import React from "react";
 // import Logo from "./Logo";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import "./App.scss";
 // import HiddenCard from "./HiddenCard";
 
@@ -8,10 +10,12 @@ import Table from "./Table";
 
 function App() {
   return (
-    <div className="app">
-      <Table />
-      {/* <Logo /> */}
-    </div>
+    <Router>
+      <div className="app">
+        <Route path="/:tableId" component={Table} />
+        {/* <Logo /> */}
+      </div>
+    </Router>
   );
 }
 
