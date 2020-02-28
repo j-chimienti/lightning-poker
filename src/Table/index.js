@@ -3,12 +3,14 @@ import Body from "./body";
 import "./styles.scss";
 import { HORIZONTAL_LAYOUT, VERTICAL_LAYOUT } from "./defs";
 import useTable from "./use-table";
+import usePlayers from "./use-players";
 
 function Table({ match }) {
   const [layout, setLayot] = useState(HORIZONTAL_LAYOUT);
   const { tableId } = match.params;
 
   const [table = {}] = useTable(tableId);
+  const [players] = usePlayers(tableId);
 
   useEffect(() => {
     window.onresize = () => {
