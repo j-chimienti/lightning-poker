@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
+    "crypto-js": "^4.0.0",
     "firebase": "^7.9.1",
     "node-sass": "^4.13.1",
     "poker-combinations": "^1.2.2",
@@ -24,7 +25,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy:rules": "firebase deploy --only firestore:rules"
+    "deploy:rules": "firebase deploy --only firestore:rules",
+    "deploy:services": "sh ./deploy-services.sh"
   },
   "eslintConfig": {
     "extends": "react-app"

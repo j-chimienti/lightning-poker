@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# service accounts
+*adminsdk*.json
+
+/services/node_modules
