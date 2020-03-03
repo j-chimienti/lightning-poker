@@ -1,8 +1,14 @@
-const functions = require('firebase-functions');
+const functions = require("firebase-functions");
+const { generateSeed } = require("./lib/utils");
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+exports.action = functions.https.onRequest(async (request, response) => {
+  try {
+    const { playerId, accountId } = request.body;
+
+    console.log(playerId, accountId);
+    console.log(generateSeed());
+    return response.send({ success: true });
+  } catch (e) {
+    return response.status(500).send({ ...response.body, error: e.message });
+  }
+});

@@ -1,1 +1,3 @@
+#!/usr/bin/env node
+
 // TODO use server time for player progress.....
