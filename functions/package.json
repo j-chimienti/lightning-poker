@@ -2,7 +2,6 @@
   "name": "functions",
   "description": "Lightning Poker Firebase Functions",
   "scripts": {
-    "lint": "",
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
