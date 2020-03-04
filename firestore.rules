@@ -8,5 +8,8 @@ service cloud.firestore {
       allow get;
       allow list;
     }
+    match /profiles/{profile} {
+      allow get;
+    }
   }
 }

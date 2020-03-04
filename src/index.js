@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import "typeface-oswald";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/auth";
+import "typeface-oswald";
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
