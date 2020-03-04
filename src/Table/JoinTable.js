@@ -1,31 +1,30 @@
 import React, { useContext } from "react";
-import { FOLD } from "../lib/types";
+import { JOIN } from "../lib/types";
 import dispatch from "./dispatch";
 import { TableContext } from "./index";
 
-function Actions() {
+function JoinTable({ position }) {
   const { tableId } = useContext(TableContext);
 
   return (
-    <div className="actions">
-      <button>All-In</button>
-      <button>Bet</button>
-      <button>Check</button>
+    <div className="join-table">
       <button
         onClick={async () => {
-          const playerId = "pl";
-
           try {
-            await dispatch({ type: FOLD, tableId, playerId });
+            await dispatch({
+              type: JOIN,
+              tableId,
+              position
+            });
           } catch (e) {
             console.log(e);
           }
         }}
       >
-        Fold
+        Join Table
       </button>
     </div>
   );
 }
 
-export default Actions;
+export default JoinTable;

@@ -3,7 +3,7 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 
 export default tableId => {
   // value is a DocumentSnapshot
-  const [table = {}, loading, error] = useDocumentData(
+  const [table, loading, error] = useDocumentData(
     tableId &&
       firebase
         .firestore()
