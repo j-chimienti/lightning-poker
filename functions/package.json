@@ -20,7 +20,7 @@
     "poker-rank": "^2.0.2"
   },
   "devDependencies": {
-    "firebase-functions-test": "^0.1.6"
+    "firebase-functions-test": "^0.2.0"
   },
   "private": true
 }

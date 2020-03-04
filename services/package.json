@@ -13,7 +13,7 @@
     "crypto-js": "^4.0.0",
     "firebase-admin": "^8.9.2",
     "grpc": "^1.24.2",
-    "ln-service": "^47.14.7",
+    "ln-service": "^47.15.1",
     "poker-combinations": "^1.2.2",
     "poker-deck": "^1.0.2",
     "poker-rank": "^2.0.2"
