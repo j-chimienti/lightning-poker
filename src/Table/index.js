@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Body from "./body";
+import Actions from "./actions";
 import "./styles.scss";
 import { HORIZONTAL_LAYOUT, VERTICAL_LAYOUT } from "./defs";
 import useTable from "./use-table";
@@ -26,6 +27,7 @@ function Table({ match }) {
       className={`table ${layout === VERTICAL_LAYOUT ? "vertical" : ""}`.trim()}
     >
       <Body layout={layout} />
+      <Actions />
     </div>
   );
 }

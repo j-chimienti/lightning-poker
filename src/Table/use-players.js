@@ -22,7 +22,6 @@ export default tableId => {
 
   // TODO: use playes only to get add/remove player updates,
   // let Player component sibscribe to player document
-  console.log(players);
 
   return [players, loading, error];
 };

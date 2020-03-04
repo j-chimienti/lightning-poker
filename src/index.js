@@ -14,9 +14,6 @@ firebase.initializeApp({
   appId: process.env.REACT_APP_APP_ID
 });
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementsByTagName("main")[0]);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

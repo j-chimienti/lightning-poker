@@ -10,7 +10,6 @@ export default tableId => {
         .collection("tables")
         .doc(tableId)
   );
-  console.log(table);
   if (error) {
     console.log(error);
   }
