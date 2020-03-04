@@ -12,8 +12,8 @@ const {
   SHOWDOWN,
 
   // actions
-  ADD,
-  REMOVE,
+  JOIN,
+  LEAVE,
   BET,
   CALL,
   FOLD,
@@ -323,7 +323,7 @@ const game = (table, players, action) => {
 
   // start here
   // player joined the game
-  if (type === ADD) {
+  if (type === JOIN) {
     playing = playing + 1;
     // his state per default is SITTING
     if (round === WAITING) {
@@ -342,7 +342,7 @@ const game = (table, players, action) => {
   };
 
   // func starts here
-  if (type === REMOVE) {
+  if (type === LEAVE) {
     if (round !== WAITING) {
       let winner = checkForSoloPlayer();
       if (winner) {

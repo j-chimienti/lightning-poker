@@ -9,8 +9,8 @@ const RIVER = "river";
 const SHOWDOWN = "showdown";
 
 // actions
-const ADD = "add";
-const REMOVE = "remove";
+const JOIN = "join";
+const LEAVE = "leave";
 const BET = "bet";
 const CALL = "call";
 const FOLD = "fold";
@@ -46,8 +46,8 @@ module.exports = {
   SHOWDOWN,
 
   // actions
-  ADD,
-  REMOVE,
+  JOIN,
+  LEAVE,
   BET,
   CALL,
   FOLD,

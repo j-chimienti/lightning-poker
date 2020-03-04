@@ -1,6 +1,6 @@
 const {
-  ADD,
-  REMOVE,
+  JOIN,
+  LEAVE,
   READY,
   WAITING,
   PRE_FLOP,
@@ -45,7 +45,7 @@ test("#1", () => {
   };
 
   game(t, [p1, p2], {
-    type: ADD
+    type: JOIN
   });
   expect(t.round).toEqual(WAITING);
 });
@@ -83,7 +83,7 @@ test("round bets", () => {
   let p = [p1, p2, p3];
 
   game(t, p, {
-    type: ADD,
+    type: JOIN,
     seed: 8544783345
   });
 
@@ -128,7 +128,7 @@ test.skip("#2", () => {
   let p = [p1, p2, p3];
 
   game(t, p, {
-    type: ADD,
+    type: JOIN,
     seed: 8544783345
   });
 
@@ -379,7 +379,7 @@ test.skip("#2", () => {
   // call action add
   p.push(p4);
   game(t, p, {
-    type: ADD
+    type: JOIN
   });
 
   // p1 is active, p1 calls
@@ -467,7 +467,7 @@ test("rake", () => {
   let p = [p1, p2, p3];
 
   game(t, p, {
-    type: ADD,
+    type: JOIN,
     seed: 8544783344
   });
 
@@ -538,7 +538,7 @@ test("all-in #1", () => {
   let p = [p1, p2, p3];
 
   game(t, p, {
-    type: ADD,
+    type: JOIN,
     seed: 8544783340
   });
 
@@ -609,7 +609,7 @@ test("all-in, blinds", () => {
   let p = [p1, p2, p3];
 
   game(t, p, {
-    type: ADD,
+    type: JOIN,
     seed: 8544783340
   });
 
@@ -647,7 +647,7 @@ test("all-in, after one wins, second should go sitting", () => {
   let p = [p1, p2];
 
   game(t, p, {
-    type: ADD,
+    type: JOIN,
     seed: 8544783340
   });
 
@@ -696,7 +696,7 @@ test("autofold, return bets two players", () => {
   let p = [p1, p2];
 
   game(t, p, {
-    type: ADD,
+    type: JOIN,
     seed: 8544783340
   });
 
@@ -712,7 +712,7 @@ test("autofold, return bets two players", () => {
   p1.chips = 0;
   p1.leaving = true;
 
-  game(t, p, { type: REMOVE });
+  game(t, p, { type: LEAVE });
 
   expect(p2.chips).toEqual(220);
 
