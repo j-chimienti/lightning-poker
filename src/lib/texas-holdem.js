@@ -32,7 +32,7 @@ const {
   AUTO_FOLD_DELAY
 } = require("./types");
 
-const game = (table, players, action) => {
+module.exports = (table, players, action) => {
   players.sort((a, b) => a.position - b.position);
 
   const maxBet = Math.max.apply(null, players.map(({ bet }) => bet || 0));
@@ -627,5 +627,3 @@ const game = (table, players, action) => {
     winners
   });
 };
-
-module.exports = game;

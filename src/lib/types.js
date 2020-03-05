@@ -35,6 +35,22 @@ const PENDING_PAYMENT = "pending";
 const CONFIRMED_PAYMENT = "confirmed";
 const ERROR_PAYMENT = "error";
 
+const tableDefaults = {
+  bigBlind: 100,
+  smallBlind: 50,
+  buyIn: 10000,
+  round: WAITING,
+  cards: [],
+  dealer: 1,
+  pot: 0,
+  pots: [],
+  private: true,
+  rake: 0,
+  seed: 9999
+};
+
+const playerDefaults = {};
+
 // TODO: save last action time, because of 30 sec player need to move
 
 module.exports = {
@@ -72,5 +88,8 @@ module.exports = {
   REQUESTED_PAYMENT,
   PENDING_PAYMENT,
   CONFIRMED_PAYMENT,
-  ERROR_PAYMENT
+  ERROR_PAYMENT,
+
+  tableDefaults,
+  playerDefaults
 };

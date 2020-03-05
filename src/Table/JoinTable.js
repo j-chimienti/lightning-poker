@@ -5,7 +5,7 @@ import { AppContext } from "../App";
 
 function JoinTable({ position }) {
   const { tableId } = useContext(TableContext);
-  const { profileHash } = useContext(AppContext);
+  const { profileId } = useContext(AppContext);
 
   return (
     <div className="join-table">
@@ -15,7 +15,7 @@ function JoinTable({ position }) {
             await dispatch(
               {
                 tableId,
-                profileHash,
+                profileId,
                 position
               },
               "join"
