@@ -5,6 +5,7 @@ function Players() {
   return (
     <div className="players">
       <JoinTable position={1} />
+      <JoinTable position={2} />
     </div>
   );
 }

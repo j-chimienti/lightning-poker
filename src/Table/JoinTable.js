@@ -1,21 +1,25 @@
 import React, { useContext } from "react";
-import { JOIN } from "../lib/types";
 import dispatch from "./dispatch";
 import { TableContext } from "./index";
+import { AppContext } from "../App";
 
 function JoinTable({ position }) {
   const { tableId } = useContext(TableContext);
+  const { profileHash } = useContext(AppContext);
 
   return (
     <div className="join-table">
       <button
         onClick={async () => {
           try {
-            await dispatch({
-              type: JOIN,
-              tableId,
-              position
-            });
+            await dispatch(
+              {
+                tableId,
+                profileHash,
+                position
+              },
+              "join"
+            );
           } catch (e) {
             console.log(e);
           }

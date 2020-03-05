@@ -1,6 +1,6 @@
-export default async (args = {}) =>
+export default async (args = {}, url = "action") =>
   window
-    .fetch("/action", {
+    .fetch(`/${url}`, {
       method: "POST",
       body: JSON.stringify(args),
       headers: { "Content-Type": "application/json" }

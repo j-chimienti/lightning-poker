@@ -13,6 +13,14 @@
         "function": "action"
       },
       {
+        "source": "/join",
+        "function": "join"
+      },
+      {
+        "source": "/leave",
+        "function": "leave"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
