@@ -30,7 +30,7 @@ function App() {
     }
   }, [user, loading, error]);
 
-  const [{ balance } = { balance: 0 }] = useDocumentData(
+  const [{ balance, hash } = { balance: 0 }] = useDocumentData(
     user &&
       user.uid &&
       firebase
@@ -43,7 +43,8 @@ function App() {
     <AppContext.Provider
       value={{
         balance,
-        profileId: user && user.uid
+        profileId: user && user.uid,
+        profileHash: hash
       }}
     >
       <Router>

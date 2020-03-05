@@ -1,4 +1,5 @@
 const deck = require("poker-deck");
+const crypto = require("crypto");
 
 const shuffleDeck = seed => {
   const gameDeck = Array.from(deck);
@@ -26,7 +27,16 @@ const shuffleDeck = seed => {
 
 const generateSeed = () => Math.round(Math.random() * 10000000000);
 
+const generateHash = account => {
+  return crypto
+    .createHash("sha256")
+    .update(account)
+    .digest("hex")
+    .substr(0, 10);
+};
+
 module.exports = {
   shuffleDeck,
-  generateSeed
+  generateSeed,
+  generateHash
 };
