@@ -55,21 +55,21 @@ test("round bets", () => {
     position: 1,
     state: READY,
     chips: 100,
-    accountId: "p1-acc"
+    profileId: "p1-acc"
   };
 
   let p2 = {
     position: 3,
     state: READY,
     chips: 100,
-    accountId: "p2-acc"
+    profileId: "p2-acc"
   };
 
   let p3 = {
     position: 7,
     state: READY,
     chips: 100,
-    accountId: "p3-acc"
+    profileId: "p3-acc"
   };
 
   let t = {
@@ -101,21 +101,21 @@ test.skip("#2", () => {
     position: 1,
     state: READY,
     chips: 300,
-    accountId: "p1-acc"
+    profileId: "p1-acc"
   };
 
   let p2 = {
     position: 3,
     state: READY,
     chips: 300,
-    accountId: "p2-acc"
+    profileId: "p2-acc"
   };
 
   let p3 = {
     position: 7,
     state: READY,
     chips: 300,
-    accountId: "p3-acc"
+    profileId: "p3-acc"
   };
 
   let t = {
@@ -373,7 +373,7 @@ test.skip("#2", () => {
     position: 5,
     state: SITTING,
     chips: 666,
-    accountId: "p4-acc"
+    profileId: "p4-acc"
   };
 
   // call action add
@@ -410,7 +410,7 @@ test.skip("#2", () => {
     position: 10,
     state: SITTING,
     chips: 999,
-    accountId: "p5-acc"
+    profileId: "p5-acc"
   };
   p.push(p5);
 
@@ -439,21 +439,21 @@ test("rake", () => {
     position: 1,
     state: READY,
     chips: 100,
-    accountId: "p1-acc"
+    profileId: "p1-acc"
   };
 
   let p2 = {
     position: 3,
     state: READY,
     chips: 100,
-    accountId: "p2-acc"
+    profileId: "p2-acc"
   };
 
   let p3 = {
     position: 7,
     state: READY,
     chips: 100,
-    accountId: "p3-acc"
+    profileId: "p3-acc"
   };
 
   let t = {
@@ -510,21 +510,21 @@ test("all-in #1", () => {
     position: 1,
     state: READY,
     chips: 100,
-    accountId: "p1-acc"
+    profileId: "p1-acc"
   };
 
   let p2 = {
     position: 5,
     state: READY,
     chips: 200,
-    accountId: "p2-acc"
+    profileId: "p2-acc"
   };
 
   let p3 = {
     position: 7,
     state: READY,
     chips: 450,
-    accountId: "p3-acc"
+    profileId: "p3-acc"
   };
 
   let t = {
@@ -581,21 +581,21 @@ test("all-in, blinds", () => {
     position: 1,
     state: READY,
     chips: 30,
-    accountId: "p1-acc"
+    profileId: "p1-acc"
   };
 
   let p2 = {
     position: 5,
     state: READY,
     chips: 40,
-    accountId: "p2-acc"
+    profileId: "p2-acc"
   };
 
   let p3 = {
     position: 7,
     state: READY,
     chips: 50,
-    accountId: "p3-acc"
+    profileId: "p3-acc"
   };
 
   let t = {
@@ -626,14 +626,14 @@ test("all-in, after one wins, second should go sitting", () => {
     position: 1,
     state: READY,
     chips: 100,
-    accountId: "p1-acc"
+    profileId: "p1-acc"
   };
 
   let p2 = {
     position: 5,
     state: READY,
     chips: 200,
-    accountId: "p2-acc"
+    profileId: "p2-acc"
   };
 
   let t = {
@@ -675,14 +675,14 @@ test("autofold, return bets two players", () => {
     position: 1,
     state: READY,
     chips: 100,
-    accountId: "p1-acc"
+    profileId: "p1-acc"
   };
 
   let p2 = {
     position: 5,
     state: READY,
     chips: 200,
-    accountId: "p2-acc"
+    profileId: "p2-acc"
   };
 
   let t = {

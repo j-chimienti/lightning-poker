@@ -279,13 +279,13 @@ module.exports = (table, players, action) => {
     // deal cards
     for (let player of players) {
       const cards = [gameDeck.shift(), gameDeck.shift()];
-      // encrypt cards with accountId for each player
-      if (!player.accountId) {
-        throw new Error("player accountId is missing, can not encrypt cards");
+      // encrypt cards with profileId for each player
+      if (!player.profileId) {
+        throw new Error("player profileId is missing, can not encrypt cards");
       }
       player.cards = CryptoJS.AES.encrypt(
         JSON.stringify(cards),
-        player.accountId
+        player.profileId
       ).toString();
       // console.log(player);
     }
@@ -500,7 +500,7 @@ module.exports = (table, players, action) => {
         for (let player of activePlayers()) {
           // decode cards!
           // console.log(player.cards);
-          let bytes = CryptoJS.AES.decrypt(player.cards, player.accountId);
+          let bytes = CryptoJS.AES.decrypt(player.cards, player.profileId);
           // console.log(bytes);
           player.cards = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
           // fulfill cards if all players go all-in earlier
