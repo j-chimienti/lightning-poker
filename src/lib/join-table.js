@@ -11,6 +11,25 @@ module.exports = async (db, { tableId, profileId, position }) => {
       db.collection("players").where("tableId", "==", tableId)
     )).docs.map(doc => ({ ...doc.data(), id: doc.id }));
 
+    // load profileId for each player, needed for cards encryption
+    const profileSnaps = await Promise.all(
+      players.map(p => {
+        return tx.get(
+          db
+            .collection("profiles")
+            .where("hash", "==", p.profileHash)
+            .select()
+            .limit(1)
+        );
+      })
+    );
+
+    players.forEach((player, indx) => {
+      player.profileId = profileSnaps[indx].docs[0]
+        ? profileSnaps[indx].docs[0].id
+        : "";
+    });
+
     console.log("PLAYERS", players);
 
     if (players.find(player => player.position === position)) {
@@ -60,8 +79,7 @@ module.exports = async (db, { tableId, profileId, position }) => {
       tableId,
       bet: 0,
       hands: 0,
-      state: SITTING,
-      createdAt: new Date()
+      state: SITTING
     };
 
     players.push(player);
@@ -85,7 +103,9 @@ module.exports = async (db, { tableId, profileId, position }) => {
     for (let player of players) {
       const { id: playerId } = player;
       const ref = db.collection("players").doc(playerId);
+      // used intern, don't save
       delete player.id;
+      delete player.profileId;
       tx.update(ref, player);
     }
 
