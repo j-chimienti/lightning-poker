@@ -36,6 +36,7 @@ module.exports = async (db, { tableId, profileId, position }) => {
       position,
       profileHash,
       tableId,
+      profileId,
       bet: 0,
       hands: 0,
       state: SITTING
