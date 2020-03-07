@@ -3,7 +3,7 @@ import { FOLD } from "../lib/types";
 import dispatch from "./dispatch";
 import { TableContext } from "./index";
 
-function Actions() {
+function Actions({ id: playerId }) {
   const { tableId } = useContext(TableContext);
 
   return (
@@ -13,8 +13,6 @@ function Actions() {
       <button>Check</button>
       <button
         onClick={async () => {
-          const playerId = "pl";
-
           try {
             await dispatch({ type: FOLD, tableId, playerId });
           } catch (e) {

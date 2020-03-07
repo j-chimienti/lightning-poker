@@ -44,6 +44,13 @@ const loadProfile = async (db, tx, profileId) => {
   return { ...profileSnap.data(), id: profileSnap.id };
 };
 
+const getState = async (db, tx, tableId) => {
+  return Promise.all([
+    loadPlayers(db, tx, tableId),
+    loadTable(db, tx, tableId)
+  ]);
+};
+
 const updateState = async (db, tx, tableId, table, players) => {
   // save players state back to database
   for (let player of players) {
@@ -67,5 +74,6 @@ module.exports = {
   loadPlayers,
   loadTable,
   loadProfile,
+  getState,
   updateState
 };

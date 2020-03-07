@@ -1,11 +1,6 @@
 const { SITTING, JOIN } = require("./types");
 const texasHoldem = require("./texas-holdem");
-const {
-  loadPlayers,
-  loadTable,
-  loadProfile,
-  updateState
-} = require("./db-utils");
+const { loadProfile, getState, updateState } = require("./db-utils");
 
 module.exports = async (db, { tableId, profileId, position }) => {
   if (![1, 2, 3, 4, 5, 6, 7, 8, 9, 10].includes(position)) {
@@ -13,15 +8,11 @@ module.exports = async (db, { tableId, profileId, position }) => {
   }
 
   await db.runTransaction(async tx => {
-    let players = await loadPlayers(db, tx, tableId);
-
-    console.log("PLAYERS", players);
+    let [players, table] = await getState(db, tx, tableId);
 
     if (players.find(player => player.position === position)) {
       throw new Error("player position is assigned");
     }
-
-    const table = await loadTable(db, tx, tableId);
 
     if (players.length >= table.maxPlayers) {
       throw new Error("table is full");

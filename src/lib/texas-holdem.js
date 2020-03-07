@@ -49,9 +49,7 @@ module.exports = (table, players, action) => {
     pot = 0,
     pots = [],
     rake = 0,
-    winners = [],
-    // players on the table
-    playing = 0
+    winners = []
   } = table;
   const { type, playerId } = action;
 
@@ -324,7 +322,6 @@ module.exports = (table, players, action) => {
   // start here
   // player joined the game
   if (type === JOIN) {
-    playing = playing + 1;
     // his state per default is SITTING
     if (round === WAITING) {
       if (players.length >= minPlayers) {
@@ -354,7 +351,7 @@ module.exports = (table, players, action) => {
       if (players.filter(p => !p.leaving).length < minPlayers) {
         resetTable();
       } else {
-        // set next player to become activ, if the active one goes away
+        // set next player to become active, if the active one goes away
         if (active().id === playerId) {
           setActive(next(active()));
         }
@@ -623,7 +620,6 @@ module.exports = (table, players, action) => {
     flopIndex,
     pot,
     pots,
-    playing,
     winners
   });
 };
