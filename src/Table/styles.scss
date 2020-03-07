@@ -29,10 +29,10 @@
     right: 0;
     display: grid;
     grid-template-columns: repeat(4, minmax(80px, 120px));
-    min-height: 60px;
     justify-content: center;
     align-content: start;
     grid-gap: 12px;
+    padding-bottom: 10px;
   }
 
   .players {

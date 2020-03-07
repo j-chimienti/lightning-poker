@@ -22,30 +22,30 @@ function generateLinePoints(sides) {
   };
 }
 
-function TableBody({ players = 10, layout }) {
-  const points = generatePoints(players);
-  const linePoints = generateLinePoints(players);
+function TableBody({ playersCount = 10, layout }) {
+  const points = generatePoints(playersCount);
+  const linePoints = generateLinePoints(playersCount);
 
   return (
     <svg className={`table-body`} viewBox={`0 0 1000 1000`}>
       <g>
-        {[...Array(players)].map((e, i) => (
+        {[...Array(playersCount)].map((e, i) => (
           <polygon
             key={i}
             points={points}
             fill="#08D362"
-            transform={`rotate(${((i * 360) / players).toFixed(2)})`}
+            transform={`rotate(${((i * 360) / playersCount).toFixed(2)})`}
           />
         ))}
       </g>
       <g className="inner-border">
-        {[...Array(players)].map((e, i) => (
+        {[...Array(playersCount)].map((e, i) => (
           <line
             key={i}
             stroke="#000"
             strokeWidth="3"
             {...linePoints}
-            transform={`rotate(${((i * 360) / players).toFixed(
+            transform={`rotate(${((i * 360) / playersCount).toFixed(
               2
             )},${RADIUS},${RADIUS})`}
           />

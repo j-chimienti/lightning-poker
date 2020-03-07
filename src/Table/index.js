@@ -11,15 +11,12 @@ import { AppContext } from "../App";
 export const TableContext = createContext();
 
 function Table({ match }) {
-  const [layout, setLayot] = useState(HORIZONTAL_LAYOUT);
   const { tableId } = match.params;
+  const [layout, setLayot] = useState(HORIZONTAL_LAYOUT);
+  const { profileHash } = useContext(AppContext);
 
   const [table = { maxPlayers: 7 }] = useTable(tableId);
-  const [players] = usePlayers(tableId);
-
-  const { profileId } = useContext(AppContext);
-
-  console.log(players, profileId);
+  const [players, me] = usePlayers(tableId, profileHash);
 
   useEffect(() => {
     window.onresize = () => {
@@ -31,15 +28,15 @@ function Table({ match }) {
   }, []);
 
   return (
-    <TableContext.Provider value={{ ...table, layout, tableId }}>
+    <TableContext.Provider value={{ ...table, layout, tableId, players, me }}>
       <div
         className={`table ${
           layout === VERTICAL_LAYOUT ? "vertical" : ""
         }`.trim()}
       >
-        <Body layout={layout} players={Math.max(8, table.maxPlayers)} />
+        <Body layout={layout} playersCount={Math.max(8, table.maxPlayers)} />
         <Players />
-        <Actions />
+        {me && <Actions {...me} />}
       </div>
     </TableContext.Provider>
   );

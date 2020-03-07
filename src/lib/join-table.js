@@ -1,5 +1,11 @@
 const { SITTING, JOIN } = require("./types");
 const texasHoldem = require("./texas-holdem");
+const {
+  loadPlayers,
+  loadTable,
+  loadProfile,
+  updateState
+} = require("./db-utils");
 
 module.exports = async (db, { tableId, profileId, position }) => {
   if (![1, 2, 3, 4, 5, 6, 7, 8, 9, 10].includes(position)) {
@@ -7,28 +13,7 @@ module.exports = async (db, { tableId, profileId, position }) => {
   }
 
   await db.runTransaction(async tx => {
-    let players = (await tx.get(
-      db.collection("players").where("tableId", "==", tableId)
-    )).docs.map(doc => ({ ...doc.data(), id: doc.id }));
-
-    // load profileId for each player, needed for cards encryption
-    const profileSnaps = await Promise.all(
-      players.map(p => {
-        return tx.get(
-          db
-            .collection("profiles")
-            .where("hash", "==", p.profileHash)
-            .select()
-            .limit(1)
-        );
-      })
-    );
-
-    players.forEach((player, indx) => {
-      player.profileId = profileSnaps[indx].docs[0]
-        ? profileSnaps[indx].docs[0].id
-        : "";
-    });
+    let players = await loadPlayers(db, tx, tableId);
 
     console.log("PLAYERS", players);
 
@@ -36,24 +21,13 @@ module.exports = async (db, { tableId, profileId, position }) => {
       throw new Error("player position is assigned");
     }
 
-    const tableSnap = await tx.get(db.collection("tables").doc(tableId));
-    if (!tableSnap.exists) {
-      throw new Error("table not found");
-    }
-
-    const table = tableSnap.data();
+    const table = await loadTable(db, tx, tableId);
 
     if (players.length >= table.maxPlayers) {
       throw new Error("table is full");
     }
 
-    const profileSnap = await tx.get(db.collection("profiles").doc(profileId));
-
-    if (!profileSnap.exists) {
-      throw new Error("account not found");
-    }
-
-    let { balance, hash: profileHash } = profileSnap.data();
+    let { balance, hash: profileHash } = await loadProfile(db, tx, profileId);
 
     if (players.find(p => p.profileHash === profileHash)) {
       throw new Error("user is already playing on this table");
@@ -61,13 +35,7 @@ module.exports = async (db, { tableId, profileId, position }) => {
 
     let chips = table.buyIn;
 
-    if (
-      isNaN(chips) ||
-      isNaN(balance) ||
-      balance < chips ||
-      balance < 0 ||
-      chips <= 0
-    ) {
+    if (balance < chips || balance < 0 || chips <= 0) {
       throw new Error("You don't have enought balance to join this table");
     }
 
@@ -88,10 +56,9 @@ module.exports = async (db, { tableId, profileId, position }) => {
     const newPlayerRef = db.collection("players").doc();
 
     tx.create(newPlayerRef, player);
-    tx.update(profileSnap.ref, { balance });
+    tx.update(db.collection("profiles").doc(profileId), { balance });
 
     player.id = newPlayerRef.id;
-
     console.log(player);
 
     // call game with action: join
@@ -99,17 +66,6 @@ module.exports = async (db, { tableId, profileId, position }) => {
       type: JOIN
     });
 
-    // save players state back to database
-    for (let player of players) {
-      const { id: playerId } = player;
-      const ref = db.collection("players").doc(playerId);
-      // used intern, don't save
-      delete player.id;
-      delete player.profileId;
-      tx.update(ref, player);
-    }
-
-    // save table state back to database
-    tx.update(tableSnap.ref, table);
+    await updateState(db, tx, tableId, table, players);
   });
 };
