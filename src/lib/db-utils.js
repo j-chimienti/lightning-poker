@@ -5,11 +5,11 @@ const loadPlayers = async (db, tx, tableId) => {
 
   // load profileId for each player, needed for cards encryption
   const profileSnaps = await Promise.all(
-    players.map(p => {
+    players.map(({ profileHash }) => {
       return tx.get(
         db
           .collection("profiles")
-          .where("hash", "==", p.profileHash)
+          .where("hash", "==", profileHash)
           .select()
           .limit(1)
       );
@@ -17,9 +17,7 @@ const loadPlayers = async (db, tx, tableId) => {
   );
 
   players.forEach((player, indx) => {
-    player.profileId = profileSnaps[indx].docs[0]
-      ? profileSnaps[indx].docs[0].id
-      : "";
+    player.profileId = profileSnaps[indx].docs[0].id;
   });
 
   return players;

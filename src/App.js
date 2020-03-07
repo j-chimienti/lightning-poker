@@ -6,9 +6,6 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import firebase from "firebase/app";
 
 import "./App.scss";
-// import HiddenCard from "./HiddenCard";
-
-// import Card from "./Card";
 import Table from "./Table";
 
 export const AppContext = createContext();

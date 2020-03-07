@@ -1,17 +1,34 @@
-import React, { useContext } from "react";
-import { FOLD } from "../lib/types";
+import React, { useContext, useState } from "react";
+import { FOLD, CALL } from "../lib/types";
 import dispatch from "./dispatch";
 import { TableContext } from "./index";
 
-function Actions({ id: playerId }) {
+function Actions({ id: playerId, active }) {
   const { tableId } = useContext(TableContext);
+
+  // const [allInDisabled, setAllInDisabled] = useState(active);
+
+  console.log(active);
+  // setAllInDisabled(!active);
 
   return (
     <div className="actions">
-      <button>All-In</button>
-      <button>Bet</button>
-      <button>Check</button>
+      <button disabled={!active}>All-In</button>
+      <button disabled={!active}>Bet</button>
       <button
+        disabled={!active}
+        onClick={async () => {
+          try {
+            await dispatch({ type: CALL, tableId, playerId });
+          } catch (e) {
+            console.log(e);
+          }
+        }}
+      >
+        Check
+      </button>
+      <button
+        disabled={!active}
         onClick={async () => {
           try {
             await dispatch({ type: FOLD, tableId, playerId });

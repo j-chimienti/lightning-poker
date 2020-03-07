@@ -15,7 +15,7 @@ function Table({ match }) {
   const [layout, setLayot] = useState(HORIZONTAL_LAYOUT);
   const { profileHash } = useContext(AppContext);
 
-  const [table = { maxPlayers: 7 }] = useTable(tableId);
+  const [table = { maxPlayers: 7 }, loadingTable] = useTable(tableId);
   const [players, me] = usePlayers(tableId, profileHash);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function Table({ match }) {
         }`.trim()}
       >
         <Body layout={layout} playersCount={Math.max(8, table.maxPlayers)} />
-        <Players />
+        {!loadingTable && <Players />}
         {me && <Actions {...me} />}
       </div>
     </TableContext.Provider>
