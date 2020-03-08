@@ -1,0 +1,13 @@
+.player {
+  display: inline-block;
+}
+
+.players .card,
+.players .hidden-card {
+  width: 7vmin;
+}
+
+.player-cards .card:nth-child(2),
+.player-cards .hidden-card:nth-child(2) {
+  margin-left: -1vmin;
+}

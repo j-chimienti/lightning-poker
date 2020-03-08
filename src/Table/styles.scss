@@ -43,6 +43,30 @@
     right: 0;
   }
 
+  .table-info {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: grid;
+    place-items: center;
+
+    .five-cards {
+    }
+
+    .card,
+    .hidden-card {
+      margin: 2px;
+      width: 7vmin;
+    }
+
+    .hidden-card {
+      opacity: 0.3;
+    }
+  }
+
   &.vertical {
     .table-body {
       transform: scale(0.7, 1.1) rotate(3deg);

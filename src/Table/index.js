@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext, createContext } from "react";
 import Body from "./Body";
 import Actions from "./Actions";
 import Players from "./Players";
+import Info from "./Info";
 import "./styles.scss";
 import { HORIZONTAL_LAYOUT, VERTICAL_LAYOUT } from "./defs";
 import useTable from "./use-table";
@@ -36,6 +37,7 @@ function Table({ match }) {
       >
         <Body layout={layout} playersCount={Math.max(8, table.maxPlayers)} />
         {!loadingTable && <Players />}
+        {!loadingTable && <Info />}
         {me && <Actions {...me} />}
       </div>
     </TableContext.Provider>
