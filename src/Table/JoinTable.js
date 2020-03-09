@@ -20,8 +20,8 @@ function JoinTable({ position }) {
         left
       }}
     >
-      <button
-        disabled={disabled}
+      <svg
+        viewBox="0 0 100 100"
         onClick={async () => {
           try {
             // setDisabled(true);
@@ -38,8 +38,18 @@ function JoinTable({ position }) {
           }
         }}
       >
-        Join Table
-      </button>
+        <circle cx="50" cy="50" r="40" fill="#08D362" />
+        <text
+          x="50%"
+          y="50%"
+          dy="0.4em"
+          fill="white"
+          textAnchor="middle"
+          fontSize="50"
+        >
+          +
+        </text>
+      </svg>
     </div>
   );
 }
