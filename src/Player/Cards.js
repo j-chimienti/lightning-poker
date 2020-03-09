@@ -3,9 +3,8 @@ import CryptoJS from "crypto-js";
 import HiddenCard from "../HiddenCard";
 import Card from "../Card";
 
-function Cards({ cards, profileId, me }) {
+function Cards({ cards = [], profileId, me }) {
   if (typeof cards === "string" && me) {
-    // console.log(cards, profileId);
     let bytes = CryptoJS.AES.decrypt(cards, profileId);
     cards = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   }

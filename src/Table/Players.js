@@ -14,7 +14,7 @@ function Players() {
       {[...Array(maxPlayers)].map((e, i) =>
         players[i + 1] ? (
           <PlayerContext.Provider key={i} value={players[i + 1]}>
-            <Player position={i + i} />
+            <Player position={i + 1} />
           </PlayerContext.Provider>
         ) : (
           <JoinTable key={i} position={i + 1} />

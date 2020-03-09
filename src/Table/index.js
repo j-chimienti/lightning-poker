@@ -15,6 +15,7 @@ function Table({ match }) {
   const { tableId } = match.params;
   const [layout, setLayot] = useState(HORIZONTAL_LAYOUT);
   const { profileHash } = useContext(AppContext);
+  const [coordinates, setCoordinates] = useState({});
 
   const [table = { maxPlayers: 7 }, loadingTable] = useTable(tableId);
   const [players, me] = usePlayers(tableId, profileHash);
@@ -24,20 +25,33 @@ function Table({ match }) {
       if (window.innerHeight > window.innerWidth) {
         setLayot(VERTICAL_LAYOUT);
       } else setLayot(HORIZONTAL_LAYOUT);
+      let co = {};
+      for (let i = 1; i <= 10; i++) {
+        let element = document.getElementById(`position-${i}`);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          co[i] = [Math.round(rect.x), Math.round(rect.y)];
+        }
+      }
+      setCoordinates(co);
     };
     window.onresize();
-  }, []);
+  }, [loadingTable]);
 
   return (
-    <TableContext.Provider value={{ ...table, layout, tableId, players, me }}>
+    <TableContext.Provider
+      value={{ ...table, layout, tableId, players, me, coordinates }}
+    >
       <div
         className={`table ${
           layout === VERTICAL_LAYOUT ? "vertical" : ""
         }`.trim()}
       >
-        <Body layout={layout} playersCount={Math.max(8, table.maxPlayers)} />
-        {!loadingTable && <Players />}
+        {!loadingTable && (
+          <Body layout={layout} playersCount={Math.max(8, table.maxPlayers)} />
+        )}
         {!loadingTable && <Info />}
+        {!loadingTable && <Players />}
         {me && <Actions {...me} />}
       </div>
     </TableContext.Provider>

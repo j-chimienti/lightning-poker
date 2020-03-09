@@ -7,8 +7,6 @@ function Actions({ id: playerId, active }) {
   const { tableId } = useContext(TableContext);
 
   // const [allInDisabled, setAllInDisabled] = useState(active);
-
-  console.log(active);
   // setAllInDisabled(!active);
 
   return (

@@ -1,5 +1,6 @@
 .player {
   display: inline-block;
+  position: absolute;
 }
 
 .players .card,
@@ -9,5 +10,5 @@
 
 .player-cards .card:nth-child(2),
 .player-cards .hidden-card:nth-child(2) {
-  margin-left: -1vmin;
+  margin-left: -1.2vmin;
 }

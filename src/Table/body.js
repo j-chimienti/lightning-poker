@@ -38,6 +38,21 @@ function TableBody({ playersCount = 10, layout }) {
           />
         ))}
       </g>
+      <g>
+        {[...Array(playersCount)].map((e, i) => (
+          <circle
+            key={i}
+            id={`position-${i + 1}`}
+            cx="500"
+            cy="0"
+            r="1"
+            transform={`rotate(${(
+              (i * 360) / playersCount +
+              360 / playersCount
+            ).toFixed(2)})`}
+          />
+        ))}
+      </g>
       <g className="inner-border">
         {[...Array(playersCount)].map((e, i) => (
           <line
