@@ -26,13 +26,15 @@ function Table({ match }) {
         setLayot(VERTICAL_LAYOUT);
       } else setLayot(HORIZONTAL_LAYOUT);
       let co = {};
-      for (let i = 1; i <= 10; i++) {
+      let rect;
+
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "center"].forEach(i => {
         let element = document.getElementById(`position-${i}`);
         if (element) {
-          const rect = element.getBoundingClientRect();
+          rect = element.getBoundingClientRect();
           co[i] = [Math.round(rect.x), Math.round(rect.y)];
         }
-      }
+      });
       setCoordinates(co);
     };
     window.onresize();

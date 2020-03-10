@@ -38,6 +38,7 @@ function TableBody({ playersCount = 10, layout }) {
           />
         ))}
       </g>
+      <circle cx="500" cy="500" r="1" fill="transparent" id="position-center" />
       <g>
         {[...Array(playersCount)].map((e, i) => (
           <circle
@@ -45,6 +46,7 @@ function TableBody({ playersCount = 10, layout }) {
             id={`position-${i + 1}`}
             cx="500"
             cy="0"
+            fill="transparent"
             r="1"
             transform={`rotate(${(
               (i * 360) / playersCount +
