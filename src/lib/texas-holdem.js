@@ -233,6 +233,8 @@ module.exports = (table, players, action) => {
       p.cards = [];
       p.winner = false;
       p.allin = false;
+      p.sb = false;
+      p.bb = false;
     });
   };
 
@@ -303,6 +305,8 @@ module.exports = (table, players, action) => {
       player.winner = false;
       player.talked = false;
       player.allin = false;
+      player.bb = false;
+      player.sb = false;
       player.bestPoint = [];
     }
 
@@ -311,9 +315,11 @@ module.exports = (table, players, action) => {
 
     const sb = first();
     placeBet(sb, smallBlind);
+    sb.sb = true;
 
     const bb = next(sb);
     placeBet(bb, bigBlind);
+    bb.bb = true;
 
     // first to play is UTG next to big blind
     setActive(next(bb));
