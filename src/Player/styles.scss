@@ -1,11 +1,16 @@
 .player {
   display: inline-block;
   position: absolute;
+  overflow: hidden;
 }
 
 .players .card,
 .players .hidden-card {
   width: 7vmin;
+}
+
+.player-cards {
+  white-space: nowrap;
 }
 
 .player-cards .card:nth-child(2),
@@ -20,4 +25,10 @@
 
 .player-top {
   text-align: center;
+}
+
+.player-chips {
+  position: absolute;
+  font-size: 1.5vh;
+  color: white;
 }
