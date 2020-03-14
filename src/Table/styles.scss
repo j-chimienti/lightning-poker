@@ -63,6 +63,7 @@
     }
 
     .five-cards {
+      margin: 1.2vmin;
     }
 
     .card,
@@ -75,13 +76,24 @@
       opacity: 0.3;
     }
 
+    .round-pot {
+      text-align: center;
+    }
+
     .round {
+      display: inline-block;
       text-transform: uppercase;
       border: 1px solid rgba(0, 0, 0, 0.1);
       font-size: 1.7vmin;
+      min-width: 11vmin;
     }
 
     .pot {
+      display: inline-block;
+      background-color: rgba(0, 0, 0, 0.2);
+      font-size: 1.7vmin;
+      margin-left: 5vmin;
+      min-width: 11vmin;
     }
   }
 

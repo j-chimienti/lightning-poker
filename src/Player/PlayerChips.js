@@ -34,7 +34,7 @@ function PlayerChips({ position }) {
       className="player-chips"
     >
       <ChipStack chips={chips} />
-      <div>{chips}</div>
+      <div className="chips small-pill">{chips}</div>
     </div>
   );
 }
