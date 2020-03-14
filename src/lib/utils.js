@@ -1,6 +1,8 @@
 const deck = require("poker-deck");
 const crypto = require("crypto");
 
+const CHIP_VALUES = [1, 5, 10, 20, 50, 100, 500, 1000, 2000, 5000];
+
 const shuffleDeck = seed => {
   const gameDeck = Array.from(deck);
   let currentIndex = deck.length,
@@ -35,8 +37,21 @@ const generateHash = account => {
     .substr(0, 10);
 };
 
+const generateChipStack = amount => {
+  const stacks = {};
+  for (let i = CHIP_VALUES.length - 1; i >= 0; i--) {
+    if (Math.floor(amount / CHIP_VALUES[i]) > 0) {
+      stacks[CHIP_VALUES[i]] = Math.floor(amount / CHIP_VALUES[i]);
+      amount = amount % CHIP_VALUES[i];
+    }
+  }
+  return stacks;
+};
+
 module.exports = {
   shuffleDeck,
   generateSeed,
-  generateHash
+  generateHash,
+  generateChipStack,
+  CHIP_VALUES
 };

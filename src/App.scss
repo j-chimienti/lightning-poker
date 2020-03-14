@@ -11,3 +11,12 @@
 .hidden-card {
   box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.1);
 }
+
+.pill {
+  padding: 0.6vmin 2vmin;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 3vmin;
+}

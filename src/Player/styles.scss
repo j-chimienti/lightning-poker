@@ -19,7 +19,7 @@
 }
 
 .info-circle {
-  width: 2.2vh;
+  width: 2.2vmin;
   display: inline-block;
 }
 
@@ -29,6 +29,10 @@
 
 .player-chips {
   position: absolute;
-  font-size: 1.5vh;
+  font-size: 1.5vmin;
   color: white;
+
+  .chip {
+    width: 2.5vmin;
+  }
 }

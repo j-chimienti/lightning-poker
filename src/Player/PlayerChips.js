@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { TableContext } from "../Table";
 import { PlayerContext } from "../Table/Players";
+import ChipStack from "../ChipStack";
 
 function PlayerChips({ position }) {
   const { coordinates } = useContext(TableContext);
@@ -32,7 +33,8 @@ function PlayerChips({ position }) {
       }}
       className="player-chips"
     >
-      {chips}
+      <ChipStack chips={chips} />
+      <div>{chips}</div>
     </div>
   );
 }

@@ -1,0 +1,27 @@
+.stack {
+  display: inline-block;
+  position: relative;
+
+  .chip {
+    &:nth-child(2) {
+      position: absolute;
+      top: -0.2vmin;
+      left: 0;
+    }
+    &:nth-child(3) {
+      position: absolute;
+      top: -0.4vmin;
+      left: 0;
+    }
+    &:nth-child(4) {
+      position: absolute;
+      top: -0.8vmin;
+      left: 0;
+    }
+    &:nth-child(5) {
+      position: absolute;
+      top: -0.1vmin;
+      left: 0;
+    }
+  }
+}

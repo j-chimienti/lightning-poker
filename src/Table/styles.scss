@@ -3,6 +3,7 @@
   display: grid;
   place-items: center;
   overflow: hidden;
+  color: white;
 
   .table-body {
     polygon,
@@ -54,6 +55,13 @@
     display: grid;
     place-items: center;
 
+    .stacks {
+      .chip {
+        width: 2.5vmin;
+      }
+      text-align: center;
+    }
+
     .five-cards {
     }
 
@@ -65,6 +73,15 @@
 
     .hidden-card {
       opacity: 0.3;
+    }
+
+    .round {
+      text-transform: uppercase;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 1.7vmin;
+    }
+
+    .pot {
     }
   }
 
