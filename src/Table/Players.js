@@ -19,7 +19,7 @@ function Players() {
             <PlayerChips position={i + 1} />
           </PlayerContext.Provider>
         ) : (
-          <JoinTable key={i} position={i + 1} />
+          !me && <JoinTable key={i} position={i + 1} />
         )
       )}
     </div>
