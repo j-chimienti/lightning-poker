@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { FOLD, CALL } from "../lib/types";
+import { FOLD, CALL, BET } from "../lib/types";
 import dispatch from "./dispatch";
 import { TableContext } from "./index";
 
@@ -12,7 +12,18 @@ function Actions({ id: playerId, active }) {
   return (
     <div className="actions">
       <button disabled={!active}>All-In</button>
-      <button disabled={!active}>Bet</button>
+      <button
+        disabled={!active}
+        onClick={async () => {
+          try {
+            await dispatch({ type: BET, tableId, playerId, amount: 200 });
+          } catch (e) {
+            console.log(e);
+          }
+        }}
+      >
+        Bet
+      </button>
       <button
         disabled={!active}
         onClick={async () => {
