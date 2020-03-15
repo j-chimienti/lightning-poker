@@ -626,6 +626,7 @@ module.exports = (table, players, action) => {
     flopIndex,
     pot,
     pots,
-    winners
+    winners,
+    modifiedAt: new Date()
   });
 };

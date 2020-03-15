@@ -31,6 +31,6 @@ const db = admin.firestore();
     } catch (e) {
       console.log("ERROR", e);
     }
-    await new Promise(resolve => setTimeout(resolve, 4000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
   } while (true);
 })();

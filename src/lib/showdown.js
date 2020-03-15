@@ -2,7 +2,7 @@ const texasHoldem = require("./texas-holdem");
 const { getState, updateState } = require("./db-utils");
 const { DEAL, SHOWDOWN } = require("./types");
 
-// const SHOWDOWN_DELAY = 4000;
+const SHOWDOWN_DELAY = 4000;
 
 const newGame = async (db, tableId) => {
   await db.runTransaction(async tx => {
@@ -20,6 +20,7 @@ module.exports = async db => {
   const qsnap = await db
     .collection("tables")
     .where("round", "==", SHOWDOWN)
+    .where("modifiedAt", "<=", new Date(Date.now() - SHOWDOWN_DELAY))
     .get();
   if (qsnap.empty) return;
 
