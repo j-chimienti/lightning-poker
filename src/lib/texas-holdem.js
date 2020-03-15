@@ -235,6 +235,8 @@ module.exports = (table, players, action) => {
       p.allin = false;
       p.sb = false;
       p.bb = false;
+      p.foldAt = null;
+      p.active = false;
     });
   };
 
