@@ -20,6 +20,11 @@ function Table({ match }) {
   const [table = { maxPlayers: 7 }, loadingTable] = useTable(tableId);
   const [players, me] = usePlayers(tableId, profileHash);
 
+  const maxBet = Math.max(
+    0,
+    ...Object.values(players).map(({ bet }) => bet || 0)
+  );
+
   useEffect(() => {
     window.onresize = () => {
       if (window.innerHeight > window.innerWidth) {
@@ -42,7 +47,7 @@ function Table({ match }) {
 
   return (
     <TableContext.Provider
-      value={{ ...table, layout, tableId, players, me, coordinates }}
+      value={{ ...table, layout, tableId, players, me, coordinates, maxBet }}
     >
       <div
         className={`table ${

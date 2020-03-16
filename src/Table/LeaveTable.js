@@ -10,8 +10,9 @@ function LeaveTable({ position }) {
   const [disabled, setDisabled] = useState(false);
 
   return (
-    <div className="join-table">
+    <div className="leave-table">
       <button
+        className="pill"
         disabled={disabled}
         onClick={async () => {
           try {
@@ -28,7 +29,7 @@ function LeaveTable({ position }) {
           }
         }}
       >
-        Leave Table
+        LEAVE
       </button>
     </div>
   );

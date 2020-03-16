@@ -34,6 +34,30 @@
     align-content: start;
     grid-gap: 12px;
     padding-bottom: 10px;
+
+    button {
+    }
+
+    button[disabled] {
+      background-color: rgba(0, 0, 0, 0.3);
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .fold {
+      background-color: #f44336;
+    }
+
+    .call {
+      background-color: #2196f3;
+    }
+
+    .bet {
+      background-color: #ff9800;
+    }
+
+    .all-in {
+      background-color: #9c27b0;
+    }
   }
 
   .players {
@@ -94,6 +118,13 @@
       font-size: 1.7vmin;
       margin-left: 5vmin;
       min-width: 11vmin;
+    }
+  }
+
+  .leave-table {
+    button {
+      background-color: #08d362;
+      border: 1px solid rgba(0, 0, 0, 0.2);
     }
   }
 

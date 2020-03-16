@@ -12,8 +12,18 @@
   box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.1);
 }
 
+button {
+  font-family: "Oswald", sans-serif;
+  border: none;
+  -webkit-appearance: none;
+  text-transform: uppercase;
+  color: white;
+  box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.15);
+  font-size: 1.5vmin;
+}
+
 .pill {
-  padding: 0.6vmin 2vmin;
+  padding: 0.8vmin 2vmin;
   text-align: center;
   text-decoration: none;
   display: inline-block;
