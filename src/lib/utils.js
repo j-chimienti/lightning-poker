@@ -2,6 +2,7 @@ const deck = require("poker-deck");
 const crypto = require("crypto");
 
 const CHIP_VALUES = [1, 5, 10, 20, 50, 100, 500, 1000, 2000, 5000];
+const CHIP_VALUES_REVERSED = [...CHIP_VALUES].reverse();
 
 const shuffleDeck = seed => {
   const gameDeck = Array.from(deck);
@@ -53,5 +54,6 @@ module.exports = {
   generateSeed,
   generateHash,
   generateChipStack,
-  CHIP_VALUES
+  CHIP_VALUES,
+  CHIP_VALUES_REVERSED
 };

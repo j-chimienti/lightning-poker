@@ -4,6 +4,8 @@ import { AppContext } from "../App";
 import usePosition from "../Table/use-position";
 import Cards from "./Cards";
 import PlayerTop from "./PlayerTop";
+import PlayerInfo from "./PlayerInfo";
+import PlayerProgress from "./PlayerProgress";
 import "./styles.scss";
 
 function Player({ position }) {
@@ -16,7 +18,7 @@ function Player({ position }) {
 
   return (
     <div
-      className="player"
+      className={`player ${player.state}`}
       ref={ref}
       style={{
         top,
@@ -29,6 +31,8 @@ function Player({ position }) {
         profileId={profileId}
         me={player.profileHash === profileHash}
       />
+      <PlayerInfo />
+      {player.active && <PlayerProgress />}
     </div>
   );
 }

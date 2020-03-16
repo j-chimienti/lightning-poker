@@ -1,6 +1,6 @@
 import React from "react";
 import Stack from "./Stack";
-import { generateChipStack, CHIP_VALUES } from "../lib/utils";
+import { generateChipStack, CHIP_VALUES_REVERSED } from "../lib/utils";
 import "./styles.scss";
 
 function ChipStack({ chips }) {
@@ -8,7 +8,7 @@ function ChipStack({ chips }) {
 
   return (
     <div className="stacks">
-      {CHIP_VALUES.map(
+      {CHIP_VALUES_REVERSED.map(
         v => chipStacks[v] && <Stack value={v} key={v} amount={chipStacks[v]} />
       )}
     </div>

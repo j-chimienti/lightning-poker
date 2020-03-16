@@ -12,7 +12,7 @@ function PlayerChips({ position }) {
   const [x1, y1] = coordinates[position];
   const [x2, y2] = coordinates["center"];
   const d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-  const d2 = 0.7 * d;
+  const d2 = 0.63 * d;
   const left = (d2 * (x1 - x2)) / d + x2;
   const top = (d2 * (y1 - y2)) / d + y2;
 

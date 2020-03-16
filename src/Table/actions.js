@@ -47,7 +47,7 @@ function Actions({ id: playerId, active, bet: currentBet }) {
         {canBet ? "Bet" : "Raise"}
       </button>
       <button
-        class="pill call"
+        className="pill call"
         disabled={!active || callDisabled}
         onClick={async () => {
           try {

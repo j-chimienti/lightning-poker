@@ -1,7 +1,50 @@
 .player {
   display: inline-block;
   position: absolute;
-  overflow: hidden;
+  // overflow: hidden;
+
+  &.sitting {
+    opacity: 0.4;
+    .player-info {
+      background-color: #444;
+    }
+  }
+
+  &.folded {
+    .player-info {
+      background-color: #f44336;
+    }
+  }
+
+  &.called,
+  &.checked {
+    .player-info {
+      background-color: #2196f3;
+    }
+  }
+
+  &.betted,
+  &.raised {
+    .player-info {
+      background-color: #ff9800;
+    }
+  }
+
+  &.all-in {
+    background-color: #9c27b0;
+  }
+}
+
+.player-info {
+  position: absolute;
+  border-radius: 3px;
+  left: 0;
+  right: 0;
+  bottom: 2vmin;
+  text-transform: uppercase;
+  font-size: 1.6vmin;
+  background-color: transparent;
+  padding: 0.4vmin 0.7vmin;
 }
 
 .players .card,
@@ -11,6 +54,7 @@
 
 .player-cards {
   white-space: nowrap;
+  padding: 0 1vmin;
 }
 
 .player-cards .card:nth-child(2),
@@ -25,6 +69,35 @@
 
 .player-top {
   text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2.8vmin;
+}
+
+.player-progress {
+  position: absolute;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.3);
+  margin: 0 4.2vmin;
+  height: 0.5vmin;
+
+  left: 0;
+  right: 0;
+  bottom: -0.3vmin;
+
+  .bar {
+    transition-property: width;
+    transition-duration: 25s;
+    transition-timing-function: linear;
+    border-radius: inherit;
+    background-color: rgba(255, 255, 255, 0.9);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .player-chips {
