@@ -22,11 +22,13 @@ const translateState = {
 };
 
 function PlayerInfo() {
-  const { state } = useContext(PlayerContext);
+  const { state, winner, active } = useContext(PlayerContext);
 
   return (
     <div className="player-info">
-      <div className="state">{translateState[state]}</div>
+      <div className="state">
+        {winner ? "winner" : active ? "..." : translateState[state]}
+      </div>
     </div>
   );
 }

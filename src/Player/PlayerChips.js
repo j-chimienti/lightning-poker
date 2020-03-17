@@ -4,8 +4,8 @@ import { PlayerContext } from "../Table/Players";
 import ChipStack from "../ChipStack";
 
 function PlayerChips({ position }) {
-  const { coordinates } = useContext(TableContext);
-  const { bet } = useContext(PlayerContext);
+  const { coordinates, winners } = useContext(TableContext);
+  const { bet, winner } = useContext(PlayerContext);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const ref = React.createRef();
@@ -15,6 +15,11 @@ function PlayerChips({ position }) {
   const d2 = 0.63 * d;
   const left = (d2 * (x1 - x2)) / d + x2;
   const top = (d2 * (y1 - y2)) / d + y2;
+
+  let chips = bet;
+  if (winner && winners.length > 0) {
+    chips = winners ? winners.find(p => p.position === position).amount : 0;
+  }
 
   useEffect(() => {
     if (ref.current) {
@@ -33,8 +38,8 @@ function PlayerChips({ position }) {
       }}
       className="player-chips"
     >
-      <ChipStack chips={bet} />
-      {bet > 0 && <div className="chips small-pill">{bet}</div>}
+      <ChipStack chips={chips} />
+      {chips > 0 && <div className="chips small-pill">{chips}</div>}
     </div>
   );
 }

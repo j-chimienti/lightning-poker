@@ -10,6 +10,12 @@
     }
   }
 
+  &.ready {
+    .player-info {
+      background-color: #444;
+    }
+  }
+
   &.folded {
     .player-info {
       background-color: #f44336;
@@ -32,6 +38,19 @@
 
   &.all-in {
     background-color: #9c27b0;
+  }
+
+  &.winner {
+    .player-info {
+      color: black;
+      background-color: #f9ed32;
+    }
+  }
+
+  &.active {
+    .player-info {
+      background-color: #444;
+    }
   }
 }
 

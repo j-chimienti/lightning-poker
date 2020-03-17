@@ -16,9 +16,19 @@ function Player({ position }) {
 
   if (!player) return null;
 
+  const {
+    state,
+    active,
+    winner,
+    cards,
+    profileHash: playerProfileHash
+  } = player;
+
   return (
     <div
-      className={`player ${player.state}`}
+      className={`player ${state} ${winner ? "winner" : ""} ${
+        active ? "active" : ""
+      }`}
       ref={ref}
       style={{
         top,
@@ -27,12 +37,12 @@ function Player({ position }) {
     >
       <PlayerTop />
       <Cards
-        cards={player.cards}
+        cards={cards}
         profileId={profileId}
-        me={player.profileHash === profileHash}
+        me={playerProfileHash === profileHash}
       />
       <PlayerInfo />
-      {player.active && <PlayerProgress />}
+      {active && <PlayerProgress />}
     </div>
   );
 }

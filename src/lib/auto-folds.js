@@ -13,6 +13,6 @@ module.exports = async db => {
       playerId: playerSnap.id,
       tableId: playerSnap.get("tableId")
     });
-    console.log("forced-leave-table", playerSnap.id);
+    console.log("force-leave", playerSnap.id);
   }
 };
