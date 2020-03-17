@@ -28,8 +28,16 @@ const loadTable = async (db, tx, tableId) => {
   if (!tableSnap.exists) {
     throw new Error("table not found");
   }
+  const tablePrivatesSnap = await tx.get(
+    db.collection("tablePrivates").doc(tableId)
+  );
 
-  return tableSnap.data();
+  let seed;
+  if (tablePrivatesSnap.exists) {
+    seed = tablePrivatesSnap.get("seed");
+  }
+
+  return { ...tableSnap.data(), seed };
 };
 
 const loadProfile = async (db, tx, profileId) => {
@@ -65,6 +73,12 @@ const updateState = async (db, tx, tableId, table, players) => {
   }
 
   // save table state back to database
+  tx.set(
+    db.collection("tablePrivates").doc(tableId),
+    { seed: table.seed },
+    { merge: true }
+  );
+  delete table.seed;
   tx.update(db.collection("tables").doc(tableId), table);
 };
 

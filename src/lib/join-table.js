@@ -51,7 +51,6 @@ module.exports = async (db, { tableId, profileId, position }) => {
     tx.update(db.collection("profiles").doc(profileId), { balance });
 
     player.id = newPlayerRef.id;
-    console.log(player);
 
     // call game with action: join
     texasHoldem(table, players, {

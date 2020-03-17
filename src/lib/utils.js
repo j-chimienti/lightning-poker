@@ -10,8 +10,6 @@ const shuffleDeck = seed => {
     temporaryValue,
     randomIndex;
 
-  seed -= 666; // my devils disbalance !
-
   const random = function() {
     const x = Math.sin(seed++) * 10000;
     return x - Math.floor(x);
