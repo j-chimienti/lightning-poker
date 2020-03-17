@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { PlayerContext } from "../Table/Players";
+import PlayerProgress from "./PlayerProgress";
 
 import {
   SITTING,
@@ -22,13 +23,20 @@ const translateState = {
 };
 
 function PlayerInfo() {
-  const { state, winner, active } = useContext(PlayerContext);
+  const { state, winner, active, chips } = useContext(PlayerContext);
 
   return (
     <div className="player-info">
       <div className="state">
-        {winner ? "winner" : active ? "..." : translateState[state]}
+        {winner ? (
+          "winner"
+        ) : active ? (
+          <PlayerProgress />
+        ) : (
+          translateState[state]
+        )}
       </div>
+      <div className="stake">{chips}</div>
     </div>
   );
 }

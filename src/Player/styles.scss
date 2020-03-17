@@ -40,16 +40,16 @@
     background-color: #9c27b0;
   }
 
+  &.active {
+    .player-info {
+      background-color: #444;
+    }
+  }
+
   &.winner {
     .player-info {
       color: black;
       background-color: #f9ed32;
-    }
-  }
-
-  &.active {
-    .player-info {
-      background-color: #444;
     }
   }
 }
@@ -64,6 +64,20 @@
   font-size: 1.6vmin;
   background-color: transparent;
   padding: 0.4vmin 0.7vmin;
+
+  display: grid;
+  grid-template-areas: "state stake";
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+
+  .state {
+    grid-area: state;
+  }
+
+  .stake {
+    grid-area: stake;
+    text-align: center;
+  }
 }
 
 .players .card,
@@ -95,15 +109,10 @@
 }
 
 .player-progress {
-  position: absolute;
+  position: relative;
   border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.3);
-  margin: 0 4.2vmin;
   height: 0.5vmin;
-
-  left: 0;
-  right: 0;
-  bottom: -0.3vmin;
 
   .bar {
     transition-property: width;
