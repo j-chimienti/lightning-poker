@@ -5,7 +5,7 @@ import ChipStack from "../ChipStack";
 
 function PlayerChips({ position }) {
   const { coordinates } = useContext(TableContext);
-  const { chips } = useContext(PlayerContext);
+  const { bet } = useContext(PlayerContext);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const ref = React.createRef();
@@ -33,8 +33,8 @@ function PlayerChips({ position }) {
       }}
       className="player-chips"
     >
-      <ChipStack chips={chips} />
-      <div className="chips small-pill">{chips}</div>
+      <ChipStack chips={bet} />
+      {bet > 0 && <div className="chips small-pill">{bet}</div>}
     </div>
   );
 }

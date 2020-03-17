@@ -237,6 +237,8 @@ module.exports = (table, players, action) => {
       p.bb = false;
       p.foldAt = null;
       p.active = false;
+      p.bet = 0;
+      p.chipsBet = 0;
     });
   };
 
