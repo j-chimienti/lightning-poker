@@ -1,5 +1,6 @@
 import React, { useEffect, createContext } from "react";
-// import Logo from "./Logo";
+import Logo from "./Logo";
+import MenuItem from "./MenuItem";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentData } from "react-firebase-hooks/firestore";
@@ -45,9 +46,12 @@ function App() {
       }}
     >
       <Router>
+        <nav>
+          <Logo />
+          <MenuItem />
+        </nav>
         <div className="app">
           <Route path="/:tableId" component={Table} />
-          {/* <Logo /> */}
         </div>
       </Router>
     </AppContext.Provider>
