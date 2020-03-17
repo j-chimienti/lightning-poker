@@ -18,7 +18,9 @@ function PlayerChips({ position }) {
 
   let chips = bet;
   if (winner && winners.length > 0) {
-    chips = winners ? winners.find(p => p.position === position).amount : 0;
+    chips = winners
+      ? `+${winners.find(p => p.position === position).amount}`
+      : 0;
   }
 
   useEffect(() => {

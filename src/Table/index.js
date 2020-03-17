@@ -47,7 +47,15 @@ function Table({ match }) {
 
   return (
     <TableContext.Provider
-      value={{ ...table, layout, tableId, players, me, coordinates, maxBet }}
+      value={{
+        ...table,
+        layout,
+        tableId,
+        players,
+        me,
+        coordinates,
+        maxBet
+      }}
     >
       <div
         className={`table ${
