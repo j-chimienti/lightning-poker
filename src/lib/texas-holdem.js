@@ -358,6 +358,8 @@ module.exports = (table, players, action) => {
         moveBets();
         assignChips(winner, pot);
         round = SHOWDOWN;
+        setActive();
+        newRoundRequest = true;
       }
 
       if (players.filter(p => !p.leaving).length < minPlayers) {
@@ -384,6 +386,7 @@ module.exports = (table, players, action) => {
       assignChips(winner, pot);
       round = SHOWDOWN;
       setActive();
+      newRoundRequest = true;
     }
   }
 
@@ -439,6 +442,7 @@ module.exports = (table, players, action) => {
 
   if (type === DEAL && round === SHOWDOWN) {
     // remove players without chips
+    newRoundRequest = false;
     players.forEach(p => {
       // increase hands played for each player
       p.hands = p.hands + 1;
@@ -470,6 +474,7 @@ module.exports = (table, players, action) => {
       round = SHOWDOWN;
       // clear active
       setActive();
+      newRoundRequest = true;
 
       if (cards.length < 5) {
         const gameDeck = shuffleDeck(seed);

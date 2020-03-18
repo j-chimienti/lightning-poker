@@ -2,8 +2,8 @@ const texasHoldem = require("./texas-holdem");
 const { getState, updateState } = require("./db-utils");
 const { DEAL, SHOWDOWN, NEW_ROUND } = require("./types");
 
-const SHOWDOWN_DELAY = 3000;
-const NEW_ROUND_DELAY = 1000;
+const SHOWDOWN_EXTRA_DELAY = 1100;
+const NEW_ROUND_DELAY = 900;
 
 const newHand = async (db, tableId) => {
   await db.runTransaction(async tx => {
@@ -32,23 +32,15 @@ const newRound = async (db, tableId) => {
 module.exports = async db => {
   let qsnap = await db
     .collection("tables")
-    .where("round", "==", SHOWDOWN)
-    .where("modifiedAt", "<=", new Date(Date.now() - SHOWDOWN_DELAY))
-    .get();
-
-  for (let tableSnap of qsnap.docs) {
-    await newHand(db, tableSnap.id);
-    console.log("[hand]", tableSnap.id);
-  }
-
-  qsnap = await db
-    .collection("tables")
     .where("newRoundRequest", "==", true)
     .where("modifiedAt", "<=", new Date(Date.now() - NEW_ROUND_DELAY))
     .get();
 
   for (let tableSnap of qsnap.docs) {
-    await newRound(db, tableSnap.id);
+    if (tableSnap.get("round") === SHOWDOWN) {
+      await new Promise(resolve => setTimeout(resolve, SHOWDOWN_EXTRA_DELAY));
+      await newHand(db, tableSnap.id);
+    } else await newRound(db, tableSnap.id);
     console.log("[round]", tableSnap.id);
   }
 };
