@@ -3,8 +3,9 @@ import { FOLD, CALL, BET, ALLIN } from "../lib/types";
 import dispatch from "./dispatch";
 import { TableContext } from "./index";
 
-function Actions({ id: playerId, active, bet: currentBet }) {
-  const { tableId, maxBet } = useContext(TableContext);
+function Actions() {
+  const { tableId, maxBet, me = {} } = useContext(TableContext);
+  const { id: playerId, active, bet: currentBet } = me;
 
   const [foldDisabled, setFoldDisabled] = useState(false);
   const [callDisabled, setCallDisabled] = useState(false);
@@ -15,7 +16,7 @@ function Actions({ id: playerId, active, bet: currentBet }) {
   const canBet = maxBet - currentBet === 0;
 
   return (
-    <div className="actions">
+    <div className={`actions${active ? " active" : ""}`}>
       <button
         className="pill all-in"
         disabled={!active || allInDisabled}

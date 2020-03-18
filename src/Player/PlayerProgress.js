@@ -5,7 +5,7 @@ function PlayerProgress() {
 
   useEffect(() => {
     // there is a transition-duration == AUTO_FOLD_DELAY == 25s
-    setWidth(1);
+    setWidth(0);
   }, [width]);
 
   return (

@@ -67,7 +67,7 @@ function Table({ match }) {
         )}
         {!loadingTable && <Info />}
         {!loadingTable && <Players />}
-        {me && me.active && <Actions {...me} />}
+        <Actions />
       </div>
     </TableContext.Provider>
   );
