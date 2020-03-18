@@ -15,6 +15,7 @@ const BET = "bet";
 const CALL = "call";
 const FOLD = "fold";
 const DEAL = "deal";
+const NEW_ROUND = "newround";
 
 // player states
 const READY = "ready";
@@ -67,6 +68,7 @@ module.exports = {
   CALL,
   FOLD,
   DEAL,
+  NEW_ROUND,
 
   // player states
   READY,

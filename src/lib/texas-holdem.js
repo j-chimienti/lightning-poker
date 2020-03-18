@@ -18,6 +18,7 @@ const {
   CALL,
   FOLD,
   DEAL,
+  NEW_ROUND,
 
   // player states
   READY,
@@ -48,7 +49,8 @@ module.exports = (table, players, action) => {
     pot = 0,
     pots = [],
     rake = 0,
-    winners = []
+    winners = [],
+    newRoundRequest = false
   } = table;
   const { type, playerId } = action;
 
@@ -226,6 +228,7 @@ module.exports = (table, players, action) => {
     pot = 0;
     pots = [];
     winners = [];
+    newRoundRequest = false;
 
     players.forEach(p => {
       p.state = SITTING;
@@ -299,6 +302,7 @@ module.exports = (table, players, action) => {
     pot = 0;
     pots = [];
     winners = [];
+    newRoundRequest = false;
 
     // set all ready status, all sitting are comming into play
     for (let player of players) {
@@ -324,7 +328,6 @@ module.exports = (table, players, action) => {
     placeBet(bb, bigBlind);
     bb.bb = true;
 
-    // first to play is UTG next to big blind
     setActive(next(bb));
   };
 
@@ -461,145 +464,114 @@ module.exports = (table, players, action) => {
 
   if (type === CALL || type === BET || type === FOLD) {
     if (checkForEndOfRound()) {
-      if (
-        round === RIVER ||
-        //sdsd
-        (checkForCompleteAllIn() && round !== SHOWDOWN)
-      ) {
-        round = SHOWDOWN;
-        // clear active
-        setActive();
-
-        // If during the RIVER session someone has made a bet,
-        // the one who has made the first final bet is the one who has
-        // to showdown first; otherwise the showdown starts from the
-        // player next to the DB.
-
-        if (cards.length < 5) {
-          const gameDeck = shuffleDeck(seed);
-          do {
-            cards.push(gameDeck[flopIndex + cards.length]);
-          } while (cards.length < 5);
-        }
-
-        for (let player of activePlayers()) {
-          // decode cards!
-          // console.log(player.cards);
-          let bytes = CryptoJS.AES.decrypt(player.cards, player.profileId);
-          // console.log(bytes);
-          player.cards = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-          // fulfill cards if all players go all-in earlier
-
-          player.bestPoint = sortByRank(
-            getAllCombination(player.cards.concat(cards), 5)
-          )[0];
-        }
-
-        // -------------
-        const playersBestCombination = sortByRank(
-          [...activePlayers()].map(player => player.bestPoint.slice())
-        );
-
-        [...activePlayers()].forEach(player => delete player.bestPoint);
-
-        // console.log(playersBestCombination);
-
-        const handRank = playersBestCombination.map(data => {
-          const player = [...activePlayers()][data.index];
-          return {
-            player,
-            bestCards: data.slice(),
-            bestCardsInfo: data.rank,
-            exequo: data.exequo
-          };
-        });
-
-        // console.log(handRank);
-
-        moveBets();
-
-        // winn calculations
-        if (pots.length === 0) {
-          // When there're no sidepot
-          // I create a single sidepot,
-          // so that I can apply the same
-          // algorithm to assign the pot.
-          pots.push({
-            minChipsBet: 0,
-            pot: pot
-          });
-        }
-
-        pots.forEach(sidepot => {
-          // For each sidepot:
-          // only players who have bet at least
-          // `minChipsBet` have right to compete to win `sidepot.pot`
-          const sidepotContenders = handRank.filter(
-            ({ player }) => player.chipsBet >= sidepot.minChipsBet
-          );
-
-          if (!sidepotContenders[0].exequo) {
-            return assignChips(sidepotContenders[0].player, sidepot.pot);
-          }
-
-          // If execution reaches this point
-          // the value of `sidepot.pot` should be
-          // split between 2 or more players.
-          const tag = sidepotContenders[0].exequo;
-
-          const exequoPlayers = sidepotContenders.filter(
-            ({ exequo }) => exequo === tag
-          );
-
-          const splitAmount = Math.floor(sidepot.pot / exequoPlayers.length);
-
-          exequoPlayers.forEach(({ player }) => {
-            assignChips(player, splitAmount);
-          });
-
-          // In case of a split pot,
-          // the chips will be split as evenly as possible,
-          // with any odd chip(s) left over given out
-          // to the winning player with the worst position
-          // (left of the button being the worst).
-
-          // const excidingChips = sidepot.pot % exequoPlayers.length;
-        });
-      }
-
-      if (round === TURN) {
-        round = RIVER;
-        clearTalked();
-        setActive(first());
-        moveBets();
-        const gameDeck = shuffleDeck(seed);
-        cards.push(gameDeck[flopIndex + 4]);
-      }
-      if (round === FLOP) {
-        round = TURN;
-        clearTalked();
-        setActive(first());
-        moveBets();
-        const gameDeck = shuffleDeck(seed);
-        cards.push(gameDeck[flopIndex + 3]);
-      }
-
-      if (round === PRE_FLOP) {
-        round = FLOP;
-        clearTalked();
-        setActive(first());
-        moveBets();
-        const gameDeck = shuffleDeck(seed);
-        cards = [
-          gameDeck[flopIndex + 0],
-          gameDeck[flopIndex + 1],
-          gameDeck[flopIndex + 2]
-        ];
-      }
+      newRoundRequest = true;
     }
   }
 
-  // store table changes
+  if (type === NEW_ROUND) {
+    newRoundRequest = false;
+    if (round === RIVER || (checkForCompleteAllIn() && round !== SHOWDOWN)) {
+      round = SHOWDOWN;
+      // clear active
+      setActive();
+
+      if (cards.length < 5) {
+        const gameDeck = shuffleDeck(seed);
+        do {
+          cards.push(gameDeck[flopIndex + cards.length]);
+        } while (cards.length < 5);
+      }
+
+      for (let player of activePlayers()) {
+        // decode cards!
+        // console.log(player.cards);
+        let bytes = CryptoJS.AES.decrypt(player.cards, player.profileId);
+        // console.log(bytes);
+        player.cards = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        // fulfill cards if all players go all-in earlier
+
+        player.bestPoint = sortByRank(
+          getAllCombination(player.cards.concat(cards), 5)
+        )[0];
+      }
+
+      const playersBestCombination = sortByRank(
+        [...activePlayers()].map(player => player.bestPoint.slice())
+      );
+
+      [...activePlayers()].forEach(player => delete player.bestPoint);
+
+      const handRank = playersBestCombination.map(data => {
+        const player = [...activePlayers()][data.index];
+        return {
+          player,
+          bestCards: data.slice(),
+          bestCardsInfo: data.rank,
+          exequo: data.exequo
+        };
+      });
+      moveBets();
+
+      if (pots.length === 0) {
+        pots.push({
+          minChipsBet: 0,
+          pot: pot
+        });
+      }
+
+      pots.forEach(sidepot => {
+        const sidepotContenders = handRank.filter(
+          ({ player }) => player.chipsBet >= sidepot.minChipsBet
+        );
+
+        if (!sidepotContenders[0].exequo) {
+          return assignChips(sidepotContenders[0].player, sidepot.pot);
+        }
+        const tag = sidepotContenders[0].exequo;
+
+        const exequoPlayers = sidepotContenders.filter(
+          ({ exequo }) => exequo === tag
+        );
+
+        const splitAmount = Math.floor(sidepot.pot / exequoPlayers.length);
+
+        exequoPlayers.forEach(({ player }) => {
+          assignChips(player, splitAmount);
+        });
+      });
+    }
+
+    if (round === TURN) {
+      round = RIVER;
+      clearTalked();
+      setActive(first());
+      moveBets();
+      const gameDeck = shuffleDeck(seed);
+      cards.push(gameDeck[flopIndex + 4]);
+    }
+    if (round === FLOP) {
+      round = TURN;
+      clearTalked();
+      setActive(first());
+      moveBets();
+      const gameDeck = shuffleDeck(seed);
+      cards.push(gameDeck[flopIndex + 3]);
+    }
+
+    if (round === PRE_FLOP) {
+      round = FLOP;
+      clearTalked();
+      setActive(first());
+      moveBets();
+      const gameDeck = shuffleDeck(seed);
+      cards = [
+        gameDeck[flopIndex + 0],
+        gameDeck[flopIndex + 1],
+        gameDeck[flopIndex + 2]
+      ];
+    }
+  }
+
   Object.assign(table, {
     seed,
     dealer,
@@ -609,6 +581,7 @@ module.exports = (table, players, action) => {
     pot,
     pots,
     winners,
+    newRoundRequest,
     modifiedAt: new Date()
   });
 };

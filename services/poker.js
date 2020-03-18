@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-// TODO use server time for player progress.....
 const admin = require("firebase-admin");
 
 const serviceAccount = require("./lightning-poker-firebase-adminsdk-pdomv-82e6bf58f2.json");
@@ -31,6 +30,6 @@ const db = admin.firestore();
     } catch (e) {
       console.log("ERROR", e);
     }
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 500));
   } while (true);
 })();
