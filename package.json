@@ -23,7 +23,7 @@
   },
   "proxy": "http://localhost:5000",
   "scripts": {
-    "start": "concurrently \"react-scripts start\" \"firebase serve\"",
+    "start": "concurrently \"react-scripts start\" \"firebase serve\" \"nodemon ./services/poker\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
