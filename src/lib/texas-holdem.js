@@ -17,7 +17,6 @@ const {
   BET,
   CALL,
   FOLD,
-  ALLIN,
   DEAL,
 
   // player states
@@ -441,27 +440,6 @@ module.exports = (table, players, action) => {
     }
   }
 
-  if (type === ALLIN) {
-    checkPlayersTurn();
-
-    if (maxBet === 0) {
-      active().state = BETTED;
-    } else {
-      active().state = RAISED;
-    }
-    for (let p of activePlayers()) {
-      if (!p.allin) {
-        p.talked = false;
-      }
-    }
-    active().talked = true;
-    active().allin = true;
-    placeBet(active(), active().chips);
-    if (next(active())) {
-      setActive(next(active()));
-    }
-  }
-
   if (type === DEAL && round === SHOWDOWN) {
     // remove players without chips
     players.forEach(p => {
@@ -481,7 +459,7 @@ module.exports = (table, players, action) => {
     }
   }
 
-  if (type === CALL || type === BET || type === FOLD || type === ALLIN) {
+  if (type === CALL || type === BET || type === FOLD) {
     if (checkForEndOfRound()) {
       if (
         round === RIVER ||
