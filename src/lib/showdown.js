@@ -3,7 +3,7 @@ const { getState, updateState } = require("./db-utils");
 const { DEAL, SHOWDOWN, NEW_ROUND } = require("./types");
 
 const SHOWDOWN_DELAY = 3000;
-const NEW_ROUND_DELAY = 1500;
+const NEW_ROUND_DELAY = 1000;
 
 const newHand = async (db, tableId) => {
   await db.runTransaction(async tx => {

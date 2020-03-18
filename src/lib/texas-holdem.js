@@ -459,6 +459,8 @@ module.exports = (table, players, action) => {
   if (type === CALL || type === BET || type === FOLD) {
     if (checkForEndOfRound()) {
       newRoundRequest = true;
+      // clear active
+      setActive();
     }
   }
 
