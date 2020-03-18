@@ -364,7 +364,7 @@ module.exports = (table, players, action) => {
         resetTable();
       } else {
         // set next player to become active, if the active one goes away
-        if (active().id === playerId) {
+        if (active() && active().id === playerId) {
           setActive(next(active()));
         }
       }
@@ -373,26 +373,22 @@ module.exports = (table, players, action) => {
 
   if (type === FOLD) {
     checkPlayersTurn();
-
     active().state = FOLDED;
     active().talked = true;
     if (next(active())) {
       setActive(next(active()));
     }
-    // check if only one left
     let winner = checkForSoloPlayer();
     if (winner) {
       moveBets();
       assignChips(winner, pot);
       round = SHOWDOWN;
-      // clear active players
       setActive();
     }
   }
 
   if (type === CALL) {
     checkPlayersTurn();
-
     let bet = active() && (active().bet || 0);
 
     if (maxBet - bet === 0) {
@@ -414,9 +410,7 @@ module.exports = (table, players, action) => {
 
   if (type === BET) {
     checkPlayersTurn();
-
     let amount = Number(action.amount);
-
     if (amount < 0 || isNaN(amount)) {
       throw new Error("invalid bet");
     }
