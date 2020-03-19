@@ -23,9 +23,9 @@ module.exports = async (db, { playerId, tableId }) => {
     player.chips = 0;
     player.leaving = true;
 
-    // call game with action: leave
     texasHoldem(table, players, {
-      type: LEAVE
+      type: LEAVE,
+      playerId: playerId
     });
 
     await updateState(db, tx, tableId, table, players);
