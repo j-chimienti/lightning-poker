@@ -33,7 +33,7 @@ function Bet() {
   }, [min]);
 
   return (
-    <div className="bet-control">
+    <div className={`bet-control${maxBet > max ? " disabled" : ""}`}>
       <button
         className="bet"
         disabled={disabled}

@@ -60,6 +60,10 @@
     display: grid;
     grid-template-columns: 1fr 3fr;
 
+    &.disabled {
+      visibility: hidden;
+    }
+
     .bet {
       border-right: 1px solid rgba(0, 0, 0, 0.1);
     }

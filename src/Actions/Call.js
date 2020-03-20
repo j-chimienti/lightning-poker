@@ -5,12 +5,18 @@ import { TableContext } from "../Table";
 
 function Call() {
   const { tableId, maxBet, me = {} } = useContext(TableContext);
-  const { id: playerId, bet = 0 } = me;
+  const { id: playerId, bet = 0, chips = 0 } = me;
   const [disabled, disable] = useState(false);
-  const amountToCall = maxBet - bet;
+  let amountToCall = maxBet - bet;
+  let allin;
+
+  if (amountToCall >= chips) {
+    allin = true;
+    amountToCall = 0;
+  }
 
   return (
-    <div className="call-control">
+    <div className={`call-control${allin ? " all-in" : ""}`}>
       <button
         className="call"
         disabled={disabled}
@@ -24,7 +30,7 @@ function Call() {
           }
         }}
       >
-        <div>{amountToCall === 0 ? "Check" : "Call"}</div>
+        <div>{allin ? "All In" : amountToCall === 0 ? "Check" : "Call"}</div>
         <div
           style={{
             display: `${amountToCall === 0 ? "none" : "block"}`
