@@ -23,46 +23,6 @@
     }
   }
 
-  .actions {
-    transition: opacity 0.2s;
-    opacity: 0;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(80px, 120px));
-    justify-content: center;
-    align-content: start;
-    grid-gap: 12px;
-    padding-bottom: 10px;
-
-    &.active {
-      opacity: 1;
-    }
-
-    button[disabled] {
-      background-color: rgba(0, 0, 0, 0.3);
-      color: rgba(255, 255, 255, 0.3);
-    }
-
-    .fold {
-      background-color: #f44336;
-    }
-
-    .call {
-      background-color: #2196f3;
-    }
-
-    .bet {
-      background-color: #ff9800;
-    }
-
-    .all-in {
-      background-color: #9c27b0;
-    }
-  }
-
   .players {
     position: absolute;
     top: 0;

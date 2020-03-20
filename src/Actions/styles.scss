@@ -1,0 +1,76 @@
+.actions {
+  transition: opacity 0.2s;
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(80px, 220px));
+  justify-content: center;
+  align-content: start;
+  grid-gap: 12px;
+  padding-bottom: 10px;
+
+  &.active {
+    opacity: 1;
+  }
+
+  button[disabled] {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  button {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  .fold {
+    background-color: #f44336;
+  }
+
+  .call {
+    background-color: #2196f3;
+  }
+
+  .bet {
+    background-color: #ff9800;
+  }
+
+  .all-in {
+    background-color: #9c27b0;
+  }
+
+  .bet-control {
+    border-radius: 4px;
+    background-color: #ff9800;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+
+    button {
+      background: transparent;
+    }
+
+    .bet-speed-actions {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+    }
+
+    .bet-selector {
+      display: grid;
+      grid-template-columns: 1fr 7fr 1fr;
+      .slider {
+        position: relative;
+        height: 20px;
+      }
+      .thumb {
+        cursor: pointer;
+
+        background-color: rgba(0, 0, 0, 0.1);
+        height: 100%;
+        width: 20px;
+      }
+    }
+  }
+}

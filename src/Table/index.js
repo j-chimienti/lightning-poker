@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, createContext } from "react";
 import Body from "./Body";
-import Actions from "./Actions";
+import Actions from "../Actions";
 import Players from "./Players";
 import Info from "./Info";
 import "./styles.scss";
@@ -24,6 +24,8 @@ function Table({ match }) {
     0,
     ...Object.values(players).map(({ bet }) => bet || 0)
   );
+
+  const betSum = Object.values(players).reduce((sum, p) => sum + p.bet || 0, 0);
 
   useEffect(() => {
     window.onresize = () => {
@@ -54,7 +56,8 @@ function Table({ match }) {
         players,
         me,
         coordinates,
-        maxBet
+        maxBet,
+        betSum
       }}
     >
       <div

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import dispatch from "./dispatch";
+import dispatch from "../dispatch";
 import { TableContext } from "./index";
 
 function LeaveTable({ position }) {
