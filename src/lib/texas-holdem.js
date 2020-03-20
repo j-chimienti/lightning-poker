@@ -108,6 +108,7 @@ module.exports = (table, players, action) => {
       if (player.state !== FOLDED) {
         if (!player.allin) {
           player.talked = false;
+          player.state = READY;
         }
       }
     }
@@ -130,6 +131,9 @@ module.exports = (table, players, action) => {
       player.bet += player.chips;
       player.chipsBet += player.chips;
       player.chips = 0;
+    }
+
+    if (player.chips === 0) {
       player.allin = true;
     }
   };
