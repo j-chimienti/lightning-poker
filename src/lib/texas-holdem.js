@@ -107,8 +107,10 @@ module.exports = (table, players, action) => {
     for (let player of players) {
       if (player.state !== FOLDED) {
         if (!player.allin) {
-          player.talked = false;
-          player.state = READY;
+          if (player.state !== SITTING) {
+            player.talked = false;
+            player.state = READY;
+          }
         }
       }
     }
