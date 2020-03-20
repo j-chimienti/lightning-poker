@@ -1,23 +1,36 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { BET } from "../lib/types";
 import dispatch from "../dispatch";
 import { TableContext } from "../Table";
 import ReactSlider from "react-slider";
 
 function Bet() {
-  const { tableId, maxBet, betSum, me = {}, bigBlind: step } = useContext(
+  const { tableId, maxBet, betSum, pot, me = {}, bigBlind: step } = useContext(
     TableContext
   );
 
-  const { chips: max } = me;
-  const { id: playerId, bet: currentBet } = me;
+  const { id: playerId, chips = 0, bet = 0 } = me;
   const [disabled, disable] = useState(false);
-  const [amount, setBetAmount] = useState(200);
+  const [betAmount, setBetAmount] = useState(0);
+  const amountToCall = maxBet - bet;
 
-  const min = 200;
+  let max = chips + bet;
+  let min = maxBet * 2; // min bet is a double call
+  if (min === 0) {
+    min = step;
+  }
+  if (min > max) {
+    min = max;
+  }
 
-  const canBet = maxBet - currentBet === 0;
-  console.log(maxBet, betSum);
+  let potAmount = pot + betSum;
+  if (potAmount > max) {
+    potAmount = max;
+  }
+
+  useEffect(() => {
+    setBetAmount(min);
+  }, [min]);
 
   return (
     <div className="bet-control">
@@ -25,6 +38,8 @@ function Bet() {
         className="bet"
         disabled={disabled}
         onClick={async () => {
+          // because is raise TO or bet TO
+          let amount = betAmount - bet;
           try {
             disable(true);
             await dispatch({ type: BET, tableId, playerId, amount });
@@ -34,21 +49,38 @@ function Bet() {
           }
         }}
       >
-        <div>{canBet ? "Bet" : "Raise To"}</div>
-        <div>{amount}</div>
+        <div>{amountToCall === 0 ? "Bet" : "Raise To"}</div>
+        <div>{betAmount}</div>
       </button>
 
       <div>
         <div className="bet-speed-actions">
           <button onClick={() => setBetAmount(min)}>min</button>
-          <button>3BB</button>
-          <button>pot</button>
+          <button
+            onClick={() => {
+              let halfPot = Math.round(potAmount / 2);
+              if (halfPot > min) {
+                setBetAmount(halfPot);
+              } else setBetAmount(min);
+            }}
+          >
+            1/2
+          </button>
+          <button
+            onClick={() => {
+              if (potAmount > min) {
+                setBetAmount(potAmount);
+              } else setBetAmount(min);
+            }}
+          >
+            pot
+          </button>
           <button onClick={() => setBetAmount(max)}>max</button>
         </div>
         <div className="bet-selector">
           <button
             onClick={() => {
-              if (amount - step >= min) setBetAmount(amount - step);
+              if (betAmount - step >= min) setBetAmount(betAmount - step);
             }}
           >
             -
@@ -57,17 +89,16 @@ function Bet() {
             min={min}
             max={max}
             step={step}
-            value={amount}
+            value={betAmount}
             className="slider"
             thumbClassName="thumb"
-            trackClassName="example-track"
             onChange={value => {
               setBetAmount(value);
             }}
           />
           <button
             onClick={() => {
-              if (amount + step <= max) setBetAmount(amount + step);
+              if (betAmount + step <= max) setBetAmount(betAmount + step);
             }}
           >
             +

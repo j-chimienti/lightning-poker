@@ -5,14 +5,14 @@ import { TableContext } from "../Table";
 
 function Call() {
   const { tableId, maxBet, me = {} } = useContext(TableContext);
-  const { id: playerId, bet } = me;
+  const { id: playerId, bet = 0 } = me;
   const [disabled, disable] = useState(false);
   const amountToCall = maxBet - bet;
 
   return (
     <div className="call-control">
       <button
-        className="call pill"
+        className="call"
         disabled={disabled}
         onClick={async () => {
           try {

@@ -11,7 +11,7 @@ function Fold() {
   return (
     <div className="fold-control">
       <button
-        className="fold pill"
+        className="fold"
         disabled={disabled}
         onClick={async () => {
           try {
