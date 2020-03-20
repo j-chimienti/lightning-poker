@@ -23,7 +23,7 @@ function Bet() {
     min = max;
   }
 
-  let potAmount = pot + betSum;
+  let potAmount = pot + betSum + min;
   if (potAmount > max) {
     potAmount = max;
   }
@@ -38,7 +38,6 @@ function Bet() {
         className="bet"
         disabled={disabled}
         onClick={async () => {
-          // because is raise TO or bet TO
           let amount = betAmount - bet;
           try {
             disable(true);
