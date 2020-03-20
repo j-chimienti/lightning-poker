@@ -1,5 +1,8 @@
-const functions = require("firebase-functions");
+const functions = require("firebase-functions").region("europe-west1");
 const admin = require("firebase-admin");
+const cors = require("cors")({
+  // origin: true
+});
 
 const createProfile = require("./lib/create-profile");
 const action = require("./lib/action");
@@ -15,30 +18,36 @@ if (process.env.FUNCTIONS_EMULATOR) {
 } else admin.initializeApp();
 
 exports.action = functions.https.onRequest(async (request, response) => {
-  try {
-    await action(admin.firestore(), request.body);
-    return response.send({ success: true });
-  } catch (e) {
-    return response.status(500).send({ error: e.message });
-  }
+  cors(request, response, async () => {
+    try {
+      await action(admin.firestore(), request.body);
+      return response.send({ success: true });
+    } catch (e) {
+      return response.status(500).send({ error: e.message });
+    }
+  });
 });
 
 exports.join = functions.https.onRequest(async (request, response) => {
-  try {
-    await joinTable(admin.firestore(), request.body);
-    return response.send({ success: true });
-  } catch (e) {
-    return response.status(500).send({ error: e.message });
-  }
+  cors(request, response, async () => {
+    try {
+      await joinTable(admin.firestore(), request.body);
+      return response.send({ success: true });
+    } catch (e) {
+      return response.status(500).send({ error: e.message });
+    }
+  });
 });
 
 exports.leave = functions.https.onRequest(async (request, response) => {
-  try {
-    await leaveTable(admin.firestore(), request.body);
-    return response.send({ success: true });
-  } catch (e) {
-    return response.status(500).send({ error: e.message });
-  }
+  cors(request, response, async () => {
+    try {
+      await leaveTable(admin.firestore(), request.body);
+      return response.send({ success: true });
+    } catch (e) {
+      return response.status(500).send({ error: e.message });
+    }
+  });
 });
 
 exports.createProfile = functions.auth

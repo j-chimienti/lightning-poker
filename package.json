@@ -30,7 +30,9 @@
     "eject": "react-scripts eject",
     "deploy:rules": "firebase deploy --only firestore:rules",
     "deploy:services": "sh ./deploy-services.sh",
-    "deploy:web": "firebase deploy --only hosting"
+    "deploy:web": "firebase deploy --only hosting",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy": "firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"
