@@ -55,8 +55,11 @@ function Bet() {
 
       <div>
         <div className="bet-speed-actions">
-          <button onClick={() => setBetAmount(min)}>min</button>
+          <button className="min" onClick={() => setBetAmount(min)}>
+            min
+          </button>
           <button
+            className="half-pot"
             onClick={() => {
               let halfPot = Math.round(potAmount / 2);
               if (halfPot > min) {
@@ -67,6 +70,7 @@ function Bet() {
             1/2
           </button>
           <button
+            className="pot"
             onClick={() => {
               if (potAmount > min) {
                 setBetAmount(potAmount);
@@ -79,6 +83,7 @@ function Bet() {
         </div>
         <div className="bet-selector">
           <button
+            className="min"
             onClick={() => {
               if (betAmount - step >= min) setBetAmount(betAmount - step);
             }}
@@ -97,6 +102,7 @@ function Bet() {
             }}
           />
           <button
+            className="max"
             onClick={() => {
               if (betAmount + step <= max) setBetAmount(betAmount + step);
             }}

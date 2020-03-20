@@ -1,6 +1,7 @@
 .stack {
   display: inline-block;
   position: relative;
+  white-space: nowrap;
 
   .chip {
     &:nth-child(2) {

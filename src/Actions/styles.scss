@@ -67,14 +67,26 @@
     .bet-speed-actions {
       display: grid;
       grid-template-columns: repeat(4, auto);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      .min,
+      .half,
+      .pot {
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+      }
     }
 
     .bet-selector {
       display: grid;
       grid-template-columns: 1fr 7fr 1fr;
+      .min {
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .max {
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+      }
       .slider {
         position: relative;
-        height: 20px;
+        height: 100%;
       }
       .thumb {
         cursor: pointer;

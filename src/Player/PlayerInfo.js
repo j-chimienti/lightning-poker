@@ -23,20 +23,22 @@ const translateState = {
 };
 
 function PlayerInfo() {
-  const { state, winner, active, chips } = useContext(PlayerContext);
+  const { state, winner, active, chips, allin } = useContext(PlayerContext);
 
   return (
     <div className="player-info">
       <div className="state">
         {winner ? (
           "winner"
+        ) : allin ? (
+          "all-in"
         ) : active ? (
           <PlayerProgress />
         ) : (
           translateState[state]
         )}
       </div>
-      <div className="stake">{chips}</div>
+      {chips > 0 && <div className="stake">{chips}</div>}
     </div>
   );
 }

@@ -37,7 +37,9 @@
   }
 
   &.all-in {
-    background-color: #9c27b0;
+    .player-info {
+      background-color: #9c27b0;
+    }
   }
 
   &.active {

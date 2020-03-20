@@ -20,14 +20,15 @@ function Player({ position }) {
     active,
     winner,
     cards,
+    allin,
     profileHash: playerProfileHash
   } = player;
 
   return (
     <div
-      className={`player ${state} ${winner ? "winner" : ""} ${
-        active ? "active" : ""
-      }`}
+      className={`player ${state} ${allin ? "all-in" : ""} ${
+        winner ? "winner" : ""
+      } ${active ? "active" : ""}`}
       ref={ref}
       style={{
         top,
