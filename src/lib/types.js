@@ -1,4 +1,4 @@
-const AUTO_FOLD_DELAY = 25; // 25 sec
+const AUTO_FOLD_DELAY = 20; // 20 sec
 
 // table states (round)
 const WAITING = "waiting";
