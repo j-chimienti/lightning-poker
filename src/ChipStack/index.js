@@ -8,9 +8,13 @@ function ChipStack({ chips }) {
 
   return (
     <div className="stacks">
-      {CHIP_VALUES_REVERSED.map(
-        v => chipStacks[v] && <Stack value={v} key={v} amount={chipStacks[v]} />
-      )}
+      <div className="chips-images">
+        {CHIP_VALUES_REVERSED.map(
+          v =>
+            chipStacks[v] && <Stack value={v} key={v} amount={chipStacks[v]} />
+        )}
+      </div>
+      <div className="chips-sum small-pill">{chips}</div>
     </div>
   );
 }

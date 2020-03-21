@@ -1,28 +1,52 @@
-.stack {
-  display: inline-block;
-  position: relative;
-  white-space: nowrap;
+.stacks {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-items: center;
 
-  .chip {
-    &:nth-child(2) {
-      position: absolute;
-      top: -0.2vmin;
-      left: 0;
-    }
-    &:nth-child(3) {
-      position: absolute;
-      top: -0.4vmin;
-      left: 0;
-    }
-    &:nth-child(4) {
-      position: absolute;
-      top: -0.8vmin;
-      left: 0;
-    }
-    &:nth-child(5) {
-      position: absolute;
-      top: -0.1vmin;
-      left: 0;
+  height: 2.5vmin;
+
+  .chips-images {
+    justify-self: end;
+  }
+
+  .chips-sum {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    font-size: 1.2vmin;
+    padding: 0.2vmin 0.6vmin;
+    border-radius: 8px;
+    justify-self: start;
+  }
+
+  .stack {
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+
+    .chip {
+      width: 2.8vmin;
+
+      &:nth-child(2) {
+        position: absolute;
+        top: -0.25vmin;
+        left: 0;
+      }
+      &:nth-child(3) {
+        position: absolute;
+        top: -0.5vmin;
+        left: 0;
+      }
+      &:nth-child(4) {
+        position: absolute;
+        top: -0.75vmin;
+        left: 0;
+      }
+      &:nth-child(5) {
+        position: absolute;
+        top: -0.1vmin;
+        left: 0;
+      }
     }
   }
 }

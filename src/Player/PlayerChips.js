@@ -41,7 +41,6 @@ function PlayerChips({ position }) {
       className="player-chips"
     >
       <ChipStack chips={chips} />
-      {chips > 0 && <div className="chips small-pill">{chips}</div>}
     </div>
   );
 }
