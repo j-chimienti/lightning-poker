@@ -1,15 +1,37 @@
-.App {
-  text-align: center;
-  background-color: green;
-}
-
-.logo {
-  height: 400px;
-}
-
 .card,
 .hidden-card {
   box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  color: white;
+}
+
+.app {
+  position: relative;
+  transition: left 0.15s;
+  left: 0;
+  height: 100vh;
+}
+
+.menu {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  width: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: width 0.13s;
+}
+
+.active-menu {
+  .app {
+    left: -320px;
+  }
+  .menu {
+    width: 320px;
+  }
 }
 
 button {
@@ -50,7 +72,7 @@ nav {
     fill: white;
   }
 
-  .menu {
+  .menu-item {
     width: 3vmin;
     height: 3vmin;
     margin: 3vmin 4vmin;

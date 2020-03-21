@@ -1,20 +1,20 @@
-import React from "react";
-// import { AppContext } from "./App";
-// import { TOGGLE_MENU } from "./reducer";
+import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 
-function Menu() {
-  // const { dispatch, activeMenu } = useContext(AppContext);
-  const activeMenu = false;
+function MenuItem() {
+  const [active, setActive] = useState(false);
+
   return (
     <div
-      className="menu"
+      className="menu-item"
       onClick={() => {
-        // dispatch({
-        //   type: TOGGLE_MENU
-        // });
+        setActive(!active);
       }}
     >
-      {activeMenu ? (
+      <Helmet>
+        <body className={active ? "active-menu" : ""} />
+      </Helmet>
+      {active ? (
         <svg viewBox="0 0 21.9 21.9" fill="#FFF">
           <path
             d="M14.1 11.3c-.2-.2-.2-.5 0-.7l7.5-7.5c.2-.2.3-.5.3-.7s-.1-.5-.3-.7L20.2.3c-.2-.2-.5-.3-.7-.3-.3
@@ -32,4 +32,4 @@ function Menu() {
   );
 }
 
-export default Menu;
+export default MenuItem;

@@ -1,6 +1,7 @@
 import React, { useEffect, createContext } from "react";
 import Logo from "./Logo";
 import MenuItem from "./MenuItem";
+import Menu from "./Menu";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentData } from "react-firebase-hooks/firestore";
@@ -53,6 +54,7 @@ function App() {
         <div className="app">
           <Route path="/:tableId" component={Table} />
         </div>
+        <Menu />
       </Router>
     </AppContext.Provider>
   );
