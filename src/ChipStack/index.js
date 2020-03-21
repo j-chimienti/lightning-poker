@@ -14,7 +14,7 @@ function ChipStack({ chips }) {
             chipStacks[v] && <Stack value={v} key={v} amount={chipStacks[v]} />
         )}
       </div>
-      <div className="chips-sum small-pill">{chips}</div>
+      {chips > 0 && <div className="chips-sum small-pill">{chips}</div>}
     </div>
   );
 }

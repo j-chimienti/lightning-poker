@@ -2,27 +2,28 @@
   display: grid;
   grid-template-columns: auto auto;
   align-items: center;
-  justify-items: center;
+  height: 2.8vmin;
 
-  height: 2.5vmin;
+  svg {
+    display: block;
+  }
 
   .chips-images {
     justify-self: end;
   }
 
   .chips-sum {
-    text-align: center;
     background-color: rgba(0, 0, 0, 0.2);
-    font-size: 1.2vmin;
+    font-size: 1.3vmin;
     padding: 0.2vmin 0.6vmin;
+    padding-bottom: 0.27vmin;
     border-radius: 8px;
     justify-self: start;
   }
 
   .stack {
-    display: inline-block;
     position: relative;
-    white-space: nowrap;
+    display: inline-block;
 
     .chip {
       width: 2.8vmin;
