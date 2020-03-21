@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 const admin = require("firebase-admin");
-const createInvoices = require("./lib/create-invoices");
 const lnService = require("ln-service");
+
+const createInvoices = require("./lib/create-invoices");
+const processInvoices = require("./lib/process-invoices");
 
 const serviceAccount = require("./lightning-poker-firebase-adminsdk-pdomv-82e6bf58f2.json");
 const config = require("./lnd-config");
@@ -12,6 +14,9 @@ admin.initializeApp({
 
 const db = admin.firestore();
 const { lnd } = lnService.authenticatedLndGrpc(config);
+
+// subscribe to lnd
+processInvoices(db, lnd);
 
 (async () => {
   do {
