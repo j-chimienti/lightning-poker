@@ -10,6 +10,7 @@ body {
 .app {
   position: relative;
   transition: left 0.15s;
+  opacity: 1;
   left: 0;
   height: 100vh;
 }
@@ -28,6 +29,7 @@ body {
 .active-menu {
   .app {
     left: -320px;
+    opacity: 0.4;
   }
   .menu {
     width: 320px;
