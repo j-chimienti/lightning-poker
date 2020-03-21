@@ -383,6 +383,9 @@ module.exports = (table, players, action) => {
     checkPlayersTurn();
     active().state = FOLDED;
     active().talked = true;
+    if (action.autofoldCount) {
+      active().autofoldCount = action.autofoldCount;
+    }
     if (next(active())) {
       setActive(next(active()));
     }

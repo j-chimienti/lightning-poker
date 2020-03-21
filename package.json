@@ -32,7 +32,7 @@
     "deploy:services": "sh ./deploy-services.sh",
     "deploy:web": "firebase deploy --only hosting",
     "deploy:functions": "firebase deploy --only functions",
-    "deploy": "firebase deploy"
+    "deploy": "npm run build && firebase deploy && npm run deploy:services"
   },
   "eslintConfig": {
     "extends": "react-app"
