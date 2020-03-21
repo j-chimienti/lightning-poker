@@ -11,5 +11,13 @@ service cloud.firestore {
     match /profiles/{profile} {
       allow get;
     }
+    match /invoices/{invoice} {
+      allow create;
+      allow get;
+    }
+    match /payments/{payment} {
+      allow create;
+      allow get;
+    }
   }
 }

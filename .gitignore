@@ -27,5 +27,6 @@ yarn-error.log*
 
 # service accounts
 *adminsdk*.json
+*lnd-config*
 
 /services/node_modules
