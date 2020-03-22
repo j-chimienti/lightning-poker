@@ -7,8 +7,6 @@ function DepositActions() {
   const { clearDeposit, state, request } = useContext(DepositContext);
 
   useEffect(() => {
-    // executed only once
-    console.log("ONCE");
     new Clipboard("#copy-payment-request");
   }, []);
 

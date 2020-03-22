@@ -6,13 +6,6 @@
     border-radius: 3px;
   }
 
-  .settled-deposit {
-    display: block;
-    width: 146px;
-    height: 146px;
-    margin: 0 auto;
-  }
-
   a.payment-request {
     display: block;
     text-align: center;
@@ -31,14 +24,5 @@
     text-decoration: underline;
     font-weight: 300;
     font-size: inherit;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-
-    li {
-      cursor: pointer;
-    }
   }
 }

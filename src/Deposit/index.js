@@ -2,7 +2,7 @@ import React, { useState, useContext, createContext } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { AppContext } from "../App";
 import QR from "./QR";
-import Settled from "./Settled";
+import Settled from "../Settled";
 import TokenInput from "./TokenInput";
 import DepositActions from "./DepositActions";
 import firebase from "firebase/app";
