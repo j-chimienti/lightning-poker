@@ -1,4 +1,22 @@
 #!/usr/bin/env node
+
+// service file (ubuntu)
+// /lib/systemd/system/wallet.service
+
+// service example
+// [Unit]
+// Description=Lightning Poker Service
+// After=network.target lnd.service
+//
+// [Service]
+// Type=simple
+// User=root
+// ExecStart=/opt/lightning-poker/wallet.js
+// Restart=on-failure
+//
+// [Install]
+// WantedBy=multi-user.target
+
 const admin = require("firebase-admin");
 const lnService = require("ln-service");
 

@@ -84,7 +84,7 @@ module.exports = async (db, lnd) => {
         balance
       });
 
-      console.log(profileId, tokens, fee, secret);
+      console.log("[withdraw]", profileId, tokens, fee, secret);
     } catch (e) {
       //
       let error = "";

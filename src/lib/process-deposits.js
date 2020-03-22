@@ -36,7 +36,7 @@ module.exports = (db, lnd) => {
               balance: balance + tokens
             });
           }
-          console.log(profileId, tokens, secret);
+          console.log("[deposit]", profileId, tokens, secret);
         }
       }
     );
