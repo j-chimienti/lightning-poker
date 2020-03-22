@@ -1,0 +1,21 @@
+.withdraw {
+  margin-top: 20px;
+
+  .payment-request-input {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    border: 1px solid white;
+    border-radius: 3px;
+  }
+
+  .withdraw-error {
+    padding: 10px;
+  }
+
+  .withdraw-actions {
+    display: block;
+    text-decoration: underline;
+    font-weight: 300;
+    font-size: inherit;
+  }
+}

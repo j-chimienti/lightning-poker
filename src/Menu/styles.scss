@@ -13,6 +13,15 @@
     padding-right: 2vmin;
   }
 
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      cursor: pointer;
+    }
+  }
+
   button {
     outline: none;
     font-size: inherit;
@@ -27,6 +36,13 @@
     &[disabled] {
       opacity: 0.3;
     }
+  }
+
+  .payment-settled {
+    display: block;
+    width: 146px;
+    height: 146px;
+    margin: 0 auto;
   }
 
   .content {
