@@ -1,20 +1,30 @@
-import React from "react";
-// import Clipboard from "clipboard";
+import React, { useContext, useEffect } from "react";
+import Clipboard from "clipboard";
+import { DepositContext } from "./index";
+import { PENDING_INVOICE } from "../lib/types";
 
-export function ClearDeposit({ clearDeposit }) {
-  return <li onClick={clearDeposit}>New Deposit</li>;
-}
+function DepositActions() {
+  const { clearDeposit, state, request } = useContext(DepositContext);
 
-function DepositActions({ clearDeposit, paymentRequest }) {
+  useEffect(() => {
+    // executed only once
+    console.log("ONCE");
+    new Clipboard("#copy-payment-request");
+  }, []);
+
   return (
     <ul className="deposit-actions">
-      <li>
-        <a href={`lightning:${paymentRequest}`}>Open in Wallet</a>
-      </li>
-      <li id="copy-payment-request" data-clipboard-text={paymentRequest}>
-        "Copy Payment Request to Clipboard"
-      </li>
-      <ClearDeposit clearDeposit={clearDeposit} />
+      {state === PENDING_INVOICE && (
+        <>
+          <li>
+            <a href={`lightning:${request}`}>Open in Wallet</a>
+          </li>
+          <li id="copy-payment-request" data-clipboard-text={request}>
+            Copy Payment Request to Clipboard
+          </li>
+        </>
+      )}
+      <li onClick={clearDeposit}>New Deposit</li>
     </ul>
   );
 }

@@ -7,10 +7,16 @@ html {
 
 body {
   margin: 0;
+  color: white;
+  fill: white;
   font-family: "Oswald", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a {
+  color: inherit;
 }
 
 .blue {

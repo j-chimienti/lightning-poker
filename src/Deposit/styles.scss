@@ -1,0 +1,44 @@
+.deposit {
+  .token-input {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    border: 1px solid white;
+    border-radius: 3px;
+  }
+
+  .settled-deposit {
+    display: block;
+    width: 146px;
+    height: 146px;
+    margin: 0 auto;
+  }
+
+  a.payment-request {
+    display: block;
+    text-align: center;
+
+    svg {
+      width: 134px;
+      height: 134px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 8px;
+    }
+  }
+
+  .deposit-actions {
+    display: block;
+    text-decoration: underline;
+    font-weight: 300;
+    font-size: inherit;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      cursor: pointer;
+    }
+  }
+}

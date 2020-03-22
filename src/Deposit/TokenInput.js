@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { DepositContext } from "./index";
 
 function validateTokens(amount) {
   const number = Number(amount);
@@ -8,23 +9,27 @@ function validateTokens(amount) {
   return true;
 }
 
-function TokenInput({ tokens, invoiceId, setTokens, addInvoice }) {
+function TokenInput() {
+  const { amount, invoiceId, setAmount, addInvoice } = useContext(
+    DepositContext
+  );
+
   return (
     <div className="token-input">
       <input
         title="Enter amount in satoshis you want to deposit"
         placeholder="1..1M"
         type="text"
-        value={tokens}
+        value={amount}
         onChange={e => {
-          setTokens(e.target.value);
+          setAmount(e.target.value);
         }}
       />
       <button
         aria-label="Deposit satoshis"
-        disabled={!validateTokens(tokens) || invoiceId}
+        disabled={!validateTokens(amount) || invoiceId}
         onClick={() => {
-          if (validateTokens(tokens)) {
+          if (validateTokens(amount)) {
             addInvoice();
           }
         }}

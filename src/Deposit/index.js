@@ -1,22 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, createContext } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { AppContext } from "../App";
 import QR from "./QR";
 import Settled from "./Settled";
 import TokenInput from "./TokenInput";
-import DepositActions, { ClearDeposit } from "./DepositActions";
-
+import DepositActions from "./DepositActions";
 import firebase from "firebase/app";
+import { REQUESTED_INVOICE, SETTLED_INVOICE } from "../lib/types";
 
-const REQUESTED_INVOICE = "requested";
-const SETTLED_INVOICE = "settled";
+import "./styles.scss";
+
+export const DepositContext = createContext();
 
 function Deposit() {
   const [invoiceId, setInvoiceId] = useState(null);
-  const [tokens, setTokens] = useState("");
+  const [amount, setAmount] = useState("");
   const { profileId } = useContext(AppContext);
 
-  let [{ payment_request, state } = {}] = useDocumentData(
+  let [{ payment_request: request, state } = {}] = useDocumentData(
     invoiceId &&
       firebase
         .firestore()
@@ -25,7 +26,7 @@ function Deposit() {
   );
 
   function clearDeposit() {
-    setTokens("");
+    setAmount("");
     setInvoiceId(null);
   }
 
@@ -34,7 +35,7 @@ function Deposit() {
       .firestore()
       .collection("invoices")
       .add({
-        tokens: Math.floor(Number(tokens)),
+        tokens: Math.floor(Number(amount)),
         profileId,
         state: REQUESTED_INVOICE
       });
@@ -42,33 +43,28 @@ function Deposit() {
   }
 
   return (
-    <div className="deposit">
-      {payment_request ? (
-        state === SETTLED_INVOICE ? (
+    <DepositContext.Provider
+      value={{
+        state,
+        invoiceId,
+        request,
+        amount,
+        clearDeposit,
+        addInvoice,
+        setAmount
+      }}
+    >
+      <div className="deposit">
+        {request ? (
           <>
-            <Settled />
-            <ul className="deposit-actions">
-              <ClearDeposit clearDeposit={clearDeposit} />
-            </ul>
+            {state === SETTLED_INVOICE ? <Settled /> : <QR value={request} />}
+            <DepositActions />
           </>
         ) : (
-          <>
-            <QR value={payment_request} />
-            <DepositActions
-              paymentRequest={payment_request}
-              clearDeposit={clearDeposit}
-            />
-          </>
-        )
-      ) : (
-        <TokenInput
-          tokens={tokens}
-          invoiceId={invoiceId}
-          setTokens={setTokens}
-          addInvoice={addInvoice}
-        />
-      )}
-    </div>
+          <TokenInput />
+        )}
+      </div>
+    </DepositContext.Provider>
   );
 }
 
