@@ -1,5 +1,9 @@
 const lnService = require("ln-service");
-const { REQUESTED_PAYMENT, CONFIRMED_PAYMENT, ERROR_PAYMENT } = "./types";
+const {
+  REQUESTED_PAYMENT,
+  CONFIRMED_PAYMENT,
+  ERROR_PAYMENT
+} = require("./types");
 
 const MAX_FEE = 33; // sats [tokens]
 

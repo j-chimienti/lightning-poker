@@ -1,5 +1,5 @@
 const lnService = require("ln-service");
-const { REQUESTED_INVOICE, PENDING_INVOICE } = "./types";
+const { REQUESTED_INVOICE, PENDING_INVOICE } = require("./types");
 
 module.exports = async (db, lnd) => {
   const querySnap = await db
