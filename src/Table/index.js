@@ -8,6 +8,7 @@ import { HORIZONTAL_LAYOUT, VERTICAL_LAYOUT } from "./defs";
 import useTable from "./use-table";
 import usePlayers from "./use-players";
 import { AppContext } from "../App";
+import { Helmet } from "react-helmet";
 
 export const TableContext = createContext();
 
@@ -60,6 +61,9 @@ function Table({ match }) {
         betSum
       }}
     >
+      <Helmet>
+        <title>{`${process.env.REACT_APP_TABLE_TITLE} ${table.title}`}</title>
+      </Helmet>
       <div
         className={`table ${
           layout === VERTICAL_LAYOUT ? "vertical" : ""
