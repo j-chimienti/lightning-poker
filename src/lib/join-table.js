@@ -26,8 +26,10 @@ module.exports = async (db, { tableId, profileId, position }) => {
 
     let chips = table.buyIn;
 
-    if (balance < chips || balance < 0 || chips <= 0) {
-      throw new Error("You don't have enought balance to join this table");
+    if (!table.fun) {
+      if (balance < chips || balance < 0 || chips <= 0) {
+        throw new Error("You don't have enought balance to join this table");
+      }
     }
 
     // cheks are fine, we can add new player
@@ -42,9 +44,12 @@ module.exports = async (db, { tableId, profileId, position }) => {
       state: SITTING
     };
 
-    players.push(player);
-    balance = balance - chips;
+    // play money!!
+    if (!table.fun) {
+      balance = balance - chips;
+    }
 
+    players.push(player);
     const newPlayerRef = db.collection("players").doc();
 
     tx.create(newPlayerRef, player);

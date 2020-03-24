@@ -15,10 +15,13 @@ module.exports = async (db, { playerId, tableId }) => {
     let { balance } = await loadProfile(db, tx, player.profileId);
     let { chips = 0 } = player;
 
-    balance = balance + chips;
-    tx.update(db.collection("profiles").doc(player.profileId), {
-      balance
-    });
+    // play money
+    if (!table.fun) {
+      balance = balance + chips;
+      tx.update(db.collection("profiles").doc(player.profileId), {
+        balance
+      });
+    }
 
     player.chips = 0;
     player.leaving = true;
