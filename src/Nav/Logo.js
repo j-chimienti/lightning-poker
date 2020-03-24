@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 
 function Logo() {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(true);
 
   return (
     <>

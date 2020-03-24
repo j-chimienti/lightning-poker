@@ -1,10 +1,33 @@
 .lobby {
+  a {
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 13px;
+  }
+
   display: grid;
   .table-preview {
+    margin-top: 4px;
+
+    height: 42px;
     cursor: pointer;
+    display: grid;
+    grid-template-columns: 2fr 4fr 4fr;
+    align-items: center;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .stakes {
+      font-size: 11px;
+    }
+
+    .fun {
+      // background-color: rgba(0, 0, 0, 0.2);
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 10px;
     }
   }
 }
