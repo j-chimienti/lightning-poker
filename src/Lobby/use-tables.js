@@ -1,22 +1,16 @@
 import firebase from "firebase/app";
-import { useCollection } from "react-firebase-hooks/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
-export default () => {
-  const [value, loading, error] = useCollection(
+export default (limit = 20) => {
+  const [tables, loading, error] = useCollectionData(
     firebase
       .firestore()
       .collection("tables")
-      .limit(20)
+      // .orderBy("fun")
+      .orderBy("bigBlind")
+      .limit(limit),
+    { idField: "id" }
   );
-
-  let tables = [];
-
-  if (!loading) {
-    if (value) {
-      // sort bey fun and bigBlind
-      tables = [...value.docs];
-    }
-  }
 
   return [tables, loading, error];
 };
