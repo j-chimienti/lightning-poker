@@ -3,6 +3,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /tables/{table} {
       allow get;
+      allow list;
     }
     match /players/{player} {
       allow get;
