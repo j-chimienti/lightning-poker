@@ -1,5 +1,6 @@
 import React from "react";
 import PositionsInfo from "./PositionsInfo";
+import TableCardsPreview from "./TableCardsPreview";
 
 function TablePreview({
   title,
@@ -7,23 +8,27 @@ function TablePreview({
   posMap = [],
   maxPlayers,
   smallBlind,
-  bigBlind
+  bigBlind,
+  rake,
+  cards
 }) {
   return (
     <div className="table-preview">
-      <PositionsInfo map={posMap} />
+      <PositionsInfo map={posMap} maxPlayers={maxPlayers} />
       <div>
         <div>
           {title}
           {fun ? <span className="fun"> / free</span> : ""}
+          {rake > 0 ? <span className="rake"> / rake {rake}%</span> : ""}
         </div>
         <div className="stakes">{`Stakes: ${smallBlind}/${bigBlind}`}</div>
       </div>
+      <TableCardsPreview cards={cards} />
       <div>
         <div>
           <span>NL Hold'em</span>
         </div>
-        <div>
+        <div className="players-info">
           Players {posMap.length} of {maxPlayers}
         </div>
       </div>
