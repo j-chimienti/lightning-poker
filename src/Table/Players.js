@@ -11,7 +11,6 @@ function Players() {
   const { players, me, maxPlayers } = useContext(TableContext);
   return (
     <div className="players">
-      {me && <LeaveTable />}
       {[...Array(maxPlayers)].map((e, i) =>
         players[i + 1] ? (
           <PlayerContext.Provider key={i} value={players[i + 1]}>
@@ -22,6 +21,7 @@ function Players() {
           !me && <JoinTable key={i} position={i + 1} />
         )
       )}
+      {me && <LeaveTable />}
     </div>
   );
 }

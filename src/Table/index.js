@@ -15,7 +15,7 @@ export const TableContext = createContext();
 function Table({ match }) {
   const { tableId } = match.params;
   const [layout, setLayot] = useState(HORIZONTAL_LAYOUT);
-  const { profileHash } = useContext(AppContext);
+  let { profileHash } = useContext(AppContext);
   const [coordinates, setCoordinates] = useState({});
 
   const [table = { maxPlayers: 7 }, loadingTable] = useTable(tableId);
@@ -70,10 +70,15 @@ function Table({ match }) {
         }`.trim()}
       >
         {!loadingTable && (
-          <Body layout={layout} playersCount={Math.max(8, table.maxPlayers)} />
+          <>
+            <Body
+              layout={layout}
+              playersCount={Math.max(8, table.maxPlayers)}
+            />
+            <Info />
+            <Players />
+          </>
         )}
-        {!loadingTable && <Info />}
-        {!loadingTable && <Players />}
         <Actions />
       </div>
     </TableContext.Provider>

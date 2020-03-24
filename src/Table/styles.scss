@@ -78,9 +78,16 @@
   }
 
   .leave-table {
-    button {
-      background-color: #08d362;
-      border: 1px solid rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    width: 3vmin;
+    height: 3vmin;
+    margin: 3vmin 4vmin;
+    right: 6vmin;
+    cursor: pointer;
+
+    svg {
+      fill: white;
     }
   }
 
