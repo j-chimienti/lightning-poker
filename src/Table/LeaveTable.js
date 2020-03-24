@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import dispatch from "../dispatch";
 import { TableContext } from "./index";
 

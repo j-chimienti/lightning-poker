@@ -1,6 +1,6 @@
 .app {
   position: relative;
-  transition: left 0.15s;
+  transition: left 0.2s;
   opacity: 1;
   left: 0;
   height: 100vh;
@@ -10,16 +10,11 @@
   position: absolute;
   overflow: hidden;
   top: 0;
-  right: 0;
-  width: 0;
   bottom: 0;
+  width: 320px;
+  right: -320px;
   background-color: rgba(0, 0, 0, 0.6);
-  transition: width 0.13s;
-}
-
-.card,
-.hidden-card {
-  box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.1);
+  transition: right 0.2s;
 }
 
 .active-menu {
@@ -28,8 +23,14 @@
     opacity: 0.4;
   }
   .menu {
-    width: 320px;
+    right: 0px;
   }
+}
+
+.card,
+.hidden-card {
+  fill: black;
+  box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 button {

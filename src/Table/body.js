@@ -31,10 +31,13 @@ function TableBody({ playersCount = 10, layout }) {
       <g>
         {[...Array(playersCount)].map((e, i) => (
           <polygon
+            style={{
+              transformOrigin: "center",
+              transform: `rotate(${((i * 360) / playersCount).toFixed(2)}deg)`
+            }}
             key={i}
             points={points}
             fill="#08D362"
-            transform={`rotate(${((i * 360) / playersCount).toFixed(2)})`}
           />
         ))}
       </g>
@@ -48,10 +51,13 @@ function TableBody({ playersCount = 10, layout }) {
             cy="0"
             fill="transparent"
             r="1"
-            transform={`rotate(${(
-              (i * 360) / playersCount +
-              360 / playersCount
-            ).toFixed(2)})`}
+            style={{
+              transformOrigin: "center",
+              transform: `rotate(${(
+                (i * 360) / playersCount +
+                360 / playersCount
+              ).toFixed(2)}deg)`
+            }}
           />
         ))}
       </g>
