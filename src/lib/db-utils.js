@@ -57,8 +57,17 @@ const getState = async (db, tx, tableId) => {
   ]);
 };
 
+const createPositionsMap = players => {
+  let map = "";
+  for (let i = 1; i <= 10; i++) {
+    map += players.find(player => player.position === i && !player.leaving)
+      ? "1"
+      : "0";
+  }
+  return map;
+};
+
 const updateState = async (db, tx, tableId, table, players) => {
-  // save players state back to database
   for (let player of players) {
     const { id: playerId } = player;
     const ref = db.collection("players").doc(playerId);
@@ -72,13 +81,18 @@ const updateState = async (db, tx, tableId, table, players) => {
     } else tx.update(ref, player);
   }
 
+  // save players position
+  table.posMap = parseInt(createPositionsMap(players), 2);
+
   // save table state back to database
   tx.set(
     db.collection("tablePrivates").doc(tableId),
     { seed: table.seed },
     { merge: true }
   );
+
   delete table.seed;
+
   tx.update(db.collection("tables").doc(tableId), table);
 };
 
