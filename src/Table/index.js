@@ -20,6 +20,7 @@ function Table({ match }) {
 
   const [table = { maxPlayers: 7 }, loadingTable] = useTable(tableId);
   const [players, me] = usePlayers(tableId, profileHash);
+  const [error, setError] = useState("");
 
   const maxBet = Math.max(
     0,
@@ -27,6 +28,11 @@ function Table({ match }) {
   );
 
   const betSum = Object.values(players).reduce((sum, p) => sum + p.bet || 0, 0);
+
+  const showError = error => {
+    // show the error
+    setError(error);
+  };
 
   useEffect(() => {
     window.onresize = () => {
@@ -58,7 +64,8 @@ function Table({ match }) {
         me,
         coordinates,
         maxBet,
-        betSum
+        betSum,
+        showError
       }}
     >
       <Helmet>
@@ -80,6 +87,16 @@ function Table({ match }) {
           </>
         )}
         <Actions />
+        {error && (
+          <div
+            className="error"
+            onClick={() => {
+              setError("");
+            }}
+          >
+            <div>{error}</div>
+          </div>
+        )}
       </div>
     </TableContext.Provider>
   );

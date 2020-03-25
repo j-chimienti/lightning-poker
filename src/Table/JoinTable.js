@@ -5,7 +5,7 @@ import { AppContext } from "../App";
 import usePosition from "./use-position";
 
 function JoinTable({ position }) {
-  const { tableId } = useContext(TableContext);
+  const { tableId, showError } = useContext(TableContext);
   const { profileId } = useContext(AppContext);
   const ref = React.createRef();
   const [top, left] = usePosition(ref, position);
@@ -23,7 +23,7 @@ function JoinTable({ position }) {
         viewBox="0 0 100 100"
         onClick={async () => {
           try {
-            await dispatch(
+            let { error } = await dispatch(
               {
                 tableId,
                 profileId,
@@ -31,6 +31,10 @@ function JoinTable({ position }) {
               },
               "join"
             );
+            console.log(error);
+            if (error) {
+              showError(error);
+            }
           } catch (e) {
             console.log(e);
           }
