@@ -5,11 +5,23 @@ import Card from "../Card";
 import ChipStack from "../ChipStack";
 
 function Info() {
-  const { cards = [], round, pot = "", betSum } = useContext(TableContext);
+  const {
+    cards = [],
+    round,
+    smallBlind,
+    bigBlind,
+    buyIn,
+    pot = "",
+    tableId,
+    betSum
+  } = useContext(TableContext);
 
   return (
     <div className="table-info">
       <div>
+        <h2>
+          {tableId} {smallBlind}/{bigBlind}/{buyIn}
+        </h2>
         <div className="round-pot">
           <div className="round pill">{round}</div>
           <div className="pot pill">
