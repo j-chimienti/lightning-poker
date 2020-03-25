@@ -10,10 +10,16 @@ function TablePreview({
   smallBlind,
   bigBlind,
   rake,
-  cards
+  cards,
+  activeTableId,
+  id
 }) {
   return (
-    <div className="table-preview">
+    <div
+      className={["table-preview", id === activeTableId ? "active" : ""]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <PositionsInfo map={posMap} maxPlayers={maxPlayers} />
       <div>
         <div>

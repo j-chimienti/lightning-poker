@@ -7,16 +7,19 @@
 
   display: grid;
   .table-preview {
-    margin-top: 6px;
-
     height: 42px;
     cursor: pointer;
     display: grid;
     grid-template-columns: 2fr 2.8fr 4.2fr 2fr;
     align-items: center;
+    border: 1px solid transparent;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    &.active {
+      border: 1px solid white;
     }
 
     .stakes,
@@ -30,7 +33,7 @@
 
     .positions {
       transform-origin: center;
-      transform: scale(1.15, 0.85);
+      transform: scale(1.2, 0.8);
     }
 
     .cards-preview {

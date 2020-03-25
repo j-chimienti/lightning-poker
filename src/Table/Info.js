@@ -5,7 +5,7 @@ import Card from "../Card";
 import ChipStack from "../ChipStack";
 
 function Info() {
-  const { cards = [], round, pot, betSum } = useContext(TableContext);
+  const { cards = [], round, pot = "", betSum } = useContext(TableContext);
 
   return (
     <div className="table-info">

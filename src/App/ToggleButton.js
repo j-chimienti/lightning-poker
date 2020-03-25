@@ -15,7 +15,6 @@ function ToggleButton() {
         height="50"
         viewBox="0 0 25 50"
         onClick={() => {
-          console.log(active);
           setActive(!active);
         }}
       >
