@@ -50,7 +50,8 @@ module.exports = (table, players, action) => {
     pots = [],
     rake = 0,
     winners = [],
-    newRoundRequest = false
+    newRoundRequest = false,
+    hands = 0
   } = table;
   const { type, playerId } = action;
 
@@ -309,6 +310,7 @@ module.exports = (table, players, action) => {
     pots = [];
     winners = [];
     newRoundRequest = false;
+    hands += 1;
 
     // set all ready status, all sitting are comming into play
     for (let player of players) {
@@ -591,6 +593,7 @@ module.exports = (table, players, action) => {
     pot,
     pots,
     winners,
+    hands,
     newRoundRequest,
     modifiedAt: new Date()
   });
