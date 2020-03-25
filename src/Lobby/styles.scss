@@ -1,7 +1,14 @@
 .lobby {
-  padding-top: 10vmin;
   background-color: rgba(0, 0, 0, 0.5);
   height: 100vh;
+
+  h1 {
+    margin: 0;
+    padding: 2vmin;
+    font-weight: 300;
+    font-size: 20px;
+    text-align: center;
+  }
 
   .games {
     display: grid;
@@ -10,6 +17,7 @@
 
     justify-content: center;
     grid-column-gap: 20px;
+    grid-row-gap: 3px;
 
     @media only screen and (min-width: 660px) {
       grid-template-columns: repeat(2, minmax(320px, 420px));

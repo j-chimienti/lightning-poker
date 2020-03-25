@@ -20,7 +20,7 @@ function PositionsInfo({ map = [], maxPlayers }) {
             cx="270"
             cy="10"
             fill={
-              map.find(p => p === i + 1) ? "white" : "rgba(255,255,255,0.2)"
+              map.find(p => p === i + 1) ? "white" : "rgba(255,255,255,0.15)"
             }
             r="20"
             style={{

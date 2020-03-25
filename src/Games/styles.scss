@@ -10,9 +10,10 @@
   height: 42px;
   cursor: pointer;
   display: grid;
-  grid-template-columns: 2fr 2.8fr 4.2fr 2fr;
+  grid-template-columns: 1.9fr 2.9fr 4.1fr 1.9fr;
   align-items: center;
   border: 1px solid transparent;
+  border-radius: 4px;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.3);
@@ -20,6 +21,7 @@
 
   &.active {
     border: 1px solid white;
+    border-radius: 0px;
   }
 
   .stakes,
