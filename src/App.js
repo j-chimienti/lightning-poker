@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import firebase from "firebase/app";
 import Lobby from "./Lobby";
+import ToggleButton from "./Lobby/ToggleButton";
 
 import "./App.scss";
 import Table from "./Table";
@@ -53,6 +54,7 @@ function App() {
         </div>
         <Menu />
         <aside className="games">
+          <ToggleButton />
           <Lobby />
         </aside>
       </Router>

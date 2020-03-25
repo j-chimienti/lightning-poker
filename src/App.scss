@@ -29,18 +29,37 @@
 
 .games {
   position: absolute;
-  transition: left 0.2s;
+  // transition: left 0.13s;
   width: 320px;
   top: 0;
   bottom: 0;
   left: -320px;
   background-color: rgba(0, 0, 0, 0.5);
   padding-top: 10vmin;
+
+  .toggle-games {
+    position: absolute;
+    cursor: pointer;
+    right: -25px;
+    top: calc(50% - 50px);
+  }
+}
+
+.toggle-games {
+  .chevron {
+    transform: scale(1, 1) translate(0, 0);
+    transform-origin: center;
+  }
 }
 
 [data-games="visible"] {
   .games {
     left: 0;
+  }
+  .toggle-games {
+    .chevron {
+      transform: scale(-1, 1) translate(13px, 0);
+    }
   }
 }
 
