@@ -17,4 +17,4 @@ firebase.initializeApp({
 
 ReactDOM.render(<App />, document.getElementsByTagName("main")[0]);
 
-serviceWorker.unregister();
+serviceWorker.register();
