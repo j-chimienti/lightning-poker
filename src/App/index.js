@@ -1,15 +1,15 @@
 import React, { useEffect, createContext } from "react";
-import Menu from "./Menu";
-import Nav from "./Nav";
+import Menu from "../Menu";
+import Nav from "../Nav";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import firebase from "firebase/app";
-import Lobby from "./Lobby";
-import ToggleButton from "./Lobby/ToggleButton";
+import Lobby from "../Lobby";
+import ToggleButton from "./ToggleButton";
+import Table from "../Table";
 
-import "./App.scss";
-import Table from "./Table";
+import "./styles.scss";
 
 export const AppContext = createContext();
 
