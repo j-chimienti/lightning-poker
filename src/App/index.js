@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import firebase from "firebase/app";
-import Lobby from "../Lobby";
+import Games from "../Games";
 import ToggleButton from "./ToggleButton";
 import Table from "../Table";
 
@@ -55,7 +55,7 @@ function App() {
         <Menu />
         <aside className="games">
           <ToggleButton />
-          <Lobby />
+          <Games />
         </aside>
       </Router>
     </AppContext.Provider>

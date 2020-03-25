@@ -5,7 +5,7 @@ import { useHistory, useLocation } from "react-router-dom";
 
 import "./styles.scss";
 
-function Lobby() {
+function Games() {
   const [tables, loading] = useTables(20);
   let history = useHistory();
   let { pathname = "" } = useLocation();
@@ -15,7 +15,7 @@ function Lobby() {
   }
 
   return (
-    <div className="lobby">
+    <div className="games-list">
       {tables.map((table, i) => (
         <a
           key={i}
@@ -32,4 +32,4 @@ function Lobby() {
   );
 }
 
-export default Lobby;
+export default Games;
