@@ -8,6 +8,7 @@ import firebase from "firebase/app";
 import Games from "../Games";
 import ToggleButton from "./ToggleButton";
 import Table from "../Table";
+import Lobby from "../Lobby";
 
 import "./styles.scss";
 
@@ -51,10 +52,11 @@ function App() {
         <Nav />
         <div className="app">
           <Route path="/:tableId" component={Table} />
+          <Route path="/" exact component={Lobby} />
         </div>
         <Menu />
-        <aside className="games">
-          <ToggleButton />
+        <aside className="games-drawer">
+          <Route path="/:tableId" component={ToggleButton} />
           <Games />
         </aside>
       </Router>

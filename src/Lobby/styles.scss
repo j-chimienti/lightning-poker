@@ -1,0 +1,22 @@
+.lobby {
+  padding-top: 10vmin;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+
+  .games {
+    display: grid;
+    grid-auto-columns: 320px;
+    grid-template-columns: minmax(320px, 420px);
+
+    justify-content: center;
+    grid-column-gap: 20px;
+
+    @media only screen and (min-width: 660px) {
+      grid-template-columns: repeat(2, minmax(320px, 420px));
+    }
+
+    @media only screen and (min-width: 1000px) {
+      grid-template-columns: repeat(3, minmax(320px, 420px));
+    }
+  }
+}

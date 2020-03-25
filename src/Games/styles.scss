@@ -4,54 +4,53 @@
     font-weight: 300;
     font-size: 13px;
   }
+}
 
+.table-preview {
+  height: 42px;
+  cursor: pointer;
   display: grid;
-  .table-preview {
-    height: 42px;
-    cursor: pointer;
-    display: grid;
-    grid-template-columns: 2fr 2.8fr 4.2fr 2fr;
-    align-items: center;
-    border: 1px solid transparent;
+  grid-template-columns: 2fr 2.8fr 4.2fr 2fr;
+  align-items: center;
+  border: 1px solid transparent;
 
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.3);
-    }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 
-    &.active {
-      border: 1px solid white;
-    }
+  &.active {
+    border: 1px solid white;
+  }
 
-    .stakes,
-    .players-info {
-      font-size: 11px;
-    }
+  .stakes,
+  .players-info {
+    font-size: 11px;
+  }
 
-    .positions-info {
-      height: 100%;
-    }
+  .positions-info {
+    height: 100%;
+  }
 
-    .positions {
-      transform-origin: center;
-      transform: scale(1.2, 0.8);
-    }
+  .positions {
+    transform-origin: center;
+    transform: scale(1.2, 0.8);
+  }
 
-    .cards-preview {
-      .hidden-card {
-        opacity: 0.3;
-      }
-      .hidden-card,
-      .card {
-        margin: 0.5px;
-        height: 32px;
-      }
+  .cards-preview {
+    .hidden-card {
+      opacity: 0.3;
     }
+    .hidden-card,
+    .card {
+      margin: 0.5px;
+      height: 32px;
+    }
+  }
 
-    .fun,
-    .rake {
-      font-weight: 500;
-      text-transform: uppercase;
-      font-size: 10px;
-    }
+  .fun,
+  .rake {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 10px;
   }
 }

@@ -27,9 +27,8 @@
   }
 }
 
-.games {
+.games-drawer {
   position: absolute;
-  // transition: left 0.13s;
   width: 320px;
   top: 0;
   bottom: 0;
@@ -53,7 +52,7 @@
 }
 
 [data-games="visible"] {
-  .games {
+  .games-drawer {
     left: 0;
   }
   .toggle-games {

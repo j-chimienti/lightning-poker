@@ -2,7 +2,6 @@ import React from "react";
 import TablePreview from "./TablePreview";
 import useTables from "./use-tables";
 import { useHistory, useLocation } from "react-router-dom";
-
 import "./styles.scss";
 
 function Games() {
@@ -15,7 +14,7 @@ function Games() {
   }
 
   return (
-    <div className="games-list">
+    <div className="games">
       {tables.map((table, i) => (
         <a
           key={i}
