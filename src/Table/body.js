@@ -22,7 +22,7 @@ function generateLinePoints(sides) {
   };
 }
 
-function TableBody({ playersCount = 10, layout }) {
+function TableBody({ playersCount = 8, layout }) {
   const points = generatePoints(playersCount);
   const linePoints = generateLinePoints(playersCount);
 

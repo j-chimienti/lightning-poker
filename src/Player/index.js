@@ -26,9 +26,15 @@ function Player({ position }) {
 
   return (
     <div
-      className={`player ${state} ${allin ? "all-in" : ""} ${
-        winner ? "winner" : ""
-      } ${active ? "active" : ""}`}
+      className={[
+        "player",
+        state,
+        allin && "all-in",
+        winner && "winner",
+        active && "active"
+      ]
+        .filter(Boolean)
+        .join(" ")}
       ref={ref}
       style={{
         top,

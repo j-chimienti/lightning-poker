@@ -7,20 +7,31 @@ import PlayerChips from "../Player/PlayerChips";
 
 export const PlayerContext = createContext();
 
+export function mapPosition(maxPlayers, position) {
+  if (maxPlayers < 8) {
+    return {
+      6: [1, 3, 4, 5, 7, 8],
+      2: [4, 8]
+    }[maxPlayers][position];
+  } else {
+    return position + 1;
+  }
+}
 function Players() {
   const { players, me, maxPlayers } = useContext(TableContext);
   return (
     <div className="players">
-      {[...Array(maxPlayers)].map((e, i) =>
-        players[i + 1] ? (
-          <PlayerContext.Provider key={i} value={players[i + 1]}>
-            <Player position={i + 1} />
-            <PlayerChips position={i + 1} />
+      {[...Array(maxPlayers)].map((e, i) => {
+        let position = mapPosition(maxPlayers, i);
+        return players[position] ? (
+          <PlayerContext.Provider key={position} value={players[position]}>
+            <Player position={position} />
+            <PlayerChips position={position} />
           </PlayerContext.Provider>
         ) : (
-          !me && <JoinTable key={i} position={i + 1} />
-        )
-      )}
+          !me && <JoinTable key={position} position={position} />
+        );
+      })}
       {me && <LeaveTable />}
     </div>
   );
