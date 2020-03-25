@@ -57,7 +57,7 @@ function App() {
         <Menu />
         <aside className="games-drawer">
           <Route path="/:tableId" component={ToggleButton} />
-          <Games />
+          <Route path="/:tableId" component={Games} />
         </aside>
       </Router>
     </AppContext.Provider>

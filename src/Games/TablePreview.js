@@ -11,6 +11,7 @@ function TablePreview({
   bigBlind,
   rake,
   cards,
+  buyIn,
   activeTableId,
   id
 }) {
@@ -27,12 +28,13 @@ function TablePreview({
           {fun ? <span className="fun"> / free</span> : ""}
           {rake > 0 ? <span className="rake"> / rake {rake}%</span> : ""}
         </div>
-        <div className="stakes">{`Stakes: ${smallBlind}/${bigBlind}`}</div>
+        <div className="stakes">{`Stakes ${smallBlind}/${bigBlind}`}</div>
       </div>
       <TableCardsPreview cards={cards} />
       <div>
         <div>
-          <span>NL Hold'em</span>
+          <span className="enter">Buy In / </span>
+          <span className="buy-in">{buyIn}</span>
         </div>
         <div className="players-info">
           Players {posMap.length} of {maxPlayers}
