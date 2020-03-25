@@ -10,7 +10,9 @@ function Actions() {
   const { me: { active } = {} } = useContext(TableContext);
 
   return (
-    <div className={`actions${active ? " active" : ""}`}>
+    <div
+      className={["actions", active ? " active" : ""].filter(Boolean).join(" ")}
+    >
       <Fold />
       <Call />
       <Bet />

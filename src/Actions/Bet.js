@@ -4,10 +4,28 @@ import dispatch from "../dispatch";
 import { TableContext } from "../Table";
 import ReactSlider from "react-slider";
 
+function callOnly(me, players) {
+  if (!me.allin && players) {
+    if (
+      Object.values(players).filter(player => player.allin).length ===
+      Object.values(players).length - 1
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function Bet() {
-  const { tableId, maxBet, betSum, pot, me = {}, bigBlind: step } = useContext(
-    TableContext
-  );
+  const {
+    tableId,
+    players,
+    maxBet,
+    betSum,
+    pot,
+    me = {},
+    bigBlind: step
+  } = useContext(TableContext);
 
   const { id: playerId, chips = 0, bet = 0 } = me;
   const [disabled, disable] = useState(false);
@@ -33,7 +51,14 @@ function Bet() {
   }, [min]);
 
   return (
-    <div className={`bet-control${maxBet > max ? " disabled" : ""}`}>
+    <div
+      className={[
+        "bet-control",
+        maxBet > max || callOnly(me, players) ? "disabled" : ""
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <button
         className="bet"
         disabled={disabled}
