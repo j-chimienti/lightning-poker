@@ -2,6 +2,10 @@ import React from "react";
 import PositionsInfo from "./PositionsInfo";
 import TableCardsPreview from "./TableCardsPreview";
 
+export function format(value) {
+  return String(value).replace(/000$/, "k");
+}
+
 function TablePreview({
   title,
   fun,
@@ -25,16 +29,18 @@ function TablePreview({
       <div>
         <div>
           {title}
-          {fun ? <span className="fun"> / free</span> : ""}
-          {rake > 0 ? <span className="rake"> / rake {rake}%</span> : ""}
+          {fun ? <span className="fun"> free</span> : ""}
+          {rake > 0 ? <span className="rake"> rake {rake}%</span> : ""}
         </div>
-        <div className="stakes">{`Stakes ${smallBlind}/${bigBlind}`}</div>
+        <div className="stakes">{`Stakes ${format(smallBlind)}/${format(
+          bigBlind
+        )}`}</div>
       </div>
       <TableCardsPreview cards={cards} />
       <div>
         <div>
           <span className="enter">Buy In / </span>
-          <span className="buy-in">{buyIn}</span>
+          <span className="buy-in">{format(buyIn)}</span>
         </div>
         <div className="players-info">
           Players {posMap.length} of {maxPlayers}

@@ -3,6 +3,7 @@ import { TableContext } from "./index";
 import HiddenCard from "../HiddenCard";
 import Card from "../Card";
 import ChipStack from "../ChipStack";
+import { format } from "../Games/TablePreview";
 
 function Info() {
   const {
@@ -20,7 +21,7 @@ function Info() {
     <div className="table-info">
       <div>
         <h2>
-          {tableId} {smallBlind}/{bigBlind}/{buyIn}
+          {tableId} {format(smallBlind)}/{format(bigBlind)}/{format(buyIn)}
         </h2>
         <div className="round-pot">
           <div className="round pill">{round}</div>
