@@ -39,7 +39,8 @@
     right: 0;
 
     display: grid;
-    place-items: center;
+    justify-items: center;
+    align-content: center;
 
     .five-cards {
       margin: 1.2vmin;
