@@ -26,6 +26,8 @@ exports.action = functions.https.onRequest(async (request, response) => {
       return response.send({});
     }
 
+    console.log(request.body);
+
     try {
       if (type === JOIN) {
         await joinTable(admin.firestore(), request.body);

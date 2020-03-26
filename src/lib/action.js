@@ -16,7 +16,5 @@ module.exports = async (
     });
 
     await updateState(db, tx, tableId, table, players);
-
-    console.log(type, tableId, playerId);
   });
 };
