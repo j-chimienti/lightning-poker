@@ -7,7 +7,7 @@ export default (limit = 20) => {
       .firestore()
       .collection("tables")
       .where("private", "==", 0)
-      .orderBy("fun")
+      .orderBy("fun", "desc")
       .orderBy("bigBlind")
       .limit(limit),
     { idField: "id" }
