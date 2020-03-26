@@ -6,7 +6,8 @@ export default (limit = 20) => {
     firebase
       .firestore()
       .collection("tables")
-      // .orderBy("fun")
+      .where("private", "==", 0)
+      .orderBy("fun")
       .orderBy("bigBlind")
       .limit(limit),
     { idField: "id" }
