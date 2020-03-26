@@ -3,6 +3,7 @@ import dispatch from "../dispatch";
 import { TableContext } from "./index";
 import { AppContext } from "../App";
 import usePosition from "./use-position";
+import { JOIN } from "../lib/types";
 
 function JoinTable({ position }) {
   const { tableId, showError } = useContext(TableContext);
@@ -23,14 +24,12 @@ function JoinTable({ position }) {
         viewBox="0 0 100 100"
         onClick={async () => {
           try {
-            let { error } = await dispatch(
-              {
-                tableId,
-                profileId,
-                position
-              },
-              "join"
-            );
+            let { error } = await dispatch({
+              type: JOIN,
+              tableId,
+              profileId,
+              position
+            });
             console.log(error);
             if (error) {
               showError(error);

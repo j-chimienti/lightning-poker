@@ -34,9 +34,7 @@ function App() {
 
   useEffect(() => {
     if (user && user.uid) {
-      dispatch({}, "action");
-      dispatch({}, "join");
-      dispatch({}, "leave");
+      dispatch({});
     }
   }, [user]);
 

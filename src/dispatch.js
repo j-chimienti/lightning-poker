@@ -1,6 +1,6 @@
-export default async (args = {}, url = "action") =>
+export default async (args = {}) =>
   window
-    .fetch(`${process.env.REACT_APP_FUNCTIONS_URL}/${url}`, {
+    .fetch(`${process.env.REACT_APP_FUNCTIONS_URL}/action`, {
       method: "POST",
       body: JSON.stringify(args),
       headers: { "Content-Type": "application/json" }
