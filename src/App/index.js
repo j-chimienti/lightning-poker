@@ -9,6 +9,7 @@ import Games from "../Games";
 import ToggleButton from "./ToggleButton";
 import Table from "../Table";
 import Lobby from "../Lobby";
+import dispatch from "../dispatch";
 
 import "./styles.scss";
 
@@ -30,6 +31,14 @@ function App() {
       firebase.auth().signInAnonymously();
     }
   }, [user, loading, error]);
+
+  useEffect(() => {
+    if (user && user.uid) {
+      dispatch({}, "action");
+      dispatch({}, "join");
+      dispatch({}, "leave");
+    }
+  }, [user]);
 
   const [{ balance, hash } = { balance: 0 }] = useDocumentData(
     user &&
