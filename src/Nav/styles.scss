@@ -10,17 +10,17 @@ nav {
   grid-area: nav;
 
   .logo {
-    height: 5.5vmin;
-    width: 5.5vmin;
+    width: 42px;
+    height: 42px;
     grid-area: logo;
-    margin: 2.5vmin;
+    margin: 12px 8px;
     cursor: pointer;
   }
 
   .menu-item {
-    width: 3vmin;
-    height: 3vmin;
-    margin: 3vmin 4vmin;
+    width: 24px;
+    height: 24px;
+    margin: 20px;
     grid-area: menu;
     justify-self: end;
     cursor: pointer;
