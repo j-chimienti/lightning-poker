@@ -6,14 +6,14 @@
   left: 0;
   right: 0;
   display: grid;
-  grid-template-columns: minmax(15vmin, auto) minmax(15vmin, auto) minmax(
+  grid-template-columns: minmax(auto, 78px) minmax(auto, 78px) minmax(
       auto,
-      50vmin
+      360px
     );
   justify-content: center;
   align-content: center;
-  grid-gap: 12px;
-  padding-bottom: 10px;
+  grid-gap: 5px;
+  padding: 0 5px 5px 5px;
 
   &.active {
     opacity: 1;
@@ -31,7 +31,7 @@
     padding: 0;
     cursor: pointer;
     background: transparent;
-    font-size: 2vmin;
+    font-size: 13px;
   }
 
   .fold-control {

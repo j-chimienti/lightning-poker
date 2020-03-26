@@ -7,7 +7,9 @@ import Call from "./Call";
 import Bet from "./Bet";
 
 function Actions() {
-  const { me: { active } = {} } = useContext(TableContext);
+  let { me: { active } = {} } = useContext(TableContext);
+
+  // active = true;
 
   return (
     <div
