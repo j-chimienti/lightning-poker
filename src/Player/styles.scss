@@ -63,7 +63,7 @@
   right: 0;
   bottom: 2vmin;
   text-transform: uppercase;
-  font-size: 1.6vmin;
+  font-size: 2vmin;
   background-color: transparent;
   padding: 0.4vmin 0.7vmin;
 
@@ -84,7 +84,8 @@
 
 .players .card,
 .players .hidden-card {
-  width: 7vmin;
+  width: 9.5vmin;
+  max-width: 70px;
 }
 
 .player-cards {
@@ -98,8 +99,8 @@
 }
 
 .info-circle {
-  width: 2.2vmin;
-  height: 2.2vmin;
+  width: 2.8vmin;
+  height: 2.8vmin;
   display: block;
 }
 
