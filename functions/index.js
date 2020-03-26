@@ -19,6 +19,11 @@ if (process.env.FUNCTIONS_EMULATOR) {
 
 exports.action = functions.https.onRequest(async (request, response) => {
   cors(request, response, async () => {
+    const { tableId } = request.body || {};
+    if (!tableId) {
+      return response.send({});
+    }
+
     try {
       await action(admin.firestore(), request.body);
       return response.send({ success: true });
@@ -30,6 +35,11 @@ exports.action = functions.https.onRequest(async (request, response) => {
 
 exports.join = functions.https.onRequest(async (request, response) => {
   cors(request, response, async () => {
+    const { tableId } = request.body || {};
+    if (!tableId) {
+      return response.send({});
+    }
+
     try {
       await joinTable(admin.firestore(), request.body);
       return response.send({ success: true });
@@ -41,6 +51,11 @@ exports.join = functions.https.onRequest(async (request, response) => {
 
 exports.leave = functions.https.onRequest(async (request, response) => {
   cors(request, response, async () => {
+    const { tableId } = request.body || {};
+    if (!tableId) {
+      return response.send({});
+    }
+
     try {
       await leaveTable(admin.firestore(), request.body);
       return response.send({ success: true });
