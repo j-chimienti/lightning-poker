@@ -16,6 +16,7 @@ const CALL = "call";
 const FOLD = "fold";
 const DEAL = "deal";
 const NEW_ROUND = "newround";
+const WARM_UP = "warmup";
 
 // player states
 const READY = "ready";
@@ -69,6 +70,7 @@ module.exports = {
   FOLD,
   DEAL,
   NEW_ROUND,
+  WARM_UP,
 
   // player states
   READY,

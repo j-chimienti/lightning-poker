@@ -10,6 +10,7 @@ import ToggleButton from "./ToggleButton";
 import Table from "../Table";
 import Lobby from "../Lobby";
 import dispatch from "../dispatch";
+import { WARM_UP } from "../lib/types";
 
 import "./styles.scss";
 
@@ -34,7 +35,7 @@ function App() {
 
   useEffect(() => {
     if (user && user.uid) {
-      dispatch({});
+      dispatch({ type: WARM_UP, tableId: "dev_private_1" });
     }
   }, [user]);
 
