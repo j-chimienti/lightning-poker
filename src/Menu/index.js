@@ -19,6 +19,12 @@ function Menu() {
         <div className="info">{profileId}</div>
         <div className="title">Telegram</div>
         <div className="info">LNPoker</div>
+        <div className="title">GitHub</div>
+        <div className="info">
+          <a href="https://github.com/igreshev/lightning-poker">
+            Lightning Poker
+          </a>
+        </div>
         <div className="title">CONTACT</div>
         <div className="info">lightning-poker@protonmail.com</div>
       </div>
