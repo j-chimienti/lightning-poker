@@ -4,7 +4,6 @@ import Actions from "../Actions";
 import Players from "./Players";
 import Info from "./Info";
 import "./styles.scss";
-import { HORIZONTAL_LAYOUT, VERTICAL_LAYOUT } from "./defs";
 import useTable from "./use-table";
 import usePlayers from "./use-players";
 import { AppContext } from "../App";
@@ -14,7 +13,6 @@ export const TableContext = createContext();
 
 function Table({ match }) {
   const { tableId } = match.params;
-  const [layout, setLayot] = useState(HORIZONTAL_LAYOUT);
   let { profileHash } = useContext(AppContext);
   const [coordinates, setCoordinates] = useState({});
 
@@ -36,9 +34,6 @@ function Table({ match }) {
 
   useEffect(() => {
     window.onresize = () => {
-      if (window.innerHeight > window.innerWidth) {
-        setLayot(VERTICAL_LAYOUT);
-      } else setLayot(HORIZONTAL_LAYOUT);
       let co = {};
       let rect;
 
@@ -58,7 +53,6 @@ function Table({ match }) {
     <TableContext.Provider
       value={{
         ...table,
-        layout,
         tableId,
         players,
         me,
@@ -71,17 +65,10 @@ function Table({ match }) {
       <Helmet>
         <title>{`${process.env.REACT_APP_TABLE_TITLE} ${table.title}`}</title>
       </Helmet>
-      <div
-        className={`table ${
-          layout === VERTICAL_LAYOUT ? "vertical" : ""
-        }`.trim()}
-      >
+      <div className="table">
         {!loadingTable && (
           <>
-            <Body
-              layout={layout}
-              playersCount={Math.max(8, table.maxPlayers)}
-            />
+            <Body playersCount={Math.max(8, table.maxPlayers)} />
             <Info />
             <Players />
           </>

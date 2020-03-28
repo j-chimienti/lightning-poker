@@ -22,12 +22,16 @@ function generateLinePoints(sides) {
   };
 }
 
-function TableBody({ playersCount = 8, layout }) {
+function TableBody({ playersCount = 8 }) {
   const points = generatePoints(playersCount);
   const linePoints = generateLinePoints(playersCount);
 
   return (
-    <svg className={`table-body`} viewBox={`0 0 1000 1000`}>
+    <svg
+      className={`table-body`}
+      viewBox={`0 0 1000 1000`}
+      preserveAspectRatio="none"
+    >
       <g>
         {[...Array(playersCount)].map((e, i) => (
           <polygon

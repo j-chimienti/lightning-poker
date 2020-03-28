@@ -1,34 +1,14 @@
 .table {
   height: 100vh;
 
-  .error {
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.7);
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    display: grid;
-    place-content: center;
-    padding: 20px;
-  }
-
-  h2 {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 300;
-    text-transform: uppercase;
-    font-size: 1.7vmin;
-    text-align: center;
-    position: relative;
-    top: -7.5vmin;
-  }
+  display: grid;
+  place-content: center;
 
   .table-body {
     overflow: visible;
-    width: 100%;
-    height: 100%;
-    transform: scale(1.1, 0.7) rotate(3deg);
+    width: 80vw;
+    height: 72vh;
+    transform: rotate(3deg);
 
     polygon,
     circle {
@@ -119,9 +99,32 @@
     height: 42px;
   }
 
-  &.vertical {
-    .table-body {
-      transform: scale(0.7, 1.1) rotate(3deg);
-    }
+  .error {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: grid;
+    place-content: center;
+    padding: 20px;
   }
+
+  h2 {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 1.7vmin;
+    text-align: center;
+    position: relative;
+    top: -7.5vmin;
+  }
+
+  // &.vertical {
+  //   .table-body {
+  //     transform: scale(0.7, 1.1) rotate(3deg);
+  //   }
+  // }
 }
