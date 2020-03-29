@@ -17,16 +17,19 @@ function Menu() {
         <Widhtdraw />
         <div className="title">Account</div>
         <div className="info">{profileId}</div>
-        <div className="title">Telegram</div>
-        <div className="info">LNPoker</div>
-        <div className="title">GitHub</div>
-        <div className="info">
-          <a href="https://github.com/igreshev/lightning-poker">
-            Lightning Poker
-          </a>
-        </div>
         <div className="title">CONTACT</div>
-        <div className="info">lightning-poker@protonmail.com</div>
+        <div className="info">
+          <a href="mailto:lightning-poker@protonmail.com">Mail</a>
+        </div>
+        <div className="info">
+          <a href="https://twitter.com/BitcoinLNPoker">Twitter</a>
+        </div>
+        <div className="info">
+          <a href="https://t.me/LightningPoker">Telegram</a>
+        </div>
+        <div className="info">
+          <a href="https://github.com/igreshev/lightning-poker">GitHub</a>
+        </div>
       </div>
     </aside>
   );
