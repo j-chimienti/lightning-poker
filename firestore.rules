@@ -20,5 +20,9 @@ service cloud.firestore {
       allow create;
       allow get;
     }
+
+    match /actions/{action} {
+      allow create;
+    }
   }
 }

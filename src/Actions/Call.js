@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { CALL } from "../lib/types";
-import dispatch from "../dispatch";
+import { dispatchf } from "../dispatch";
 import { TableContext } from "../Table";
 
 function Call() {
@@ -23,7 +23,7 @@ function Call() {
         onClick={async () => {
           try {
             disable(true);
-            await dispatch({ type: CALL, tableId, playerId });
+            await dispatchf({ type: CALL, tableId, playerId });
             disable(false);
           } catch (e) {
             console.log(e);

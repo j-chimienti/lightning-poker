@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { BET } from "../lib/types";
-import dispatch from "../dispatch";
+import { dispatchf } from "../dispatch";
 import { TableContext } from "../Table";
 import ReactSlider from "react-slider";
 
@@ -66,7 +66,7 @@ function Bet() {
           let amount = betAmount - bet;
           try {
             disable(true);
-            await dispatch({ type: BET, tableId, playerId, amount });
+            await dispatchf({ type: BET, tableId, playerId, amount });
             disable(false);
           } catch (e) {
             console.log(e);

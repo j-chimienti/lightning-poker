@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FOLD } from "../lib/types";
-import dispatch from "../dispatch";
+import { dispatchf } from "../dispatch";
 import { TableContext } from "../Table";
 
 function Fold() {
@@ -16,7 +16,7 @@ function Fold() {
         onClick={async () => {
           try {
             disable(true);
-            await dispatch({ type: FOLD, tableId, playerId });
+            await dispatchf({ type: FOLD, tableId, playerId });
             disable(false);
           } catch (e) {
             console.log(e);

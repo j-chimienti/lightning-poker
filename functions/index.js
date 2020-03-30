@@ -43,6 +43,26 @@ exports.action = functions.https.onRequest(async (request, response) => {
   });
 });
 
+exports.actionf = functions.firestore
+  .document("/actions/{documentId}")
+  .onCreate(async snap => {
+    const { type } = snap.data();
+
+    console.log(snap.data());
+
+    try {
+      if (type === JOIN) {
+        await joinTable(admin.firestore(), snap.data());
+      } else if (type === LEAVE) {
+        await leaveTable(admin.firestore(), snap.data());
+      } else {
+        await action(admin.firestore(), snap.data());
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  });
+
 exports.join = functions.https.onRequest(async (request, response) => {
   cors(request, response, async () => {
     const { tableId } = request.body || {};
