@@ -7,17 +7,9 @@ import "./styles.scss";
 import useTable from "./use-table";
 import usePlayers from "./use-players";
 import { AppContext } from "../App";
-import { addHandler } from "../App/reducer";
 import { Helmet } from "react-helmet";
 
-const PLAY_NOTIFY_SOUND = "PLAY_NOTIFY_SOUND";
-
-addHandler(PLAY_NOTIFY_SOUND, (action, { alerts }) => {
-  if (alerts) {
-    const audioElement = document.getElementById("notify");
-    audioElement.play();
-  }
-});
+export const PLAY_NOTIFY_SOUND = "PLAY_NOTIFY_SOUND";
 
 export const TableContext = createContext();
 

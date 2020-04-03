@@ -1,8 +1,17 @@
 import React, { useContext } from "react";
 import { AppContext } from "../App";
 import { addHandler } from "../App/reducer";
+import { PLAY_NOTIFY_SOUND } from "../Table/index";
 
 const TOGGLE_ALERT_STATE = "TOGGLE_ALERT_STATE";
+
+addHandler(PLAY_NOTIFY_SOUND, (action, { alerts }) => {
+  console.log("asass");
+  if (alerts) {
+    const audioElement = document.getElementById("notify");
+    audioElement.play();
+  }
+});
 
 addHandler(TOGGLE_ALERT_STATE, (action, state) => {
   let alerts = !state.alerts;
