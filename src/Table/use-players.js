@@ -35,5 +35,5 @@ export default (tableId, profileHash) => {
   // TODO: use playes only to get add/remove player updates,
   // let Player component sibscribe to player document
 
-  return [players, me];
+  return [players, me, loading];
 };

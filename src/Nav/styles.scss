@@ -5,24 +5,22 @@ nav {
   height: 0;
 
   display: grid;
-  grid-template-areas: "logo menu";
-  align-items: start;
+  grid-template-columns: 1fr auto auto;
   grid-area: nav;
 
   .logo {
     width: 42px;
     height: 42px;
-    grid-area: logo;
     margin: 11px 8px;
     cursor: pointer;
+    justify-self: start;
   }
 
+  .alerts-state,
   .menu-item {
     width: 24px;
     height: 24px;
     margin: 20px;
-    grid-area: menu;
-    justify-self: end;
     cursor: pointer;
   }
 }
