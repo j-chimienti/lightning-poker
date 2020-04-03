@@ -9,21 +9,16 @@ import usePlayers from "./use-players";
 import { AppContext } from "../App";
 import { Helmet } from "react-helmet";
 
-export const PLAY_NOTIFY_SOUND = "PLAY_NOTIFY_SOUND";
-
 export const TableContext = createContext();
 
 function Table({ match }) {
   const { tableId } = match.params;
-  let { profileHash, dispatch } = useContext(AppContext);
+  let { profileHash } = useContext(AppContext);
   const [coordinates, setCoordinates] = useState({});
 
   const [table = { maxPlayers: 7 }, loadingTable] = useTable(tableId);
-  const [players, me, loadingPlayers] = usePlayers(tableId, profileHash);
+  const [players, me] = usePlayers(tableId, profileHash);
   const [error, setError] = useState("");
-  const [savedPlayersCount, savePlayresCount] = useState(10);
-
-  const playersCount = Object.keys(players).length;
 
   const maxBet = Math.max(
     0,
@@ -36,18 +31,6 @@ function Table({ match }) {
     // show the error
     setError(error);
   };
-
-  useEffect(() => {
-    if (loadingPlayers) {
-      return;
-    }
-    if (playersCount > savedPlayersCount) {
-      dispatch({
-        type: PLAY_NOTIFY_SOUND
-      });
-    }
-    savePlayresCount(playersCount);
-  }, [loadingPlayers, playersCount, savedPlayersCount, dispatch]);
 
   useEffect(() => {
     window.onresize = () => {
