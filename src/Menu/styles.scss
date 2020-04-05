@@ -39,6 +39,11 @@
     margin: 2px 0;
     font-weight: 400;
     font-size: 12px;
+    overflow-wrap: break-word;
+  }
+
+  .courier {
+    font-family: "Courier";
   }
 
   ul {
