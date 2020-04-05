@@ -66,6 +66,9 @@
 .hidden-card {
   fill: black;
   box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.1);
+  margin: 2px;
+  width: 11vmin;
+  max-width: 60px;
 }
 
 button {

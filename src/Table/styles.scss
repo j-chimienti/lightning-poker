@@ -2,12 +2,17 @@
   height: 100vh;
 
   display: grid;
-  place-content: center;
+  align-content: center;
+  justify-content: center;
+
+  h2 {
+    display: none;
+  }
 
   .table-body {
     overflow: visible;
-    width: 80vw;
-    height: 72vh;
+    width: 74vw;
+    height: 60vh;
     transform: rotate(3deg);
 
     polygon,
@@ -43,13 +48,6 @@
 
     .five-cards {
       margin: 1.2vmin;
-    }
-
-    .card,
-    .hidden-card {
-      margin: 2px;
-      width: 9.5vmin;
-      max-width: 64px;
     }
 
     .hidden-card {

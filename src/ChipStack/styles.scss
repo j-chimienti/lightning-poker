@@ -13,11 +13,9 @@
   }
 
   .chips-sum {
-    background-color: rgba(0, 0, 0, 0.2);
-    font-size: 1.3vmin;
-    padding: 0.2vmin 0.6vmin;
+    font-size: 2vmin;
+    text-shadow: 0.1vmin 0.11vmin 0.2vmin rgba(0, 0, 0, 0.7);
     padding-bottom: 0.27vmin;
-    border-radius: 8px;
     justify-self: start;
   }
 
@@ -26,7 +24,8 @@
     display: inline-block;
 
     .chip {
-      width: 3.2vmin;
+      width: 5vmin;
+      max-width: 28px;
 
       &:nth-child(2) {
         position: absolute;

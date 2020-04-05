@@ -63,7 +63,7 @@
   right: 0;
   bottom: 2vmin;
   text-transform: uppercase;
-  font-size: 2vmin;
+  font-size: 2.1vmin;
   background-color: transparent;
   padding: 0.4vmin 0.7vmin;
 
@@ -80,12 +80,6 @@
     grid-area: stake;
     text-align: center;
   }
-}
-
-.players .card,
-.players .hidden-card {
-  width: 9.5vmin;
-  max-width: 64px;
 }
 
 .player-cards {
