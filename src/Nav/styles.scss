@@ -20,7 +20,11 @@ nav {
   .menu-item {
     width: 24px;
     height: 24px;
-    margin: 20px;
+    margin: 20px 10px;
     cursor: pointer;
+  }
+
+  .menu-item {
+    margin-right: 20px;
   }
 }
