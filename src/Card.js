@@ -81,12 +81,12 @@ const Card = ({ rank, type }) => (
     <text
       x="50%"
       textAnchor="middle"
-      transform="translate(-20, 15)"
-      fontSize="14"
+      transform="translate(-20, 20)"
+      fontSize="18"
     >
       {rank}
     </text>
-    <g transform="translate(10, 23) scale(0.33) rotate(180)">{paths[type]}</g>
+    <g transform="translate(10, 30) scale(0.4) rotate(180)">{paths[type]}</g>
     <g transform="translate(30, 51) rotate(180)">{paths[type]}</g>
   </svg>
 );
