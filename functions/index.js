@@ -1,5 +1,6 @@
 const functions = require("firebase-functions").region("europe-west1");
 const admin = require("firebase-admin");
+const shajs = require("sha.js");
 const cors = require("cors")({
   // origin: true
 });
@@ -9,7 +10,7 @@ const action = require("./lib/action");
 const joinTable = require("./lib/join-table");
 const leaveTable = require("./lib/leave-table");
 
-const { JOIN, LEAVE } = require("./lib/types");
+const { JOIN, LEAVE, REQUESTED_INVOICE } = require("./lib/types");
 
 if (process.env.FUNCTIONS_EMULATOR) {
   // load config from services....
@@ -89,6 +90,56 @@ exports.leave = functions.https.onRequest(async (request, response) => {
     try {
       await leaveTable(admin.firestore(), request.body);
       return response.send({ success: true });
+    } catch (e) {
+      return response.status(500).send({ error: e.message });
+    }
+  });
+});
+
+exports.lnurlpay = functions.https.onRequest(async (request, response) => {
+  cors(request, response, async () => {
+    let { playerId, amount: msatoshi } = request.query;
+
+    const metadata = JSON.stringify([
+      ["text/plain", `Fund account ${playerId} on lightning-poker.com.`]
+    ]);
+
+    try {
+      if (msatoshi) {
+        // return invoice
+        let ref = await admin.firestore()
+          .collection("invoices")
+          .add({
+            tokens: Math.floor(Number(msatoshi) / 1000),
+            profileId: playerId,
+            descriptionHash: shajs("sha256").update(metadata).digest("base64"),
+            state: REQUESTED_INVOICE
+          });
+
+        let request = await new Promise((resolve, reject) => {
+          let unsubscribe = ref.onSnapshot(snap => {
+            let request = snap.get('payment_request')
+            if (request) {
+              resolve(request);
+              unsubscribe();
+            }
+          }, reject);
+        });
+
+        return response.send({
+          pr: request,
+          disposable: false,
+        });
+      } else {
+        // return params
+        return response.send({
+          callback: `${process.env.REACT_APP_FUNCTIONS_URL}/lnurlpay`,
+          maxSendable: 100000000,
+          minSendable: 100000,
+          metadata,
+          tag: "payRequest"
+        });
+      }
     } catch (e) {
       return response.status(500).send({ error: e.message });
     }
