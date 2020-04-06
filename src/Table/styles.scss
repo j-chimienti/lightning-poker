@@ -11,8 +11,10 @@
 
   .table-body {
     overflow: visible;
-    width: 74vw;
-    height: 60vh;
+    width: calc(50vw * 1.45);
+    height: 50vh;
+    max-width: calc(540px * 1.45);
+    max-height: 540px;
     transform: rotate(3deg);
 
     polygon,
