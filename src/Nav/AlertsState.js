@@ -14,7 +14,7 @@ addHandler(PLAY_NOTIFY_SOUND, (action, { alerts }) => {
 
 addHandler(TOGGLE_ALERT_STATE, (action, state) => {
   let alerts = !state.alerts;
-  return { ...state, alerts };
+  return { alerts };
 });
 
 function AlertsState() {

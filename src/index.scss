@@ -1,8 +1,8 @@
 html {
   margin: 0;
   height: 100vh;
-  // background-size: cover;
   box-sizing: border-box;
+  background-color: #169651;
 }
 
 body {
@@ -24,14 +24,6 @@ a {
   color: inherit;
 }
 
-.blue {
-  background-image: linear-gradient(55.21deg, #005bbd 0%, #00a5eb 100%);
-}
-
 .green {
-  background-image: linear-gradient(55.21deg, #169651 0%, #0ccc5a 100%);
-}
-
-.purple {
-  background-image: linear-gradient(55.21deg, #623a91 0%, #b853e6 100%);
+  // background-image: linear-gradient(90deg, #169651 0%, #0ccc5a 100%);
 }

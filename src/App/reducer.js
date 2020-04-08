@@ -1,5 +1,3 @@
-export const initialState = {};
-
 const handlers = [];
 
 export function addHandler(type, fn) {
