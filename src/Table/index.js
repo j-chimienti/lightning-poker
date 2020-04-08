@@ -3,7 +3,7 @@ import Body from "./Body";
 import Actions from "../Actions";
 import Players from "./Players";
 import Info from "./Info";
-import "./styles.scss";
+// import "./styles.scss";
 import useTable from "./use-table";
 import usePlayers from "./use-players";
 import { AppContext } from "../App";

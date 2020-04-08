@@ -5,7 +5,6 @@
   justify-content: center;
   grid-template-areas: "body";
 
-  // portrait
   .table {
     fill: var(--table-color);
     grid-area: body;
@@ -18,7 +17,7 @@
 @media only screen and (orientation: landscape) {
   .room {
     .table {
-      fill: rgba(0, 0, 0, 0.2);
+      // fill: rgba(0, 0, 0, 0.2);
     }
   }
 }
