@@ -7,17 +7,50 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import firebase from "firebase/app";
 import Games from "../Games";
 import ToggleButton from "./ToggleButton";
-import Table from "../Table";
+import Room from "../Room";
 import Lobby from "../Lobby";
-import reducer, { initialState } from "./reducer";
-
+import reducer, { addHandler } from "./reducer";
 import "./styles.scss";
 
 export const AppContext = createContext();
 
+export const PORTRAIT = "portrait";
+export const LANDSCAPE = "landscape";
+export const TOGGLE_ORIENTATION = "TOGGLE_ORIENTATION";
+
+addHandler(TOGGLE_ORIENTATION, action => {
+  return {
+    orientation:
+      action.orientation === 0 || action.orientation === 180
+        ? PORTRAIT
+        : LANDSCAPE
+  };
+});
+
+const initialState = {
+  orientation: LANDSCAPE
+};
+
 function App() {
   const [user, loading, error] = useAuthState(firebase.auth());
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    dispatch({
+      type: TOGGLE_ORIENTATION,
+      orientation: window.orientation
+    });
+    window.addEventListener(
+      "orientationchange",
+      function() {
+        dispatch({
+          type: TOGGLE_ORIENTATION,
+          orientation: window.orientation
+        });
+      },
+      false
+    );
+  }, []);
 
   useEffect(() => {
     if (loading) {
@@ -55,7 +88,7 @@ function App() {
       <Router>
         <Nav />
         <div className="app">
-          <Route path="/:tableId" component={Table} />
+          <Route path="/:tableId" component={Room} />
           <Route path="/" exact component={Lobby} />
         </div>
         <Menu />

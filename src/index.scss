@@ -2,7 +2,9 @@ html {
   margin: 0;
   height: 100vh;
   box-sizing: border-box;
-  background-color: #169651;
+  --table-color: #08d362;
+  --bg-color: #169651;
+  background-color: var(--bg-color);
 }
 
 body {

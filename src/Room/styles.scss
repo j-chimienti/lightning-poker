@@ -1,0 +1,24 @@
+.room {
+  height: 100vh;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-template-areas: "body";
+
+  // portrait
+  .table {
+    fill: var(--table-color);
+    grid-area: body;
+    width: 80vw;
+    max-width: 728px;
+    height: auto;
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  .room {
+    .table {
+      fill: rgba(0, 0, 0, 0.2);
+    }
+  }
+}
