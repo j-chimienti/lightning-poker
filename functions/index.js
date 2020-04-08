@@ -146,7 +146,8 @@ exports.lnurlpay = functions.https.onRequest(async (request, response) => {
           maxSendable: 1000000000,
           minSendable: 1000,
           metadata,
-          tag: "payRequest"
+          tag: "payRequest",
+          routes: []
         });
       }
     } catch (e) {
