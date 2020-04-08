@@ -1,5 +1,7 @@
 const REGION = process.env.REGION || "europe-west1";
 
+const fs = require("fs");
+const path = require("path");
 const functions = require("firebase-functions").region(REGION);
 const admin = require("firebase-admin");
 const cors = require("cors")({
@@ -104,7 +106,11 @@ exports.lnurlpay = functions.https.onRequest(async (request, response) => {
     let { playerId, amount: msatoshi } = request.query;
 
     const metadata = JSON.stringify([
-      ["text/plain", `Fund account ${playerId} on lightning-poker.com.`]
+      ["text/plain", `Fund account ${playerId} on lightning-poker.com.`],
+      ["image/png;base64",
+        fs.readFileSync(path.resolve(__dirname, "../public/logo192.png"))
+          .toString("base64")
+      ]
     ]);
 
     try {
