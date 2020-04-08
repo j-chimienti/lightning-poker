@@ -142,7 +142,7 @@ exports.lnurlpay = functions.https.onRequest(async (request, response) => {
       } else {
         // return params
         return response.send({
-          callback: `${process.env.REACT_APP_FUNCTIONS_URL}/lnurlpay`,
+          callback: `${process.env.REACT_APP_FUNCTIONS_URL}/lnurlpay?playerId=${playerId}`,
           maxSendable: 1000000000,
           minSendable: 1000,
           metadata,
