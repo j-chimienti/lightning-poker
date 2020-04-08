@@ -1,9 +1,12 @@
-const functions = require("firebase-functions").region("europe-west1");
+const REGION = process.env.REGION || "europe-west1";
+
+const functions = require("firebase-functions").region(REGION);
 const admin = require("firebase-admin");
-const shajs = require("sha.js");
 const cors = require("cors")({
   // origin: true
 });
+const sha256 = require("crypto-js/sha256");
+const Base64 = require("crypto-js/enc-base64");
 
 const createProfile = require("./lib/create-profile");
 const action = require("./lib/action");
@@ -112,7 +115,7 @@ exports.lnurlpay = functions.https.onRequest(async (request, response) => {
           .add({
             tokens: Math.floor(Number(msatoshi) / 1000),
             profileId: playerId,
-            descriptionHash: shajs("sha256").update(metadata).digest("base64"),
+            descriptionHash: Base64.stringify(sha256(metadata)),
             state: REQUESTED_INVOICE
           });
 
@@ -134,8 +137,8 @@ exports.lnurlpay = functions.https.onRequest(async (request, response) => {
         // return params
         return response.send({
           callback: `${process.env.REACT_APP_FUNCTIONS_URL}/lnurlpay`,
-          maxSendable: 100000000,
-          minSendable: 100000,
+          maxSendable: 1000000000,
+          minSendable: 1000,
           metadata,
           tag: "payRequest"
         });
