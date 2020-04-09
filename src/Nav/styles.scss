@@ -5,7 +5,7 @@ nav {
   height: 0;
 
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto auto auto;
   grid-area: nav;
 
   .logo {
@@ -17,11 +17,17 @@ nav {
   }
 
   .alerts-state,
+  .leave-room,
   .menu-item {
     width: 24px;
     height: 24px;
     margin: 20px 10px;
     cursor: pointer;
+
+    &[disabled] {
+      cursor: default;
+      opacity: 0.2;
+    }
   }
 
   .menu-item {

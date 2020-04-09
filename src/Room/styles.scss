@@ -8,9 +8,34 @@
   .table {
     fill: var(--table-color);
     grid-area: body;
-    width: 80vw;
+    width: 72vw;
     max-width: 728px;
     height: auto;
+
+    polygon {
+      stroke: var(--table-color);
+      stroke-linejoin: round;
+      stroke-width: 25;
+    }
+
+    .separator {
+      fill: none;
+      transform: scale(0.86, 0.86);
+      transform-origin: center;
+      stroke-width: 3;
+      stroke: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .join-table-new {
+    cursor: pointer;
+    fill: var(--table-color);
+  }
+
+  .community-cards {
+    .opaque {
+      opacity: 0.3;
+    }
   }
 }
 

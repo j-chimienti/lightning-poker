@@ -177,7 +177,7 @@ const Card = ({ x, y, width = 60, height = 90, rank, type }) => (
     y={y}
     width={width}
     height={height}
-    className="card"
+    className={["card", !rank && "opaque"].filter(Boolean).join(" ")}
     viewBox={`
     0 0 ${width} ${height}
   `}

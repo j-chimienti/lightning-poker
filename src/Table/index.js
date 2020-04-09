@@ -4,8 +4,8 @@ import Actions from "../Actions";
 import Players from "./Players";
 import Info from "./Info";
 // import "./styles.scss";
-import useTable from "./use-table";
-import usePlayers from "./use-players";
+import useTable from "../use-table";
+import usePlayers from "../use-players";
 import { AppContext } from "../App";
 import { Helmet } from "react-helmet";
 
