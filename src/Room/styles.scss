@@ -8,9 +8,10 @@
   .table {
     fill: var(--table-color);
     grid-area: body;
-    width: 72vw;
+    width: 80vw;
     max-width: 728px;
     height: auto;
+    overflow: visible;
 
     polygon {
       stroke: var(--table-color);

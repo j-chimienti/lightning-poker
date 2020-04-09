@@ -1,5 +1,10 @@
 import React from "react";
 
+export const CARD_WIDTH = 72;
+
+const CARD_ASPECT_RATIO = 1.5;
+export const CARD_HEIGHT = CARD_WIDTH * CARD_ASPECT_RATIO;
+
 export const RED = "#D30030";
 export const BLACK = "#231F20";
 
@@ -171,16 +176,21 @@ const opaque = (
 );
 
 // { rank: "Q", type: "C" }
-const Card = ({ x, y, width = 60, height = 90, rank, type }) => (
+const Card = ({
+  x,
+  y,
+  width = CARD_WIDTH,
+  height = CARD_HEIGHT,
+  rank,
+  type
+}) => (
   <svg
     x={x}
     y={y}
     width={width}
     height={height}
     className={["card", !rank && "opaque"].filter(Boolean).join(" ")}
-    viewBox={`
-    0 0 ${width} ${height}
-  `}
+    viewBox="0 0 60 90"
   >
     {!rank ? (
       opaque

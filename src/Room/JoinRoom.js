@@ -11,9 +11,7 @@ import {
   JOIN_CIRCLE_RADIUS
 } from "./utils";
 
-addHandler(PLAYER_JOINED, ({ position, tableId, profileId }, state) => {
-  console.log(position);
-});
+addHandler(PLAYER_JOINED, ({ position, tableId, profileId }, state) => {});
 
 addHandler(UPDATE_ACTIVE_STATE, ({ activePlayerId, activeTableId }) => {
   // update app state

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { AppContext, PORTRAIT } from "../App";
-import Card from "../Card";
+import Card, { CARD_WIDTH, CARD_HEIGHT } from "../Card";
 import { point, SIZE, ASPECT_RATIO, UPDATE_ACTIVE_STATE } from "./utils";
 import useTable from "../use-table";
 import usePlayers from "../use-players";
@@ -10,38 +10,31 @@ import "./styles.scss";
 export const RoomContext = createContext();
 
 const CommunityCards = ({ width, height, cards = [] }) => {
+  const MARGIN = 2;
   return (
     <svg
-      x={(width - 5 * 62) / 2}
-      y={(height - 90) / 2}
+      x={(width - 5 * CARD_WIDTH + MARGIN) / 2}
+      y={(height - CARD_HEIGHT) / 2}
       className="community-cards"
     >
       {[...Array(5)].map((e, i) => (
-        <Card key={i} {...cards[i]} x={62 * i} />
+        <Card key={i} {...cards[i]} x={(CARD_WIDTH + MARGIN) * i} />
       ))}
     </svg>
   );
 };
 
 function Table({ orientation, children, cards }) {
-  const { width, height, maxPlayers } = useContext(RoomContext);
-  const points = [...Array(maxPlayers).keys()]
+  const { width, height, tablePositions } = useContext(RoomContext);
+  const points = [...Array(tablePositions).keys()]
     .map(i => {
-      return point(width, height, (360 / maxPlayers) * i, 40).join(",");
+      return point(width, height, (360 / tablePositions) * i, 40).join(",");
     })
     .join(" ");
   return (
     <svg viewBox={`0 0 ${width} ${height}`} className="table">
       <polygon points={points} />
       <polygon className="separator" points={points} />
-      <rect
-        x={0}
-        y={0}
-        width={width}
-        height={height}
-        fill="none"
-        stroke="red"
-      />
       <CommunityCards
         orientation={orientation}
         width={width}
@@ -50,22 +43,6 @@ function Table({ orientation, children, cards }) {
       />
       {children}
     </svg>
-  );
-}
-
-function Positions(args) {
-  return (
-    <g>
-      <Position position={1} {...args} />
-      <Position position={2} {...args} />
-      <Position position={3} {...args} />
-      <Position position={4} {...args} />
-      <Position position={5} {...args} />
-      <Position position={6} {...args} />
-      <Position position={7} {...args} />
-      <Position position={8} {...args} />
-      <Position position={9} {...args} />
-    </g>
   );
 }
 
@@ -88,8 +65,6 @@ function Room({ match }) {
     width = Math.round(height / ASPECT_RATIO);
   }
 
-  let maxPlayers = table ? Math.max(table.maxPlayers, 8) : 8;
-
   useEffect(() => {
     if (playersLoading) {
       return;
@@ -104,6 +79,9 @@ function Room({ match }) {
     }
   }, [playersLoading, activePlayerId, tableId, me, dispatch]);
 
+  let maxPlayers = table ? table.maxPlayers : 0;
+  let tablePositions = Math.max(8, maxPlayers);
+
   return (
     <RoomContext.Provider
       value={{
@@ -114,13 +92,21 @@ function Room({ match }) {
         players,
         width,
         height,
-        maxPlayers
+        tablePositions,
+        maxPlayers,
+        activePlayerId
       }}
     >
       <div className="room">
         {!loadingTable && (
           <Table orientation={orientation} cards={table.cards}>
-            <Positions orientation={orientation} />
+            {!playersLoading && (
+              <g>
+                {[...Array(tablePositions).keys()].map(i => (
+                  <Position key={i} tablePosition={i} />
+                ))}
+              </g>
+            )}
           </Table>
         )}
       </div>

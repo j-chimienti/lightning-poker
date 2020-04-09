@@ -4,16 +4,51 @@ import Join from "./JoinRoom";
 import { RoomContext } from "./index";
 import { POSITION_WIDTH, POSITION_HEIGHT, point } from "./utils";
 
-function Position({ position, orientation }) {
+export function mapPosition(maxPlayers, position) {
+  if (maxPlayers < 8) {
+    return {
+      2: [1, 5],
+      3: [1, 4, 6],
+      4: [2, 4, 6, 8],
+      5: [2, 4, 5, 6, 8],
+      6: [1, 2, 4, 5, 6, 8],
+      7: [1, 2, 4, 5, 6, 7, 8]
+    }[maxPlayers][position];
+  } else {
+    return position + 1;
+  }
+}
+
+function Position({ tablePosition }) {
   const {
     width,
     height,
+    tablePositions,
     maxPlayers,
+    players,
     table: { posMap = [] } = {},
-    tableId
+    tableId,
+    activePlayerId
   } = useContext(RoomContext);
 
-  let t = 360 / maxPlayers;
+  let position = mapPosition(maxPlayers, tablePosition);
+  if (!position) {
+    return null;
+  }
+
+  let C;
+
+  if (posMap.includes(position)) {
+    C = <Player {...players[position]} />;
+  } else {
+    if (!activePlayerId) {
+      C = <Join tableId={tableId} position={position} />;
+    } else {
+      return null;
+    }
+  }
+
+  let t = 360 / tablePositions;
   const [x, y] = point(width, height, t * position + t / 2, 80);
 
   return (
@@ -23,11 +58,7 @@ function Position({ position, orientation }) {
       width={POSITION_WIDTH}
       height={POSITION_HEIGHT}
     >
-      {posMap.includes(position) ? (
-        <Player />
-      ) : (
-        <Join tableId={tableId} position={position} />
-      )}
+      {C}
     </svg>
   );
 }
