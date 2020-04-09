@@ -1,5 +1,4 @@
 import React from "react";
-import { mapPosition } from "../Table/Players";
 
 function PositionsInfo({ map = [], maxPlayers }) {
   return (
@@ -20,11 +19,7 @@ function PositionsInfo({ map = [], maxPlayers }) {
             id={`position-${i + 1}`}
             cx="270"
             cy="10"
-            fill={
-              map.find(p => p === mapPosition(maxPlayers, i))
-                ? "white"
-                : "rgba(255,255,255,0.15)"
-            }
+            fill={map.find(p => p === i) ? "white" : "rgba(255,255,255,0.15)"}
             r="20"
             style={{
               transformOrigin: "center",
