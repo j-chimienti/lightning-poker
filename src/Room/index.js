@@ -5,6 +5,7 @@ import { point, SIZE, ASPECT_RATIO, UPDATE_ACTIVE_STATE } from "./utils";
 import useTable from "../use-table";
 import usePlayers from "../use-players";
 import Position from "./TablePosition";
+import Actions from "../Actions";
 import "./styles.scss";
 
 export const RoomContext = createContext();
@@ -55,7 +56,7 @@ function Room({ match }) {
 
   const { tableId } = match.params;
   const [table, loadingTable] = useTable(tableId);
-  const [players, me, playersLoading] = usePlayers(tableId, profileHash);
+  const [players, me, loadingPlayers] = usePlayers(tableId, profileHash);
 
   let width = SIZE;
   let height = Math.round(width / ASPECT_RATIO);
@@ -66,7 +67,7 @@ function Room({ match }) {
   }
 
   useEffect(() => {
-    if (playersLoading) {
+    if (loadingPlayers) {
       return;
     }
     const id = me ? me.id : null;
@@ -77,10 +78,11 @@ function Room({ match }) {
         activeTableId: tableId
       });
     }
-  }, [playersLoading, activePlayerId, tableId, me, dispatch]);
+  }, [loadingPlayers, activePlayerId, tableId, me, dispatch]);
 
   let maxPlayers = table ? table.maxPlayers : 0;
   let tablePositions = Math.max(8, maxPlayers);
+  let ready = !(loadingPlayers && loadingTable);
 
   return (
     <RoomContext.Provider
@@ -94,20 +96,22 @@ function Room({ match }) {
         height,
         tablePositions,
         maxPlayers,
-        activePlayerId
+        activePlayerId,
+        me
       }}
     >
       <div className="room">
-        {!loadingTable && (
-          <Table orientation={orientation} cards={table.cards}>
-            {!playersLoading && (
+        {ready && (
+          <>
+            <Table orientation={orientation} cards={table.cards}>
               <g>
                 {[...Array(tablePositions).keys()].map(i => (
                   <Position key={i} tablePosition={i} />
                 ))}
               </g>
-            )}
-          </Table>
+            </Table>
+            <Actions />
+          </>
         )}
       </div>
     </RoomContext.Provider>

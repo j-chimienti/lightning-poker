@@ -1,12 +1,15 @@
 import React, { useContext, useState } from "react";
+import { RoomContext } from "../Room";
 import { CALL } from "../lib/types";
-import { dispatchf } from "../dispatch";
-import { TableContext } from "../Table";
+import dispatch from "../dispatch";
 
 function Call() {
-  const { tableId, maxBet, me = {} } = useContext(TableContext);
+  const { tableId, maxBet = 0, me = {} } = useContext(RoomContext);
   const { id: playerId, bet = 0, chips = 0 } = me;
   const [disabled, disable] = useState(false);
+
+  console.log(me);
+
   let amountToCall = maxBet - bet;
   let allin;
 
@@ -23,7 +26,7 @@ function Call() {
         onClick={async () => {
           try {
             disable(true);
-            await dispatchf({ type: CALL, tableId, playerId });
+            await dispatch({ type: CALL, tableId, playerId });
             disable(false);
           } catch (e) {
             console.log(e);

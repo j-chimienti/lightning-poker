@@ -4,6 +4,10 @@
   opacity: 1;
   left: 0;
   height: 100vh;
+
+  &.mobile {
+    // background-color: red;
+  }
 }
 
 .menu {
@@ -60,32 +64,4 @@
       transform: scale(-1, 1) translate(13px, 0);
     }
   }
-}
-
-.card,
-.hidden-card {
-  fill: black;
-  box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.1);
-  margin: 2px;
-  width: 9vmin;
-  max-width: 54px;
-}
-
-button {
-  font-family: "Oswald", sans-serif;
-  border: none;
-  -webkit-appearance: none;
-  text-transform: uppercase;
-  color: white;
-  // box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.15);
-  font-size: 1.5vmin;
-}
-
-.pill {
-  padding: 0.8vmin 2vmin;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 3vmin;
 }

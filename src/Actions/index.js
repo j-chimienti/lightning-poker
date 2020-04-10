@@ -1,23 +1,23 @@
 import React, { useContext } from "react";
-import { TableContext } from "../Table/index";
-import "./styles.scss";
-
 import Fold from "./Fold";
 import Call from "./Call";
 import Bet from "./Bet";
+import "./styles.scss";
+import { RoomContext } from "../Room";
 
 function Actions() {
-  let { me: { active } = {} } = useContext(TableContext);
-
+  let { me: { active } = {} } = useContext(RoomContext);
   // active = true;
 
   return (
-    <div
-      className={["actions", active ? " active" : ""].filter(Boolean).join(" ")}
-    >
-      <Fold />
-      <Call />
-      <Bet />
+    <div className={`actions${active ? " active" : ""}`}>
+      <div className="left">
+        <Fold />
+        <Call />
+      </div>
+      <div className="right">
+        <Bet />
+      </div>
     </div>
   );
 }

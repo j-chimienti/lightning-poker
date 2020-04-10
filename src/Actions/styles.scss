@@ -1,67 +1,63 @@
 .actions {
-  opacity: 0;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  display: grid;
-  grid-template-columns: minmax(auto, 78px) minmax(auto, 78px) minmax(
-      auto,
-      360px
-    );
-  justify-content: center;
-  align-content: center;
-  grid-gap: 5px;
-  padding: 0 5px 15px 5px;
+  visibility: hidden;
 
   &.active {
-    opacity: 1;
+    visibility: visible;
   }
 
-  button[disabled] {
-    background-color: rgba(0, 0, 0, 0.3);
-    color: rgba(255, 255, 255, 0.3);
-  }
-
-  button {
-    width: 100%;
-    height: 100%;
-    display: block;
-    padding: 0;
-    cursor: pointer;
-    background: transparent;
-    font-size: 13px;
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 
   .fold-control {
-    border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background-color: #f44336;
+    background-color: var(--fold-color);
   }
 
   .call-control {
-    border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background-color: #2196f3;
-  }
-
-  .bet {
-    background-color: #ff9800;
-  }
-
-  .all-in {
-    background-color: #9c27b0;
+    background-color: var(--call-color);
   }
 
   .bet-control {
-    border-radius: 4px;
+    background-color: var(--bet-color);
+    display: grid;
+  }
+
+  .left {
+    display: grid;
+    grid-template-columns: auto auto;
+    // justify-content: left;
+  }
+
+  .right {
+  }
+
+  button {
+    display: grid;
+    place-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .all-in {
+    background-color: var(--all-in-color);
+  }
+
+  .bet-control {
+    // border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: #ff9800;
     display: grid;
     grid-template-columns: 1fr 3fr;
 
     &.disabled {
-      visibility: hidden;
+      // visibility: hidden;
     }
 
     .bet {
@@ -102,3 +98,108 @@
     }
   }
 }
+
+// .actions {
+//   opacity: 0;
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   display: grid;
+//   grid-template-columns: minmax(auto, 78px) minmax(auto, 78px) minmax(
+//       auto,
+//       360px
+//     );
+//   justify-content: center;
+//   align-content: center;
+//   grid-gap: 5px;
+//   padding: 0 5px 15px 5px;
+//
+//   &.active {
+//     opacity: 1;
+//   }
+//
+//   button[disabled] {
+//     background-color: rgba(0, 0, 0, 0.3);
+//     color: rgba(255, 255, 255, 0.3);
+//   }
+//
+//   button {
+//     width: 100%;
+//     height: 100%;
+//     display: block;
+//     padding: 0;
+//     cursor: pointer;
+//     background: transparent;
+//     font-size: 13px;
+//   }
+//
+//   .fold-control {
+//     border-radius: 4px;
+//     border: 1px solid rgba(0, 0, 0, 0.1);
+//     background-color: #f44336;
+//   }
+//
+//   .call-control {
+//     border-radius: 4px;
+//     border: 1px solid rgba(0, 0, 0, 0.1);
+//     background-color: #2196f3;
+//   }
+//
+//   .bet {
+//     background-color: #ff9800;
+//   }
+//
+//   .all-in {
+//     background-color: #9c27b0;
+//   }
+//
+//   .bet-control {
+//     border-radius: 4px;
+//     border: 1px solid rgba(0, 0, 0, 0.1);
+//     background-color: #ff9800;
+//     display: grid;
+//     grid-template-columns: 1fr 3fr;
+//
+//     &.disabled {
+//       visibility: hidden;
+//     }
+//
+//     .bet {
+//       border-right: 1px solid rgba(0, 0, 0, 0.1);
+//     }
+//
+//     .bet-speed-actions {
+//       display: grid;
+//       grid-template-columns: repeat(4, auto);
+//       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+//       .min,
+//       .half,
+//       .pot {
+//         border-right: 1px solid rgba(0, 0, 0, 0.1);
+//       }
+//     }
+//
+//     .bet-selector {
+//       display: grid;
+//       grid-template-columns: 1fr 7fr 1fr;
+//       .min {
+//         border-right: 1px solid rgba(0, 0, 0, 0.1);
+//       }
+//       .max {
+//         border-left: 1px solid rgba(0, 0, 0, 0.1);
+//       }
+//       .slider {
+//         position: relative;
+//         height: 100%;
+//       }
+//       .thumb {
+//         cursor: pointer;
+//
+//         background-color: rgba(0, 0, 0, 0.1);
+//         height: 100%;
+//         width: 20px;
+//       }
+//     }
+//   }
+// }

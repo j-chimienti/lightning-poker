@@ -4,6 +4,10 @@ html {
   box-sizing: border-box;
   --table-color: #08d362;
   --bg-color: #169651;
+  --fold-color: #f44336;
+  --call-color: #2196f3;
+  --bet-color: #ff9800;
+  --all-in-color: #9c27b0;
   background-color: var(--bg-color);
 }
 
@@ -28,6 +32,15 @@ main {
 
 a {
   color: inherit;
+}
+
+button {
+  font-family: "Oswald", sans-serif;
+  border: none;
+  -webkit-appearance: none;
+  text-transform: uppercase;
+  color: white;
+  cursor: pointer;
 }
 
 .green {

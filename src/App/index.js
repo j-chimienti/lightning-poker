@@ -11,6 +11,7 @@ import Room from "../Room";
 import Lobby from "../Lobby";
 import reducer, { addHandler } from "./reducer";
 import "./styles.scss";
+import { mobile } from "../detectors";
 
 export const AppContext = createContext();
 
@@ -19,6 +20,9 @@ export const LANDSCAPE = "landscape";
 export const TOGGLE_ORIENTATION = "TOGGLE_ORIENTATION";
 
 addHandler(TOGGLE_ORIENTATION, action => {
+  if (!mobile) {
+    return;
+  }
   return {
     orientation:
       action.orientation === 0 || action.orientation === 180
@@ -28,7 +32,8 @@ addHandler(TOGGLE_ORIENTATION, action => {
 });
 
 const initialState = {
-  orientation: LANDSCAPE
+  orientation: LANDSCAPE,
+  mobile
 };
 
 function App() {
@@ -87,15 +92,17 @@ function App() {
     >
       <Router>
         <Nav />
-        <div className="app">
+        <div className={`app${mobile ? " mobile" : ""}`}>
           <Route path="/:tableId" component={Room} />
           <Route path="/" exact component={Lobby} />
         </div>
         <Menu />
-        <aside className="games-drawer">
-          <Route path="/:tableId" component={ToggleButton} />
-          <Route path="/:tableId" component={Games} />
-        </aside>
+        {!mobile && (
+          <aside className="games-drawer">
+            <Route path="/:tableId" component={ToggleButton} />
+            <Route path="/:tableId" component={Games} />
+          </aside>
+        )}
       </Router>
     </AppContext.Provider>
   );

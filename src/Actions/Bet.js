@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import { BET } from "../lib/types";
-import { dispatchf } from "../dispatch";
-import { TableContext } from "../Table";
 import ReactSlider from "react-slider";
+import { BET } from "../lib/types";
+import dispatch from "../dispatch";
+import { RoomContext } from "../Room";
 
 function callOnly(me, players) {
   if (!me.allin && players) {
@@ -25,7 +25,7 @@ function Bet() {
     pot,
     me = {},
     bigBlind: step
-  } = useContext(TableContext);
+  } = useContext(RoomContext);
 
   const { id: playerId, chips = 0, bet = 0 } = me;
   const [disabled, disable] = useState(false);
@@ -66,7 +66,7 @@ function Bet() {
           let amount = betAmount - bet;
           try {
             disable(true);
-            await dispatchf({ type: BET, tableId, playerId, amount });
+            await dispatch({ type: BET, tableId, playerId, amount });
             disable(false);
           } catch (e) {
             console.log(e);
