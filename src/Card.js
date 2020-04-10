@@ -207,6 +207,7 @@ const Card = ({
           textAnchor="middle"
           transform="translate(-20, 20)"
           fontSize="18"
+          fill={BLACK}
         >
           {rank}
         </text>

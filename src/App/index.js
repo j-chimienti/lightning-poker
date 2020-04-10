@@ -92,7 +92,11 @@ function App() {
     >
       <Router>
         <Nav />
-        <div className={`app${mobile ? " mobile" : ""}`}>
+        <div
+          className={`app${mobile ? " mobile" : ""}${
+            state.orientation === PORTRAIT ? " portrait" : ""
+          }`}
+        >
           <Route path="/:tableId" component={Room} />
           <Route path="/" exact component={Lobby} />
         </div>

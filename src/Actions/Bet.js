@@ -73,11 +73,11 @@ function Bet() {
           }
         }}
       >
-        <div>{amountToCall === 0 ? "Bet" : "Raise To"}</div>
-        <div>{betAmount}</div>
+        <span>{amountToCall === 0 ? "Bet " : "Raise To "}</span>
+        <span>{betAmount}</span>
       </button>
 
-      <div>
+      <div className="bet-options">
         <div className="bet-speed-actions">
           <button className="min" onClick={() => setBetAmount(min)}>
             min

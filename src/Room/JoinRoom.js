@@ -6,17 +6,11 @@ import { addHandler } from "../App/reducer";
 import {
   POSITION_WIDTH,
   POSITION_HEIGHT,
-  UPDATE_ACTIVE_STATE,
   PLAYER_JOINED,
   JOIN_CIRCLE_RADIUS
 } from "./utils";
 
 addHandler(PLAYER_JOINED, ({ position, tableId, profileId }, state) => {});
-
-addHandler(UPDATE_ACTIVE_STATE, ({ activePlayerId, activeTableId }) => {
-  // update app state
-  return { activePlayerId, activeTableId };
-});
 
 const Join = ({ position, tableId }) => {
   let { dispatch, profileId } = useContext(AppContext);

@@ -13,36 +13,42 @@
   grid-template-columns: 1fr 1fr;
 
   .fold-control {
+    border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: var(--fold-color);
+    gird-area: fold;
   }
 
   .call-control {
+    border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: var(--call-color);
+    grid-area: call;
   }
 
   .bet-control {
+    border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: var(--bet-color);
     display: grid;
+    grid-template-areas: "bet bet-options";
+    grid-template-columns: 1fr 3fr;
   }
 
-  .left {
+  .fold-call {
     display: grid;
-    grid-template-columns: auto auto;
-    // justify-content: left;
+    grid-template-areas: "fold call";
   }
 
   .right {
   }
 
   button {
-    display: grid;
-    place-content: center;
+    display: block;
     width: 100%;
     height: 100%;
     background-color: transparent;
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
     }
+    padding: 4px 0;
   }
 
   .all-in {
@@ -50,11 +56,7 @@
   }
 
   .bet-control {
-    // border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background-color: #ff9800;
     display: grid;
-    grid-template-columns: 1fr 3fr;
 
     &.disabled {
       // visibility: hidden;
@@ -62,6 +64,11 @@
 
     .bet {
       border-right: 1px solid rgba(0, 0, 0, 0.1);
+      grid-area: bet;
+    }
+
+    .bet-options {
+      grid-area: bet-options;
     }
 
     .bet-speed-actions {
@@ -95,6 +102,39 @@
         height: 100%;
         width: 20px;
       }
+    }
+  }
+}
+
+.mobile {
+  .actions {
+    .fold-call {
+      width: 128px;
+
+      grid-template-areas:
+        "call"
+        "fold";
+    }
+    .bet-control {
+      justify-self: end;
+      grid-template-areas: "bet" "bet-options";
+      grid-template-columns: auto;
+      width: 158px;
+    }
+    .bet {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.portrait {
+    .actions {
+      .fold-call {
+        width: auto;
+      }
+    }
+    .bet-control {
+      width: auto;
+      justify-self: stretch;
     }
   }
 }

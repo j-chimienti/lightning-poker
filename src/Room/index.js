@@ -6,7 +6,15 @@ import useTable from "../use-table";
 import usePlayers from "../use-players";
 import Position from "./TablePosition";
 import Actions from "../Actions";
+import { addHandler } from "../App/reducer";
+
 import "./styles.scss";
+
+addHandler(UPDATE_ACTIVE_STATE, action => {
+  // update app state
+  delete action.type;
+  return action;
+});
 
 export const RoomContext = createContext();
 
@@ -78,11 +86,17 @@ function Room({ match }) {
         activeTableId: tableId
       });
     }
-  }, [loadingPlayers, activePlayerId, tableId, me, dispatch]);
+  }, [loadingPlayers, activePlayerId, tableId, me, dispatch, table]);
 
   let maxPlayers = table ? table.maxPlayers : 0;
   let tablePositions = Math.max(8, maxPlayers);
-  let ready = !(loadingPlayers && loadingTable);
+
+  const ready = !(loadingPlayers && loadingTable);
+  const maxBet = Math.max(
+    0,
+    ...Object.values(players).map(({ bet }) => bet || 0)
+  );
+  const betSum = Object.values(players).reduce((sum, p) => sum + p.bet || 0, 0);
 
   return (
     <RoomContext.Provider
@@ -97,7 +111,9 @@ function Room({ match }) {
         tablePositions,
         maxPlayers,
         activePlayerId,
-        me
+        me,
+        maxBet,
+        betSum
       }}
     >
       <div className="room">

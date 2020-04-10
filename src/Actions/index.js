@@ -11,13 +11,11 @@ function Actions() {
 
   return (
     <div className={`actions${active ? " active" : ""}`}>
-      <div className="left">
+      <div className="fold-call">
         <Fold />
         <Call />
       </div>
-      <div className="right">
-        <Bet />
-      </div>
+      <Bet />
     </div>
   );
 }

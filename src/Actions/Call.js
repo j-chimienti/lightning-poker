@@ -8,8 +8,6 @@ function Call() {
   const { id: playerId, bet = 0, chips = 0 } = me;
   const [disabled, disable] = useState(false);
 
-  console.log(me);
-
   let amountToCall = maxBet - bet;
   let allin;
 
@@ -33,14 +31,14 @@ function Call() {
           }
         }}
       >
-        <div>{allin ? "All In" : amountToCall === 0 ? "Check" : "Call"}</div>
-        <div
+        <span>{allin ? "All In" : amountToCall === 0 ? "Check" : "Call "}</span>
+        <span
           style={{
-            display: `${amountToCall === 0 ? "none" : "block"}`
+            display: `${amountToCall === 0 ? "none" : "inline"}`
           }}
         >
           {amountToCall}
-        </div>
+        </span>
       </button>
     </div>
   );
