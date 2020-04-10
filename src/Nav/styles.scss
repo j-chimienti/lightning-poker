@@ -10,7 +10,8 @@ nav {
 
   h1 {
     display: grid;
-    place-content: center;
+    justify-content: start;
+    align-content: center;
     margin: 0;
     font-weight: 300;
     font-size: 18px;

@@ -33,9 +33,55 @@
     fill: var(--table-color);
   }
 
+  // .progress {
+  //   transition-property: width;
+  //   transition-duration: 20s;
+  //   transition-timing-function: linear;
+  //   width: 40%;
+  // }
+
   .community-cards {
     .opaque {
       opacity: 0.3;
+    }
+  }
+
+  .player-new {
+    .info {
+      fill: #444;
+      text {
+        font-size: 19px;
+        fill: white;
+      }
+    }
+
+    &.called,
+    &.checked {
+      .state {
+        fill: var(--call-color);
+      }
+    }
+    &.folded {
+      .state {
+        fill: var(--fold-color);
+      }
+    }
+    &.betted,
+    &.raised {
+      .state {
+        fill: var(--bet-color);
+      }
+    }
+    &.all-in {
+      fill: var(--all-in-color);
+    }
+    &.winner {
+      .state {
+        fill: var(--winner-color);
+      }
+      .state-text {
+        fill: black;
+      }
     }
   }
 }
