@@ -38,12 +38,10 @@
     fill: var(--table-color);
   }
 
-  // .progress {
-  //   transition-property: width;
-  //   transition-duration: 20s;
-  //   transition-timing-function: linear;
-  //   width: 40%;
-  // }
+  .progress {
+    transition-property: width;
+    transition-timing-function: linear;
+  }
 
   .community-cards {
     .opaque {

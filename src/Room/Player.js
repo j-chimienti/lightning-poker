@@ -24,44 +24,7 @@ const translateState = {
   [READY]: "\u00a0"
 };
 
-// progress
-// chips
-// (D) dealer
-
-function PlayerProgress({ active }) {
-  return (
-    <rect
-      id="progress"
-      x="5%"
-      y="45%"
-      height="10%"
-      width="0"
-      fill="white"
-      rx={2}
-      ry={2}
-    >
-      {active ? (
-        <animate
-          attributeName="width"
-          repeatCount="1"
-          restart="always"
-          from="0"
-          to="0%"
-          begin="0s"
-          dur="20s"
-        />
-      ) : null
-      // <animate
-      //   attributeName="width"
-      //   from="0%"
-      //   to="45%"
-      //   begin="0s"
-      //   dur="0.1s"
-      // />
-      }
-    </rect>
-  );
-}
+const FULL_PROGRESS = "35%";
 
 function Player({ cards = [], id, chips = 0, state, winner, active, allin }) {
   const {
@@ -75,13 +38,16 @@ function Player({ cards = [], id, chips = 0, state, winner, active, allin }) {
     } else cards = [];
   }
 
-  // const [progressWidth, setProgressWidth] = useState("45%");
+  const [progressWidth, setProgressWidth] = useState(FULL_PROGRESS);
 
-  // let state = "SITTING";
-  // useEffect(() => {
-  //   // there is a transition-duration == AUTO_FOLD_DELAY == 25s
-  //   setProgressWidth(0);
-  // }, [progressWidth]);
+  useEffect(() => {
+    // there is a transition-duration == AUTO_FOLD_DELAY == 25s
+    if (active) {
+      setProgressWidth(0);
+    } else {
+      setProgressWidth(FULL_PROGRESS);
+    }
+  }, [progressWidth, active]);
 
   return (
     <g
@@ -122,7 +88,22 @@ function Player({ cards = [], id, chips = 0, state, winner, active, allin }) {
         >
           {formatSats(chips)}
         </text>
-        <PlayerProgress active={active} />
+
+        <rect
+          style={{
+            width: progressWidth,
+            transitionDuration: active ? "20s" : "0s",
+            visibility: active ? "visible" : "hidden"
+          }}
+          x="5%"
+          y="45%"
+          height="10%"
+          width="0"
+          fill="white"
+          rx={2}
+          ry={2}
+        />
+
         {!active && (
           <text
             className="state-text"
