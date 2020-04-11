@@ -1,6 +1,6 @@
 import React from "react";
 // import { generateChipStack } from "../lib/utils";
-import Chip from "../Chip";
+import { Chip2 as Chip } from "../Chip";
 import { BET_CHIP_STACK_SIZE } from "./Position";
 import { formatSats } from "./utils";
 
@@ -13,27 +13,23 @@ function PlayerBet({ bet, tablePosition }) {
     textAnchor = "end";
   }
 
+  const y = 19;
+
   return (
     <g>
       {bet && (
         <>
-          <Chip
-            x={0}
-            y={0}
-            value={50}
-            width={BET_CHIP_STACK_SIZE}
-            height={BET_CHIP_STACK_SIZE}
-          />
+          <Chip width={BET_CHIP_STACK_SIZE} height={BET_CHIP_STACK_SIZE} />
           <defs>
             <filter x="0" y="0" width="1" height="1" id="solid">
-              <feFlood flood-color="rgba(0,0,0,0.3)" />
+              <feFlood floodColor="rgba(0,0,0,0.2)" />
               <feComposite in="SourceGraphic" operator="xor" />
             </filter>
           </defs>
           <text
             filter="url(#solid)"
             x={dx + BET_CHIP_STACK_SIZE}
-            y={22}
+            y={y}
             width={BET_CHIP_STACK_SIZE * 2}
             height={BET_CHIP_STACK_SIZE}
             fontSize={16}
@@ -45,7 +41,7 @@ function PlayerBet({ bet, tablePosition }) {
           </text>
           <text
             x={dx + BET_CHIP_STACK_SIZE}
-            y={22}
+            y={y}
             width={BET_CHIP_STACK_SIZE * 2}
             height={BET_CHIP_STACK_SIZE}
             fontSize={16}

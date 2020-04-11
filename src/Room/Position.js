@@ -20,7 +20,7 @@ export function mapPosition(maxPlayers, position) {
   }
 }
 
-export const BET_CHIP_STACK_SIZE = 30;
+export const BET_CHIP_STACK_SIZE = 23;
 
 function Position({ tablePosition }) {
   const {
@@ -40,8 +40,6 @@ function Position({ tablePosition }) {
   }
 
   let active = posMap.includes(position);
-
-  // active = true;
 
   let t = 360 / tablePositions;
   const [x, y] = point(width, height, t * position + t / 2, {
