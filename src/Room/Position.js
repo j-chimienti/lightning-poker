@@ -3,6 +3,7 @@ import Player from "./Player";
 import Join from "./JoinRoom";
 import { RoomContext } from "./index";
 import { POSITION_WIDTH, POSITION_HEIGHT, point } from "./utils";
+import { PORTRAIT } from "../App";
 import PlayerBet from "./PlayerBet";
 
 export function mapPosition(maxPlayers, position) {
@@ -23,7 +24,7 @@ export function mapPosition(maxPlayers, position) {
 export const BET_CHIP_STACK_SIZE = 23;
 
 function Position({ tablePosition }) {
-  const {
+  let {
     width,
     height,
     tablePositions,
@@ -31,6 +32,7 @@ function Position({ tablePosition }) {
     players,
     table: { posMap = [] } = {},
     tableId,
+    orientation,
     activePlayerId
   } = useContext(RoomContext);
 
@@ -40,13 +42,18 @@ function Position({ tablePosition }) {
   }
 
   let active = posMap.includes(position);
+  active = true;
 
   let t = 360 / tablePositions;
   const [x, y] = point(width, height, t * position + t / 2, {
-    offset: 80
+    offset: 80,
+    dw: orientation === PORTRAIT ? -12 : 20,
+    dh: orientation === PORTRAIT ? 20 : -12
   });
   const [x1, y1] = point(width, height, 2 + t * position + t / 2, {
-    offset: 255
+    offset: 255,
+    dw: orientation === PORTRAIT ? -12 : 20,
+    dh: orientation === PORTRAIT ? 20 : -12
   });
 
   return (

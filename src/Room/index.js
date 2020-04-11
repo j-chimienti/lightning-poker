@@ -1,7 +1,13 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { AppContext, PORTRAIT } from "../App";
 import Card, { CARD_WIDTH, CARD_HEIGHT } from "../Card";
-import { point, SIZE, ASPECT_RATIO, UPDATE_ACTIVE_STATE } from "./utils";
+import {
+  point,
+  SIZE,
+  ASPECT_RATIO_LANDSCAPE,
+  ASPECT_RATIO_PORTRAIT,
+  UPDATE_ACTIVE_STATE
+} from "./utils";
 import useTable from "../use-table";
 import usePlayers from "../use-players";
 import Position from "./Position";
@@ -69,11 +75,11 @@ function Room({ match }) {
   const [players, me, loadingPlayers] = usePlayers(tableId, profileHash);
 
   let width = SIZE;
-  let height = Math.round(width / ASPECT_RATIO);
+  let height = Math.round(width / ASPECT_RATIO_LANDSCAPE);
 
   if (orientation === PORTRAIT) {
     height = SIZE;
-    width = Math.round(height / ASPECT_RATIO);
+    width = Math.round(height / ASPECT_RATIO_PORTRAIT);
   }
 
   useEffect(() => {

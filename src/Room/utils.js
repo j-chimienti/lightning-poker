@@ -1,7 +1,8 @@
 import { CARD_HEIGHT } from "../Card";
 
 export const SIZE = 1000;
-export const ASPECT_RATIO = 1.8;
+export const ASPECT_RATIO_LANDSCAPE = 1.85;
+export const ASPECT_RATIO_PORTRAIT = 1.5;
 
 export const POSITION_PADDING = 12;
 const POSITION_SIZE = CARD_HEIGHT + 2 * POSITION_PADDING;
@@ -20,17 +21,19 @@ export function formatSats(x) {
 }
 
 // point on the ellipse, fitting in this rect
-export function point(width, height, deg, { offset = 0 }) {
-  width = width - offset;
-  height = height - offset;
+export function point(width, height, deg, { offset = 0, dw = 0, dh = 0 }) {
+  dw += offset;
+  dh += offset;
+  width = width - dw;
+  height = height - dh;
   // 1° × π/180 = 0.01745rad
   deg = deg + START_ANGLE;
   return [
     Math.round(
-      offset / 2 + width / 2 + (width / 2) * Math.cos(deg * (Math.PI / 180))
+      dw / 2 + width / 2 + (width / 2) * Math.cos(deg * (Math.PI / 180))
     ),
     Math.round(
-      offset / 2 + height / 2 + (height / 2) * Math.sin(deg * (Math.PI / 180))
+      dh / 2 + height / 2 + (height / 2) * Math.sin(deg * (Math.PI / 180))
     )
   ];
 }
