@@ -13,6 +13,7 @@ import usePlayers from "../use-players";
 import Position from "./Position";
 import Actions from "../Actions";
 import { addHandler } from "../App/reducer";
+import Pot from "./Pot";
 
 import "./styles.scss";
 
@@ -62,6 +63,8 @@ function Table({ orientation, children, cards }) {
     </svg>
   );
 }
+
+const POT_CHIP_SIZE = 50;
 
 function Room({ match }) {
   let {
@@ -133,6 +136,15 @@ function Room({ match }) {
                   <Position key={i} tablePosition={i} />
                 ))}
               </g>
+              <svg
+                className="pot-1"
+                x={200}
+                y={(height - CARD_HEIGHT) / 2 + 100}
+                width={POT_CHIP_SIZE * 5}
+                height={POT_CHIP_SIZE}
+              >
+                <Pot />
+              </svg>
             </Table>
             <Actions />
           </>
