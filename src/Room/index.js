@@ -4,7 +4,7 @@ import Card, { CARD_WIDTH, CARD_HEIGHT } from "../Card";
 import { point, SIZE, ASPECT_RATIO, UPDATE_ACTIVE_STATE } from "./utils";
 import useTable from "../use-table";
 import usePlayers from "../use-players";
-import Position from "./TablePosition";
+import Position from "./Position";
 import Actions from "../Actions";
 import { addHandler } from "../App/reducer";
 
@@ -37,7 +37,9 @@ function Table({ orientation, children, cards }) {
   const { width, height, tablePositions } = useContext(RoomContext);
   const points = [...Array(tablePositions).keys()]
     .map(i => {
-      return point(width, height, (360 / tablePositions) * i, 40).join(",");
+      return point(width, height, (360 / tablePositions) * i, {
+        offset: 40
+      }).join(",");
     })
     .join(" ");
   return (

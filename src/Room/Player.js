@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import Card, { CARD_WIDTH, CARD_HEIGHT } from "../Card";
 import CryptoJS from "crypto-js";
 import { AppContext } from "../App";
-import { POSITION_WIDTH } from "./utils";
+import { POSITION_WIDTH, POSITION_PADDING, formatSats } from "./utils";
 
 import {
   SITTING,
@@ -15,7 +15,7 @@ import {
 } from "../lib/types";
 
 const translateState = {
-  [SITTING]: "SITTING",
+  [SITTING]: "\u00a0",
   [CALLED]: "CALL",
   [BETTED]: "BET",
   [RAISED]: "RAISE",
@@ -63,7 +63,7 @@ function PlayerProgress({ active }) {
   );
 }
 
-function Player({ cards = [], id, chips, state, winner, active, allin }) {
+function Player({ cards = [], id, chips = 0, state, winner, active, allin }) {
   const {
     profileId,
     state: { activePlayerId }
@@ -75,7 +75,6 @@ function Player({ cards = [], id, chips, state, winner, active, allin }) {
     } else cards = [];
   }
 
-  const OVERLAP = 5;
   // const [progressWidth, setProgressWidth] = useState("45%");
 
   // let state = "SITTING";
@@ -96,35 +95,39 @@ function Player({ cards = [], id, chips, state, winner, active, allin }) {
         .filter(Boolean)
         .join(" ")}
     >
-      <Card x={20} y={20} {...cards[0]} />
-      <Card x={20 + CARD_WIDTH - OVERLAP} y={20} {...cards[1]} />
+      {/* <rect width="100%" height="100%" fill="red" /> */}
+      <Card x={POSITION_PADDING} y={POSITION_PADDING} {...cards[0]} />
+      <Card
+        x={POSITION_WIDTH - CARD_WIDTH - POSITION_PADDING}
+        y={POSITION_PADDING * 2}
+        {...cards[1]}
+      />
 
       <svg
         className="info"
-        x={10}
         y={CARD_HEIGHT * 0.7}
         rx={3}
         ry={3}
-        width={POSITION_WIDTH - 2 * 10}
+        width={POSITION_WIDTH}
         height={CARD_HEIGHT * 0.32}
       >
         <rect className="state" rx={3} ry={3} width="100%" height="100%" />
         <text
           className="chips"
           y="50%"
-          dy="8"
-          x="54%"
+          dy="7"
+          x="48%"
           width="50%"
           height="100%"
         >
-          {chips}
+          {formatSats(chips)}
         </text>
         <PlayerProgress active={active} />
         {!active && (
           <text
             className="state-text"
             y="50%"
-            dy="8"
+            dy="7"
             x="3%"
             width="50%"
             height="100%"

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const CARD_WIDTH = 72;
+export const CARD_WIDTH = 64;
 
 const CARD_ASPECT_RATIO = 1.5;
 export const CARD_HEIGHT = CARD_WIDTH * CARD_ASPECT_RATIO;
@@ -205,13 +205,13 @@ const Card = ({
         <text
           x="50%"
           textAnchor="middle"
-          transform="translate(-20, 20)"
-          fontSize="18"
+          transform="translate(-18, 24)"
+          fontSize="22"
           fill={BLACK}
         >
           {rank}
         </text>
-        <g transform="translate(10, 30) scale(0.4) rotate(180)">
+        <g transform="translate(12, 35) scale(0.49) rotate(180)">
           {paths[type]}
         </g>
         <g transform="translate(30, 51) rotate(180)">{paths[type]}</g>

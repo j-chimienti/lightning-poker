@@ -1,12 +1,13 @@
-import { CARD_WIDTH, CARD_HEIGHT } from "../Card";
+import { CARD_HEIGHT } from "../Card";
 
 export const SIZE = 1000;
 export const ASPECT_RATIO = 1.8;
 
-const POSITION_PADDING = 20;
+export const POSITION_PADDING = 12;
+const POSITION_SIZE = CARD_HEIGHT + 2 * POSITION_PADDING;
 
-export const POSITION_WIDTH = 2 * POSITION_PADDING + 2 * CARD_WIDTH - 5; //155
-export const POSITION_HEIGHT = 2 * POSITION_PADDING + CARD_HEIGHT; // 130
+export const POSITION_WIDTH = POSITION_SIZE;
+export const POSITION_HEIGHT = POSITION_SIZE;
 export const START_ANGLE = 25;
 export const UPDATE_ACTIVE_STATE = "UPDATE_ACTIVE_STATE";
 export const JOIN_CIRCLE_RADIUS = 27;
@@ -14,8 +15,12 @@ export const PLAYER_JOINED = "PLAYER_JOINED";
 
 // cards are 60/90
 
+export function formatSats(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
 // point on the ellipse, fitting in this rect
-export function point(width, height, deg, offset = 0) {
+export function point(width, height, deg, { offset = 0 }) {
   width = width - offset;
   height = height - offset;
   // 1° × π/180 = 0.01745rad

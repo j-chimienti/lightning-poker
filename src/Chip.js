@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CHIP_VALUES } from "../lib/utils";
+import { CHIP_VALUES } from "./lib/utils";
 
 const COLORS = [
   "#357f9c",
@@ -21,11 +21,18 @@ const DISPLAY_VALUES = {
   5000: "5K"
 };
 
-function Chip({ height, width, value }) {
+function Chip({ x, y, height, width, value }) {
   const color = COLORS[CHIP_VALUES.indexOf(value)] || "black";
   const text = DISPLAY_VALUES[value] || value;
   return (
-    <svg height={height} width={width} viewBox="0 0 60 60" className="chip">
+    <svg
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      viewBox="0 0 60 60"
+      className="chip"
+    >
       <circle opacity=".3" fill="#231F20" cx="30" cy="31" r="27.5" />
       <circle fill={color} cx="30" cy="30" r="26.5" />
       <g fill="#FFF">
