@@ -32,6 +32,11 @@
       overflow: visible;
     }
 
+    .svg-text {
+      overflow: visible;
+      white-space: nowrap;
+    }
+
     .bet-text {
       display: grid;
       place-items: center;

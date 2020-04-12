@@ -5,9 +5,7 @@ import { Chip2 as Chip } from "../Chip";
 
 export function getPotChipStackWidth(pot) {
   let chipStacks = generateChipStack(pot);
-  return (
-    CHIP_VALUES_REVERSED.filter(v => chipStacks[v]).length * CHIP_SIZE + 10
-  );
+  return CHIP_VALUES_REVERSED.filter(v => chipStacks[v]).length * CHIP_SIZE;
 }
 
 function Stack({ x, value, amount }) {
@@ -35,16 +33,17 @@ function Pot({ pot }) {
       {CHIP_VALUES_REVERSED.filter(v => chipStacks[v]).map(
         (v, i) =>
           chipStacks[v] && (
-            <Stack
-              x={5 + i * CHIP_SIZE}
-              value={v}
-              key={v}
-              amount={chipStacks[v]}
-            />
+            <Stack x={i * CHIP_SIZE} value={v} key={v} amount={chipStacks[v]} />
           )
       )}
       {pot && (
-        <foreignObject x="0" y={CHIP_SIZE + 2} width="100%" height="32">
+        <foreignObject
+          className="svg-text"
+          x="0"
+          y={CHIP_SIZE + 2}
+          width="100%"
+          height="32"
+        >
           <div className="bet-text">
             <div>{formatSats(pot)}</div>
           </div>
