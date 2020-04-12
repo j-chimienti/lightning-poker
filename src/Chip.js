@@ -6,13 +6,11 @@ import { LogoSymbol } from "./Nav/Logo";
 const COLORS = [
   "#357f9c",
   "#aa2f2a",
-  "#31ba9c",
   "#d40f83",
   "#412ebc",
   "#2d3b2c",
   "#993cae",
   "#d45c20",
-  "#cec440",
   "#4B0082",
   "#FF4500"
 ];
