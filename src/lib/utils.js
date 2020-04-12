@@ -1,7 +1,7 @@
 const deck = require("poker-deck");
 const crypto = require("crypto");
 
-const CHIP_VALUES = [1, 5, 10, 20, 50, 100, 500, 1000, 2000, 5000];
+const CHIP_VALUES = [1, 5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 50000];
 const CHIP_VALUES_REVERSED = [...CHIP_VALUES].reverse();
 
 const shuffleDeck = seed => {

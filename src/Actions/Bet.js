@@ -22,7 +22,7 @@ function Bet() {
     players,
     maxBet,
     betSum,
-    pot,
+    table: { pot },
     me = {},
     bigBlind: step
   } = useContext(RoomContext);

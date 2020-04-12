@@ -1,55 +1,40 @@
 import React from "react";
 // import { generateChipStack } from "../lib/utils";
 import { Chip2 as Chip } from "../Chip";
-import { BET_CHIP_STACK_SIZE } from "./Position";
-import { formatSats } from "./utils";
+import { formatSats, CHIP_SIZE } from "./utils";
 
 function PlayerBet({ bet, tablePosition }) {
-  // const chipStacks = generateChipStack(chips);
   let dx = 0;
-  let textAnchor = "start";
+  let justifySelf = "start";
+  let padding = "4px 4px 4px 17px";
   if ([5, 6, 7].includes(tablePosition)) {
-    dx = -BET_CHIP_STACK_SIZE;
-    textAnchor = "end";
+    dx = -CHIP_SIZE * 4;
+    justifySelf = "end";
+    padding = "4px 17px 4px 4px";
   }
-
-  const y = 19;
 
   return (
     <g>
       {bet && (
         <>
-          <Chip width={BET_CHIP_STACK_SIZE} height={BET_CHIP_STACK_SIZE} />
-          <defs>
-            <filter x="0" y="0" width="1" height="1" id="solid">
-              <feFlood floodColor="rgba(0,0,0,0.2)" />
-            </filter>
-          </defs>
-          <text
-            filter="url(#solid)"
-            x={dx + BET_CHIP_STACK_SIZE}
-            y={y}
-            width={BET_CHIP_STACK_SIZE * 2}
-            height={BET_CHIP_STACK_SIZE}
-            fontSize={18}
-            text-anchor={textAnchor}
+          <foreignObject
+            x={dx + CHIP_SIZE - CHIP_SIZE / 2}
+            y={0}
+            width={CHIP_SIZE * 4}
+            height={CHIP_SIZE}
           >
-            {"\u00a0"}
-            {formatSats(bet)}
-            {"\u00a0"}
-          </text>
-          <text
-            x={dx + BET_CHIP_STACK_SIZE}
-            y={y}
-            width={BET_CHIP_STACK_SIZE * 2}
-            height={BET_CHIP_STACK_SIZE}
-            fontSize={18}
-            text-anchor={textAnchor}
-          >
-            {"\u00a0"}
-            {formatSats(bet)}
-            {"\u00a0"}
-          </text>
+            <div className="bet-text">
+              <div
+                style={{
+                  justifySelf,
+                  padding
+                }}
+              >
+                {formatSats(bet)}
+              </div>
+            </div>
+          </foreignObject>
+          <Chip width={CHIP_SIZE} height={CHIP_SIZE} />
         </>
       )}
     </g>

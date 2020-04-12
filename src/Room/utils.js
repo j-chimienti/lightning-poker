@@ -14,6 +14,8 @@ export const UPDATE_ACTIVE_STATE = "UPDATE_ACTIVE_STATE";
 export const JOIN_CIRCLE_RADIUS = 27;
 export const PLAYER_JOINED = "PLAYER_JOINED";
 
+export const CHIP_SIZE = 27;
+
 // cards are 60/90
 
 export function formatSats(x) {

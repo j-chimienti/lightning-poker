@@ -13,13 +13,15 @@ const COLORS = [
   "#993cae",
   "#d45c20",
   "#cec440",
-  "#2c9e24"
+  "#4B0082",
+  "#FF4500"
 ];
 
 const DISPLAY_VALUES = {
   1000: "1K",
   2000: "2K",
-  5000: "5K"
+  5000: "5K",
+  50000: "50K"
 };
 
 function Chip({ x, y, height, width, value }) {

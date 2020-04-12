@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Player from "./Player";
 import Join from "./JoinRoom";
 import { RoomContext } from "./index";
-import { POSITION_WIDTH, POSITION_HEIGHT, point } from "./utils";
+import { POSITION_WIDTH, POSITION_HEIGHT, CHIP_SIZE, point } from "./utils";
 import { PORTRAIT } from "../App";
 import PlayerBet from "./PlayerBet";
 
@@ -20,8 +20,6 @@ export function mapPosition(maxPlayers, position) {
     return position + 1;
   }
 }
-
-export const BET_CHIP_STACK_SIZE = 23;
 
 function Position({ tablePosition }) {
   let {
@@ -50,10 +48,10 @@ function Position({ tablePosition }) {
     dw: orientation === PORTRAIT ? -12 : 20,
     dh: orientation === PORTRAIT ? 20 : -12
   });
-  const [x1, y1] = point(width, height, 2 + t * position + t / 2, {
+  const [x1, y1] = point(width, height, t * position + t / 2, {
     offset: 255,
-    dw: orientation === PORTRAIT ? -12 : 20,
-    dh: orientation === PORTRAIT ? 20 : -12
+    dw: orientation === PORTRAIT ? -28 : 20,
+    dh: orientation === PORTRAIT ? 20 : -28
   });
 
   return (
@@ -73,14 +71,14 @@ function Position({ tablePosition }) {
       {active && (
         <svg
           className="player-bet"
-          x={x1 - BET_CHIP_STACK_SIZE / 2}
-          y={y1 - BET_CHIP_STACK_SIZE / 2}
-          width={BET_CHIP_STACK_SIZE}
-          height={BET_CHIP_STACK_SIZE}
+          x={x1 - CHIP_SIZE / 2}
+          y={y1 - CHIP_SIZE / 2}
+          width={CHIP_SIZE}
+          height={CHIP_SIZE}
         >
           <PlayerBet
             tablePosition={tablePosition}
-            bet={players[position] ? players[position].bet : 645334}
+            bet={players[position] ? players[position].bet : 8888888}
           />
         </svg>
       )}

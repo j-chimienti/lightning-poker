@@ -6,14 +6,15 @@ import {
   SIZE,
   ASPECT_RATIO_LANDSCAPE,
   ASPECT_RATIO_PORTRAIT,
-  UPDATE_ACTIVE_STATE
+  UPDATE_ACTIVE_STATE,
+  CHIP_SIZE
 } from "./utils";
 import useTable from "../use-table";
 import usePlayers from "../use-players";
 import Position from "./Position";
 import Actions from "../Actions";
 import { addHandler } from "../App/reducer";
-import Pot from "./Pot";
+import Pot, { getPotChipStackWidth } from "./Pot";
 
 import "./styles.scss";
 
@@ -30,7 +31,7 @@ const CommunityCards = ({ width, height, cards = [] }) => {
   return (
     <svg
       x={(width - 5 * CARD_WIDTH + MARGIN) / 2}
-      y={(height - CARD_HEIGHT) / 2}
+      y={(height - CARD_HEIGHT) / 2 - 30}
       className="community-cards"
     >
       {[...Array(5)].map((e, i) => (
@@ -63,8 +64,6 @@ function Table({ orientation, children, cards }) {
     </svg>
   );
 }
-
-const POT_CHIP_SIZE = 50;
 
 function Room({ match }) {
   let {
@@ -109,6 +108,15 @@ function Room({ match }) {
   );
   const betSum = Object.values(players).reduce((sum, p) => sum + p.bet || 0, 0);
 
+  let potText;
+  let pots = [];
+  if (ready) {
+    potText = betSum + table.pot;
+    // pots.push(table.pot);
+    pots.push(232233);
+    pots.push(42233);
+  }
+
   return (
     <RoomContext.Provider
       value={{
@@ -136,15 +144,18 @@ function Room({ match }) {
                   <Position key={i} tablePosition={i} />
                 ))}
               </g>
-              <svg
-                className="pot-1"
-                x={200}
-                y={(height - CARD_HEIGHT) / 2 + 100}
-                width={POT_CHIP_SIZE * 5}
-                height={POT_CHIP_SIZE}
-              >
-                <Pot />
-              </svg>
+              {pots.map((pot, i) => (
+                <svg
+                  className="pot"
+                  key={i}
+                  x={(width - getPotChipStackWidth(pot)) / 2}
+                  y={(height - CARD_HEIGHT) / 2 + 70 + i * 60}
+                  width={getPotChipStackWidth(pot)}
+                  height={CHIP_SIZE}
+                >
+                  <Pot pot={pot} />
+                </svg>
+              ))}
             </Table>
             <Actions />
           </>

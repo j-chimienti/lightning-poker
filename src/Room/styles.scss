@@ -31,6 +31,22 @@
     .player-bet {
       overflow: visible;
     }
+
+    .bet-text {
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      line-height: 18px;
+      div {
+        border-radius: 4px;
+        padding: 4px 4px;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    .pot {
+      overflow: visible;
+    }
   }
 
   .join-table-new {
