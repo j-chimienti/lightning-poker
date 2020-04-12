@@ -40,7 +40,6 @@ function Position({ tablePosition }) {
   }
 
   let active = posMap.includes(position);
-  // active = true;
 
   let t = 360 / tablePositions;
   const [x, y] = point(width, height, t * position + t / 2, {
@@ -56,11 +55,12 @@ function Position({ tablePosition }) {
 
   // TODO: use better solution
   if (tablePosition === 2 && orientation === PORTRAIT) {
-    y1 += 60;
+    y1 -= 30;
+    x1 -= 10;
   }
 
   if (tablePosition === 6 && orientation === PORTRAIT) {
-    y1 += 40;
+    y1 += 45;
   }
 
   if (tablePosition === 0 && orientation === LANDSCAPE) {
@@ -92,7 +92,7 @@ function Position({ tablePosition }) {
         >
           <PlayerBet
             tablePosition={tablePosition}
-            bet={players[position] ? players[position].bet : 8888888}
+            bet={players[position] && players[position].bet}
           />
         </svg>
       )}

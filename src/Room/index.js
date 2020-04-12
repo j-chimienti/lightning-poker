@@ -117,7 +117,7 @@ function Room({ match }) {
   let pots;
   if (ready) {
     potText = betSum + table.pot;
-    pots = [...table.pots];
+    pots = [...table.pots].map(({ pot }) => pot);
     if (pots.length === 0) {
       pots.push(table.pot + betSum);
     }

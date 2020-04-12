@@ -5,50 +5,53 @@
   right: 0;
   visibility: hidden;
 
+  padding: 5px;
+
   &.active {
     visibility: visible;
   }
 
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 15vw;
 
   .fold-control {
+    border-radius: 4px;
+
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: var(--fold-color);
     gird-area: fold;
   }
 
   .call-control {
+    border-radius: 4px;
+
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: var(--call-color);
     grid-area: call;
   }
-
-  .bet-control {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background-color: var(--bet-color);
-    display: grid;
-    grid-template-areas: "bet bet-options";
-    grid-template-columns: 1fr 3fr;
-  }
-
   .fold-call {
     display: grid;
     grid-template-areas: "fold call";
-  }
-
-  .right {
+    grid-gap: 5px;
   }
 
   button {
-    display: block;
+    display: grid;
+    font-size: 12px;
     width: 100%;
     height: 100%;
+    place-items: center;
     background-color: transparent;
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
     }
-    padding: 4px 0;
+    // padding: 2px;
+  }
+
+  button[disabled] {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.3);
   }
 
   .all-in {
@@ -57,17 +60,26 @@
 
   .bet-control {
     display: grid;
+    grid-template-areas: "bet bet-options";
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 5px;
 
     &.disabled {
       // visibility: hidden;
     }
 
     .bet {
+      border-radius: 4px;
+      background-color: var(--bet-color);
       border-right: 1px solid rgba(0, 0, 0, 0.1);
       grid-area: bet;
     }
 
     .bet-options {
+      border-radius: 4px;
+
+      background-color: var(--bet-color);
+
       grid-area: bet-options;
     }
 
@@ -106,140 +118,62 @@
   }
 }
 
-.mobile {
+.portrait {
   .actions {
+    grid-gap: 5px;
     .fold-call {
-      width: 128px;
-
-      grid-template-areas:
-        "call"
-        "fold";
+      grid-template-areas: "call" "fold";
+      // width: 100px;
     }
+
     .bet-control {
-      justify-self: end;
+      // justify-self: end;
       grid-template-areas: "bet" "bet-options";
       grid-template-columns: auto;
-      width: 158px;
-    }
-    .bet {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  &.portrait {
-    .actions {
-      .fold-call {
-        width: auto;
-      }
-    }
-    .bet-control {
-      width: auto;
-      justify-self: stretch;
     }
   }
 }
 
-// .actions {
-//   opacity: 0;
-//   position: absolute;
-//   bottom: 0;
-//   left: 0;
-//   right: 0;
-//   display: grid;
-//   grid-template-columns: minmax(auto, 78px) minmax(auto, 78px) minmax(
-//       auto,
-//       360px
-//     );
-//   justify-content: center;
-//   align-content: center;
-//   grid-gap: 5px;
-//   padding: 0 5px 15px 5px;
+// .portrait {
+//   .actions {
 //
-//   &.active {
-//     opacity: 1;
+//     .fold-call {
+//        width: 128px;
+//        grid-template-areas:
+//          "call"
+//          "fold";
+//
+//
 //   }
 //
-//   button[disabled] {
-//     background-color: rgba(0, 0, 0, 0.3);
-//     color: rgba(255, 255, 255, 0.3);
-//   }
+// }
+
 //
-//   button {
-//     width: 100%;
-//     height: 100%;
-//     display: block;
-//     padding: 0;
-//     cursor: pointer;
-//     background: transparent;
-//     font-size: 13px;
-//   }
-//
-//   .fold-control {
-//     border-radius: 4px;
-//     border: 1px solid rgba(0, 0, 0, 0.1);
-//     background-color: #f44336;
-//   }
-//
-//   .call-control {
-//     border-radius: 4px;
-//     border: 1px solid rgba(0, 0, 0, 0.1);
-//     background-color: #2196f3;
-//   }
-//
-//   .bet {
-//     background-color: #ff9800;
-//   }
-//
-//   .all-in {
-//     background-color: #9c27b0;
-//   }
-//
-//   .bet-control {
-//     border-radius: 4px;
-//     border: 1px solid rgba(0, 0, 0, 0.1);
-//     background-color: #ff9800;
-//     display: grid;
-//     grid-template-columns: 1fr 3fr;
-//
-//     &.disabled {
-//       visibility: hidden;
+// .mobile {
+//   .actions {
+//     .fold-call {
+//       width: 128px;
+//       grid-template-areas:
+//         "call"
+//         "fold";
 //     }
-//
-//     .bet {
-//       border-right: 1px solid rgba(0, 0, 0, 0.1);
+//     .bet-control {
+//       justify-self: end;
+//       grid-template-areas: "bet" "bet-options";
+//       grid-template-columns: auto;
+//       width: 158px;
 //     }
+//   }
 //
-//     .bet-speed-actions {
-//       display: grid;
-//       grid-template-columns: repeat(4, auto);
-//       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-//       .min,
-//       .half,
-//       .pot {
-//         border-right: 1px solid rgba(0, 0, 0, 0.1);
+//   &.portrait {
+//     .actions {
+//       .fold-call {
+//         width: auto;
 //       }
 //     }
-//
-//     .bet-selector {
-//       display: grid;
-//       grid-template-columns: 1fr 7fr 1fr;
-//       .min {
-//         border-right: 1px solid rgba(0, 0, 0, 0.1);
-//       }
-//       .max {
-//         border-left: 1px solid rgba(0, 0, 0, 0.1);
-//       }
-//       .slider {
-//         position: relative;
-//         height: 100%;
-//       }
-//       .thumb {
-//         cursor: pointer;
-//
-//         background-color: rgba(0, 0, 0, 0.1);
-//         height: 100%;
-//         width: 20px;
-//       }
+//     .bet-control {
+//       width: auto;
+//       justify-self: stretch;
 //     }
 //   }
 // }

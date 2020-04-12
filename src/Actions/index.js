@@ -7,7 +7,6 @@ import { RoomContext } from "../Room";
 
 function Actions() {
   let { me: { active } = {} } = useContext(RoomContext);
-  // active = true;
 
   return (
     <div className={`actions${active ? " active" : ""}`}>

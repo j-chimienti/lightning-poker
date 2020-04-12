@@ -3,6 +3,7 @@ import ReactSlider from "react-slider";
 import { BET } from "../lib/types";
 import dispatch from "../dispatch";
 import { RoomContext } from "../Room";
+import { formatSats } from "../Room/utils";
 
 function callOnly(me, players) {
   if (!me.allin && players) {
@@ -23,8 +24,8 @@ function Bet() {
     maxBet,
     betSum,
     table: { pot },
-    me = {},
-    bigBlind: step
+    table: { bigBlind: step },
+    me = {}
   } = useContext(RoomContext);
 
   const { id: playerId, chips = 0, bet = 0 } = me;
@@ -73,8 +74,8 @@ function Bet() {
           }
         }}
       >
-        <span>{amountToCall === 0 ? "Bet " : "Raise To "}</span>
-        <span>{betAmount}</span>
+        <div>{amountToCall === 0 ? "Bet " : "Raise To "}</div>
+        <div>{betAmount > 0 && formatSats(betAmount)}</div>
       </button>
 
       <div className="bet-options">

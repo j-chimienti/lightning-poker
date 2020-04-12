@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { RoomContext } from "../Room";
 import { CALL } from "../lib/types";
 import dispatch from "../dispatch";
+import { formatSats } from "../Room/utils";
 
 function Call() {
   const { tableId, maxBet = 0, me = {} } = useContext(RoomContext);
@@ -31,14 +32,8 @@ function Call() {
           }
         }}
       >
-        <span>{allin ? "All In" : amountToCall === 0 ? "Check" : "Call "}</span>
-        <span
-          style={{
-            display: `${amountToCall === 0 ? "none" : "inline"}`
-          }}
-        >
-          {amountToCall}
-        </span>
+        <div>{allin ? "All In" : amountToCall === 0 ? "Check" : "Call "}</div>
+        <div>{amountToCall > 0 && formatSats(amountToCall)}</div>
       </button>
     </div>
   );
