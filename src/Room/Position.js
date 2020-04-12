@@ -3,7 +3,7 @@ import Player from "./Player";
 import Join from "./JoinRoom";
 import { RoomContext } from "./index";
 import { POSITION_WIDTH, POSITION_HEIGHT, CHIP_SIZE, point } from "./utils";
-import { PORTRAIT } from "../App";
+import { PORTRAIT, LANDSCAPE } from "../App";
 import PlayerBet from "./PlayerBet";
 
 export function mapPosition(maxPlayers, position) {
@@ -40,7 +40,7 @@ function Position({ tablePosition }) {
   }
 
   let active = posMap.includes(position);
-  active = true;
+  // active = true;
 
   let t = 360 / tablePositions;
   const [x, y] = point(width, height, t * position + t / 2, {
@@ -48,11 +48,25 @@ function Position({ tablePosition }) {
     dw: orientation === PORTRAIT ? -12 : 20,
     dh: orientation === PORTRAIT ? 20 : -12
   });
-  const [x1, y1] = point(width, height, t * position + t / 2, {
+  let [x1, y1] = point(width, height, t * position + t / 2, {
     offset: 255,
     dw: orientation === PORTRAIT ? -28 : 20,
     dh: orientation === PORTRAIT ? 20 : -28
   });
+
+  // TODO: use better solution
+  if (tablePosition === 2 && orientation === PORTRAIT) {
+    y1 += 60;
+  }
+
+  if (tablePosition === 6 && orientation === PORTRAIT) {
+    y1 += 40;
+  }
+
+  if (tablePosition === 0 && orientation === LANDSCAPE) {
+    y1 += 22;
+    x1 += 48;
+  }
 
   return (
     <>

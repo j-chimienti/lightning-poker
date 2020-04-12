@@ -96,13 +96,16 @@
       }
     }
     &.all-in {
-      fill: var(--all-in-color);
+      .state {
+        fill: var(--all-in-color);
+      }
     }
     &.winner {
       .state {
         fill: var(--winner-color);
       }
-      .state-text {
+      .state-text,
+      .chips {
         fill: black;
       }
     }

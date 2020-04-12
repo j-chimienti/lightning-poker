@@ -5,7 +5,9 @@ import { Chip2 as Chip } from "../Chip";
 
 export function getPotChipStackWidth(pot) {
   let chipStacks = generateChipStack(pot);
-  return CHIP_VALUES_REVERSED.filter(v => chipStacks[v]).length * CHIP_SIZE;
+  return (
+    CHIP_VALUES_REVERSED.filter(v => chipStacks[v]).length * CHIP_SIZE + 10
+  );
 }
 
 function Stack({ x, value, amount }) {
@@ -33,7 +35,12 @@ function Pot({ pot }) {
       {CHIP_VALUES_REVERSED.filter(v => chipStacks[v]).map(
         (v, i) =>
           chipStacks[v] && (
-            <Stack x={i * CHIP_SIZE} value={v} key={v} amount={chipStacks[v]} />
+            <Stack
+              x={5 + i * CHIP_SIZE}
+              value={v}
+              key={v}
+              amount={chipStacks[v]}
+            />
           )
       )}
       {pot && (

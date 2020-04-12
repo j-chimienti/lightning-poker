@@ -3,6 +3,7 @@ import { AppContext, PORTRAIT } from "../App";
 import Card, { CARD_WIDTH, CARD_HEIGHT } from "../Card";
 import {
   point,
+  formatSats,
   SIZE,
   ASPECT_RATIO_LANDSCAPE,
   ASPECT_RATIO_PORTRAIT,
@@ -26,12 +27,14 @@ addHandler(UPDATE_ACTIVE_STATE, action => {
 
 export const RoomContext = createContext();
 
-const CommunityCards = ({ width, height, cards = [] }) => {
+const CommunityCards = ({ cards = [] }) => {
+  const { width, height, potsOffset } = useContext(RoomContext);
+
   const MARGIN = 2;
   return (
     <svg
       x={(width - 5 * CARD_WIDTH + MARGIN) / 2}
-      y={(height - CARD_HEIGHT) / 2 - 30}
+      y={(height - CARD_HEIGHT) / 2 - potsOffset + 35}
       className="community-cards"
     >
       {[...Array(5)].map((e, i) => (
@@ -108,13 +111,17 @@ function Room({ match }) {
   );
   const betSum = Object.values(players).reduce((sum, p) => sum + p.bet || 0, 0);
 
+  let potsOffset = 0;
+
   let potText;
-  let pots = [];
+  let pots;
   if (ready) {
     potText = betSum + table.pot;
-    // pots.push(table.pot);
-    pots.push(232233);
-    pots.push(42233);
+    pots = [...table.pots];
+    if (pots.length === 0) {
+      pots.push(table.pot + betSum);
+    }
+    potsOffset = pots.length * 35;
   }
 
   return (
@@ -132,7 +139,8 @@ function Room({ match }) {
         activePlayerId,
         me,
         maxBet,
-        betSum
+        betSum,
+        potsOffset
       }}
     >
       <div className="room">
@@ -149,13 +157,22 @@ function Room({ match }) {
                   className="pot"
                   key={i}
                   x={(width - getPotChipStackWidth(pot)) / 2}
-                  y={(height - CARD_HEIGHT) / 2 + 70 + i * 60}
+                  y={(height - CARD_HEIGHT) / 2 + 135 - potsOffset + i * 57}
                   width={getPotChipStackWidth(pot)}
                   height={CHIP_SIZE}
                 >
                   <Pot pot={pot} />
                 </svg>
               ))}
+              <foreignObject
+                y={(height - CARD_HEIGHT) / 2 - potsOffset}
+                width="100%"
+                height="50"
+              >
+                <div className="bet-text">
+                  <div>{`POT:  ${formatSats(potText)}`}</div>
+                </div>
+              </foreignObject>
             </Table>
             <Actions />
           </>

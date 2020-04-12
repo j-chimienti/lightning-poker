@@ -38,10 +38,13 @@ function Player({ cards = [], id, chips = 0, state, winner, active, allin }) {
     } else cards = [];
   }
 
+  // allin = true;
+  // winner = true;
+  // state = CALLED;
+
   const [progressWidth, setProgressWidth] = useState(FULL_PROGRESS);
 
   useEffect(() => {
-    // there is a transition-duration == AUTO_FOLD_DELAY == 25s
     if (active) {
       setProgressWidth(0);
     } else {
@@ -61,7 +64,6 @@ function Player({ cards = [], id, chips = 0, state, winner, active, allin }) {
         .filter(Boolean)
         .join(" ")}
     >
-      {/* <rect width="100%" height="100%" fill="red" /> */}
       <Card x={POSITION_PADDING} y={POSITION_PADDING} {...cards[0]} />
       <Card
         x={POSITION_WIDTH - CARD_WIDTH - POSITION_PADDING}
@@ -86,7 +88,7 @@ function Player({ cards = [], id, chips = 0, state, winner, active, allin }) {
           width="50%"
           height="100%"
         >
-          {formatSats(chips)}
+          {chips > 0 && formatSats(chips)}
         </text>
 
         <rect
