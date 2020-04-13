@@ -5,8 +5,17 @@ nav {
   height: 0;
 
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: auto 1fr auto auto auto auto;
   grid-area: nav;
+
+  h1 {
+    display: grid;
+    justify-content: start;
+    align-content: center;
+    margin: 0;
+    font-weight: 300;
+    font-size: 18px;
+  }
 
   .logo {
     width: 42px;
@@ -17,11 +26,18 @@ nav {
   }
 
   .alerts-state,
+  .leave-room,
   .menu-item {
     width: 24px;
     height: 24px;
     margin: 20px 10px;
     cursor: pointer;
+
+    &[disabled] {
+      cursor: default;
+      opacity: 0.2;
+      display: none;
+    }
   }
 
   .menu-item {

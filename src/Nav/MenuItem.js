@@ -15,7 +15,7 @@ function MenuItem() {
         <body className={active ? "active-menu" : ""} />
       </Helmet>
       {active ? (
-        <svg viewBox="0 0 21.9 21.9" fill="#FFF">
+        <svg viewBox="0 0 21.9 21.9">
           <path
             d="M14.1 11.3c-.2-.2-.2-.5 0-.7l7.5-7.5c.2-.2.3-.5.3-.7s-.1-.5-.3-.7L20.2.3c-.2-.2-.5-.3-.7-.3-.3
                    0-.5.1-.7.3l-7.5 7.5c-.2.2-.5.2-.7 0L3.1.3C2.9.1 2.6 0 2.4 0s-.5.1-.7.3L.3 1.7c-.2.2-.3.5-.3.7s.1.5.3.7l7.5 7.5c.2.2.2.5
@@ -25,7 +25,7 @@ function MenuItem() {
         </svg>
       ) : (
         <svg viewBox="0 0 30 30">
-          <path d="M2 6h26v4H2zm0 7h26v4H2zm0 7h26v4H2z" fill="#FFF" />
+          <path d="M2 6h26v4H2zm0 7h26v4H2zm0 7h26v4H2z" />
         </svg>
       )}
     </div>

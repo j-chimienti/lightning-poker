@@ -1,17 +1,28 @@
 import React, { useContext } from "react";
-import dispatch from "../dispatch";
-import { TableContext } from "./index";
+import { AppContext } from "../App";
 import { LEAVE } from "../lib/types";
+import dispatch from "../dispatch";
 
-function LeaveTable({ position }) {
-  const {
-    me: { id: playerId },
-    tableId
-  } = useContext(TableContext);
+export const LEAVE_ROOM = "LEAVE_ROOM";
+
+// addHandler(PLAY_NOTIFY_SOUND, (action, { alerts }) => {
+//   if (alerts) {
+//     const audioElement = document.getElementById("notify");
+//     audioElement.play();
+//   }
+// });
+
+function LeaveRoom() {
+  let {
+    state: { activePlayerId: playerId, activeTableId: tableId }
+  } = useContext(AppContext);
+
+  let disabled = !playerId;
 
   return (
     <div
-      className="leave-table"
+      className="leave-room"
+      disabled={disabled}
       onClick={async () => {
         try {
           await dispatch({
@@ -24,7 +35,7 @@ function LeaveTable({ position }) {
         }
       }}
     >
-      <svg className="leave-table-icon" viewBox="0 0 18 18" fill="none">
+      <svg className="leave-table-icon" viewBox="0 0 18 18">
         <path
           d="M16 0H2C0.89 0 0 0.89 0 2V6H2V2H16V16H2V12H0V16C0 16.5304 0.210714
         17.0391 0.585786 17.4142C0.960859 17.7893 1.46957 18 2 18H16C16.5304
@@ -37,4 +48,4 @@ function LeaveTable({ position }) {
   );
 }
 
-export default LeaveTable;
+export default LeaveRoom;

@@ -1,5 +1,3 @@
-export const initialState = {};
-
 const handlers = [];
 
 export function addHandler(type, fn) {
@@ -10,7 +8,8 @@ function reducer(state, action) {
   let changes = {};
   for (const [type, fn] of handlers) {
     if (type === action.type) {
-      Object.assign(changes, fn(action, state, changes));
+      let roundChanges = fn(action, state, changes);
+      Object.assign(changes, roundChanges);
     }
   }
   return Object.assign({}, state, changes);

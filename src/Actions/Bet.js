@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
-import { BET } from "../lib/types";
-import { dispatchf } from "../dispatch";
-import { TableContext } from "../Table";
 import ReactSlider from "react-slider";
+import { BET } from "../lib/types";
+import dispatch from "../dispatch";
+import { RoomContext } from "../Room";
+import { formatSats } from "../Room/utils";
 
 function callOnly(me, players) {
   if (!me.allin && players) {
@@ -22,10 +23,10 @@ function Bet() {
     players,
     maxBet,
     betSum,
-    pot,
-    me = {},
-    bigBlind: step
-  } = useContext(TableContext);
+    table: { pot },
+    table: { bigBlind: step },
+    me = {}
+  } = useContext(RoomContext);
 
   const { id: playerId, chips = 0, bet = 0 } = me;
   const [disabled, disable] = useState(false);
@@ -66,18 +67,18 @@ function Bet() {
           let amount = betAmount - bet;
           try {
             disable(true);
-            await dispatchf({ type: BET, tableId, playerId, amount });
+            await dispatch({ type: BET, tableId, playerId, amount });
             disable(false);
           } catch (e) {
             console.log(e);
           }
         }}
       >
-        <div>{amountToCall === 0 ? "Bet" : "Raise To"}</div>
-        <div>{betAmount}</div>
+        <div>{amountToCall === 0 ? "Bet " : "Raise To "}</div>
+        <div>{betAmount > 0 && formatSats(betAmount)}</div>
       </button>
 
-      <div>
+      <div className="bet-options">
         <div className="bet-speed-actions">
           <button className="min" onClick={() => setBetAmount(min)}>
             min

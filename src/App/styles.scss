@@ -61,31 +61,3 @@
     }
   }
 }
-
-.card,
-.hidden-card {
-  fill: black;
-  box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.1);
-  margin: 2px;
-  width: 11vmin;
-  max-width: 60px;
-}
-
-button {
-  font-family: "Oswald", sans-serif;
-  border: none;
-  -webkit-appearance: none;
-  text-transform: uppercase;
-  color: white;
-  // box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.15);
-  font-size: 1.5vmin;
-}
-
-.pill {
-  padding: 0.8vmin 2vmin;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 3vmin;
-}

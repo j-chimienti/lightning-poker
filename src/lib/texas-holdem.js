@@ -248,6 +248,7 @@ module.exports = (table, players, action) => {
       p.active = false;
       p.bet = 0;
       p.chipsBet = 0;
+      p.profit = 0;
     });
   };
 
@@ -271,7 +272,8 @@ module.exports = (table, players, action) => {
     amount = Math.floor((amount * (100 - rake)) / 100);
 
     player.chips += amount;
-    player.winner = true;
+    player.profit += amount;
+    player.winner = player.profit > player.chipsBet;
 
     const winner = winners.find(w => w.position === player.position);
 
@@ -316,6 +318,7 @@ module.exports = (table, players, action) => {
     for (let player of players) {
       player.bet = 0;
       player.chipsBet = 0;
+      player.profit = 0;
       player.state = READY;
       player.winner = false;
       player.talked = false;

@@ -2,15 +2,8 @@
   background-color: rgba(0, 0, 0, 0.5);
   height: 100vh;
 
-  h1 {
-    margin: 0;
-    padding: 18px 0px 30px 0;
-    font-weight: 300;
-    font-size: 20px;
-    text-align: center;
-  }
-
   .games {
+    padding-top: 64px;
     display: grid;
     grid-auto-columns: 320px;
     grid-template-columns: minmax(320px, 420px);

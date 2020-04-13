@@ -1,0 +1,126 @@
+.room {
+  height: 100vh;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-template-areas: "body";
+
+  .table {
+    fill: var(--table-color);
+    grid-area: body;
+    width: 80vw;
+    max-width: 820px;
+    height: auto;
+    overflow: visible;
+
+    polygon {
+      // stroke: #229e59;
+      stroke: var(--table-color);
+      stroke-linejoin: round;
+      stroke-width: 20;
+    }
+
+    .separator {
+      fill: none;
+      transform: scale(0.86, 0.86);
+      transform-origin: center;
+      stroke-width: 3;
+      stroke: rgba(0, 0, 0, 0.1);
+    }
+
+    .player-bet {
+      overflow: visible;
+    }
+
+    .svg-text {
+      overflow: visible;
+      white-space: nowrap;
+    }
+
+    .bet-text {
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      line-height: 18px;
+      div {
+        border-radius: 4px;
+        padding: 4px 4px;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    .pot {
+      overflow: visible;
+    }
+  }
+
+  .join-table-new {
+    cursor: pointer;
+    fill: var(--table-color);
+  }
+
+  .progress {
+    transition-property: width;
+    transition-timing-function: linear;
+  }
+
+  .community-cards {
+    .opaque {
+      opacity: 0.1;
+    }
+  }
+
+  .player-new {
+    &.sitting {
+      opacity: 0.6;
+    }
+
+    .info {
+      fill: #444;
+      text {
+        font-size: 17px;
+        fill: white;
+      }
+    }
+
+    &.called,
+    &.checked {
+      .state {
+        fill: var(--call-color);
+      }
+    }
+    &.folded {
+      .state {
+        fill: var(--fold-color);
+      }
+    }
+    &.betted,
+    &.raised {
+      .state {
+        fill: var(--bet-color);
+      }
+    }
+    &.all-in {
+      .state {
+        fill: var(--all-in-color);
+      }
+    }
+    &.winner {
+      .state {
+        fill: var(--winner-color);
+      }
+      .state-text,
+      .chips {
+        fill: black;
+      }
+    }
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  .room {
+    .table {
+      // fill: rgba(0, 0, 0, 0.2);
+    }
+  }
+}

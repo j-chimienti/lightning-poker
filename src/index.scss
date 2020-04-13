@@ -1,8 +1,15 @@
 html {
   margin: 0;
   height: 100vh;
-  // background-size: cover;
   box-sizing: border-box;
+  --table-color: #08d362;
+  --bg-color: #169651;
+  --fold-color: #f44336;
+  --call-color: #2196f3;
+  --bet-color: #ff9800;
+  --all-in-color: #9c27b0;
+  --winner-color: #f9ed32;
+  background-color: var(--bg-color);
 }
 
 body {
@@ -15,6 +22,10 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+svg {
+  fill: white;
+}
+
 main {
   position: relative;
   overflow: hidden;
@@ -24,14 +35,20 @@ a {
   color: inherit;
 }
 
-.blue {
-  background-image: linear-gradient(55.21deg, #005bbd 0%, #00a5eb 100%);
+button {
+  font-family: "Oswald", sans-serif;
+  border: none;
+  -webkit-appearance: none;
+  text-transform: uppercase;
+  color: white;
+  cursor: pointer;
 }
 
 .green {
-  background-image: linear-gradient(55.21deg, #169651 0%, #0ccc5a 100%);
-}
-
-.purple {
-  background-image: linear-gradient(55.21deg, #623a91 0%, #b853e6 100%);
+  background-image: linear-gradient(
+    90deg,
+    #169651 0%,
+    #17a95a 70%,
+    #169651 100%
+  );
 }
