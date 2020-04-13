@@ -31,11 +31,10 @@
 
   .positions-info {
     height: 100%;
-  }
 
-  .positions {
-    transform-origin: center;
-    transform: scale(1.2, 0.8);
+    .table {
+      fill: var(--table-color);
+    }
   }
 
   .cards-preview {

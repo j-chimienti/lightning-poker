@@ -1,6 +1,26 @@
 import React from "react";
+import { point } from "../Room/utils";
+import { mapPosition } from "../Room/Position";
 
 function PositionsInfo({ map = [], maxPlayers }) {
+  let tablePositions = Math.max(8, maxPlayers);
+  let width = 540;
+  let height = 400;
+
+  const positions = [...Array(tablePositions).keys()]
+    .map(i => {
+      let position = mapPosition(maxPlayers, i);
+      let active = map.includes(position);
+      let t = 360 / tablePositions;
+      let [x, y] = point(width, height, t * position + t / 2, {
+        offset: 80
+      });
+      return [position, x, y, active];
+    })
+    .filter(([position]) => position);
+
+  console.log(positions);
+
   return (
     <svg viewBox="0 0 540 400" className="positions-info">
       <rect
@@ -13,23 +33,16 @@ function PositionsInfo({ map = [], maxPlayers }) {
         stroke="rgba(255,255,255,0.05)"
       />
       <g className="positions">
-        {[...Array(maxPlayers)].map((e, i) => (
-          <circle
-            key={i}
-            id={`position-${i + 1}`}
-            cx="270"
-            cy="10"
-            fill={map.find(p => p === i) ? "white" : "rgba(255,255,255,0.15)"}
-            r="20"
-            style={{
-              transformOrigin: "center",
-              transform: `rotate(${(
-                (i * 360) / maxPlayers +
-                360 / maxPlayers
-              ).toFixed(2)}deg)`
-            }}
-          />
-        ))}
+        {positions.map(([, x, y, active]) => {
+          return (
+            <circle
+              cx={x}
+              cy={y}
+              r={20}
+              fill={active ? "white" : "rgba(255,255,255,0.15)"}
+            />
+          );
+        })}
       </g>
     </svg>
   );
