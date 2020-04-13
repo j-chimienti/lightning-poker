@@ -33,7 +33,7 @@ function Call() {
         }}
       >
         <div>{allin ? "All In" : amountToCall === 0 ? "Check" : "Call "}</div>
-        <div>{amountToCall > 0 && formatSats(amountToCall)}</div>
+        {amountToCall > 0 && <div>{formatSats(amountToCall)}</div>}
       </button>
     </div>
   );

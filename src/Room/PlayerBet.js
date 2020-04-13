@@ -3,11 +3,11 @@ import React from "react";
 import { Chip2 as Chip } from "../Chip";
 import { CHIP_SIZE } from "./utils";
 
-function PlayerBet({ chips, tablePosition }) {
+function PlayerBet({ chips, position }) {
   let dx = 0;
   let justifySelf = "start";
   let padding = "4px 4px 4px 17px";
-  if ([5, 6, 7].includes(tablePosition)) {
+  if ([6, 7, 8, 9, 10].includes(position)) {
     dx = -CHIP_SIZE * 4;
     justifySelf = "end";
     padding = "4px 17px 4px 4px";

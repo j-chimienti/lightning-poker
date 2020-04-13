@@ -60,18 +60,14 @@ function Position({ tablePosition }) {
   });
 
   // TODO: use better solution
-  if (tablePosition === 2 && orientation === PORTRAIT) {
-    y1 -= 30;
-    x1 -= 10;
+  if (position === 4) {
+    y1 += 15;
+    x1 += 5;
   }
 
-  if (tablePosition === 6 && orientation === PORTRAIT) {
-    y1 += 45;
-  }
-
-  if (tablePosition === 0 && orientation === LANDSCAPE) {
-    y1 += 22;
-    x1 += 48;
+  if (position === 7) {
+    x1 += 5;
+    y1 += 5;
   }
 
   let chips;
@@ -84,8 +80,6 @@ function Position({ tablePosition }) {
       }
     }
   }
-
-  // players[position] && players[position].bet
 
   return (
     <>
@@ -109,7 +103,11 @@ function Position({ tablePosition }) {
           width={CHIP_SIZE}
           height={CHIP_SIZE}
         >
-          <PlayerBet tablePosition={tablePosition} chips={chips} />
+          <PlayerBet
+            tablePosition={tablePosition}
+            position={position}
+            chips={chips}
+          />
         </svg>
       )}
     </>
