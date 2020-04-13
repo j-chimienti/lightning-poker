@@ -11,7 +11,7 @@ import Room from "../Room";
 import Lobby from "../Lobby";
 import reducer, { addHandler } from "./reducer";
 import "./styles.scss";
-import { mobile } from "../detectors";
+import mobile from "is-mobile";
 
 export const AppContext = createContext();
 
@@ -20,7 +20,7 @@ export const LANDSCAPE = "landscape";
 export const TOGGLE_ORIENTATION = "TOGGLE_ORIENTATION";
 
 addHandler(TOGGLE_ORIENTATION, action => {
-  if (!mobile) {
+  if (!mobile()) {
     return;
   }
   return {
@@ -33,7 +33,7 @@ addHandler(TOGGLE_ORIENTATION, action => {
 
 const initialState = {
   orientation: LANDSCAPE,
-  mobile
+  mobile: mobile()
 };
 
 function App() {
