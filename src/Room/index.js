@@ -104,7 +104,7 @@ function Room({ match }) {
   let maxPlayers = table ? table.maxPlayers : 0;
   let tablePositions = Math.max(8, maxPlayers);
 
-  const ready = !(loadingPlayers && loadingTable);
+  const ready = !(loadingPlayers || loadingTable);
   const maxBet = Math.max(
     0,
     ...Object.values(players).map(({ bet }) => bet || 0)
