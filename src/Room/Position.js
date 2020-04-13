@@ -2,7 +2,13 @@ import React, { useContext } from "react";
 import Player from "./Player";
 import Join from "./JoinRoom";
 import { RoomContext } from "./index";
-import { POSITION_WIDTH, POSITION_HEIGHT, CHIP_SIZE, point } from "./utils";
+import {
+  formatSats,
+  POSITION_WIDTH,
+  POSITION_HEIGHT,
+  CHIP_SIZE,
+  point
+} from "./utils";
 import { PORTRAIT, LANDSCAPE } from "../App";
 import PlayerBet from "./PlayerBet";
 
@@ -68,6 +74,19 @@ function Position({ tablePosition }) {
     x1 += 48;
   }
 
+  let chips;
+  if (active) {
+    let player = players[position];
+    if (player) {
+      if (player.bet > 0) chips = formatSats(player.bet);
+      if (player.winner) {
+        chips = `+${formatSats(player.profit - player.chipsBet)}`;
+      }
+    }
+  }
+
+  // players[position] && players[position].bet
+
   return (
     <>
       <svg
@@ -90,10 +109,7 @@ function Position({ tablePosition }) {
           width={CHIP_SIZE}
           height={CHIP_SIZE}
         >
-          <PlayerBet
-            tablePosition={tablePosition}
-            bet={players[position] && players[position].bet}
-          />
+          <PlayerBet tablePosition={tablePosition} chips={chips} />
         </svg>
       )}
     </>

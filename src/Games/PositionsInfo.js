@@ -19,8 +19,6 @@ function PositionsInfo({ map = [], maxPlayers }) {
     })
     .filter(([position]) => position);
 
-  console.log(positions);
-
   return (
     <svg viewBox="0 0 540 400" className="positions-info">
       <rect
@@ -36,6 +34,7 @@ function PositionsInfo({ map = [], maxPlayers }) {
         {positions.map(([, x, y, active]) => {
           return (
             <circle
+              key={x}
               cx={x}
               cy={y}
               r={20}

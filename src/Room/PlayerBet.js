@@ -1,9 +1,9 @@
 import React from "react";
 // import { generateChipStack } from "../lib/utils";
 import { Chip2 as Chip } from "../Chip";
-import { formatSats, CHIP_SIZE } from "./utils";
+import { CHIP_SIZE } from "./utils";
 
-function PlayerBet({ bet, tablePosition }) {
+function PlayerBet({ chips, tablePosition }) {
   let dx = 0;
   let justifySelf = "start";
   let padding = "4px 4px 4px 17px";
@@ -15,7 +15,7 @@ function PlayerBet({ bet, tablePosition }) {
 
   return (
     <g>
-      {bet && (
+      {chips && (
         <>
           <foreignObject
             x={dx + CHIP_SIZE - CHIP_SIZE / 2}
@@ -30,7 +30,7 @@ function PlayerBet({ bet, tablePosition }) {
                   padding
                 }}
               >
-                {formatSats(bet)}
+                {chips}
               </div>
             </div>
           </foreignObject>
