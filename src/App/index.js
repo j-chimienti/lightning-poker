@@ -10,17 +10,21 @@ import ToggleButton from "./ToggleButton";
 import Room from "../Room";
 import Lobby from "../Lobby";
 import reducer, { addHandler } from "./reducer";
-import "./styles.scss";
 import mobile from "is-mobile";
 import { Helmet } from "react-helmet";
+import ErrorMessage from "./ErrorMessage";
+
+import "./styles.scss";
 
 export const AppContext = createContext();
 
 export const PORTRAIT = "portrait";
 export const LANDSCAPE = "landscape";
 export const TOGGLE_ORIENTATION = "TOGGLE_ORIENTATION";
+export const SHOW_ERROR = "SHOW_ERROR";
+export const CLEAR_ERROR = "CLER_ERROR";
 
-addHandler(TOGGLE_ORIENTATION, (action) => {
+addHandler(TOGGLE_ORIENTATION, action => {
   if (!mobile()) {
     return;
   }
@@ -28,14 +32,26 @@ addHandler(TOGGLE_ORIENTATION, (action) => {
     orientation:
       action.orientation === 0 || action.orientation === 180
         ? PORTRAIT
-        : LANDSCAPE,
+        : LANDSCAPE
+  };
+});
+
+addHandler(SHOW_ERROR, action => {
+  return {
+    errorMessage: action.error
+  };
+});
+
+addHandler(CLEAR_ERROR, action => {
+  return {
+    errorMessage: null
   };
 });
 
 const initialState = {
   orientation: LANDSCAPE,
   showRooms: false,
-  mobile: mobile(),
+  mobile: mobile()
 };
 
 function App() {
@@ -45,14 +61,14 @@ function App() {
   useEffect(() => {
     dispatch({
       type: TOGGLE_ORIENTATION,
-      orientation: window.orientation,
+      orientation: window.orientation
     });
     window.addEventListener(
       "orientationchange",
-      function () {
+      function() {
         dispatch({
           type: TOGGLE_ORIENTATION,
-          orientation: window.orientation,
+          orientation: window.orientation
         });
       },
       false
@@ -76,7 +92,10 @@ function App() {
   const [{ balance, hash } = { balance: 0 }] = useDocumentData(
     user &&
       user.uid &&
-      firebase.firestore().collection("profiles").doc(user.uid)
+      firebase
+        .firestore()
+        .collection("profiles")
+        .doc(user.uid)
   );
 
   return (
@@ -86,7 +105,7 @@ function App() {
         balance,
         profileId: user && user.uid,
         profileHash: hash,
-        dispatch,
+        dispatch
       }}
     >
       <Router>
@@ -109,6 +128,7 @@ function App() {
             <Route path="/:tableId" component={Games} />
           </aside>
         )}
+        {state.errorMessage && <ErrorMessage message={state.errorMessage} />}
       </Router>
     </AppContext.Provider>
   );

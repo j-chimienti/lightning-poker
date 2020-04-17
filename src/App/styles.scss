@@ -6,6 +6,22 @@
   height: 100vh;
 }
 
+.error-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: grid;
+  place-content: center;
+  font-size: 24px;
+  font-weight: 100;
+  padding: 0 60px 60px 60px;
+  text-align: center;
+  grid-gap: 20px;
+}
+
 .menu {
   position: absolute;
   overflow: hidden;

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import serverDispatch from "../dispatch";
 import { JOIN } from "../lib/types";
-import { AppContext } from "../App";
+import { AppContext, SHOW_ERROR } from "../App";
 import { addHandler } from "../App/reducer";
 import {
   POSITION_WIDTH,
@@ -25,7 +25,12 @@ const Join = ({ position, tableId }) => {
           profileId,
           position
         });
-        if (!error)
+        if (error) {
+          dispatch({
+            type: SHOW_ERROR,
+            error
+          });
+        } else
           dispatch({
             type: PLAYER_JOINED,
             tableId,
