@@ -20,7 +20,7 @@ module.exports = async (db, lnd) => {
         description_hash: descriptionHash,
         value: tokens,
         expiry: 1000 * 60 * 60 * 3
-      }, (err, response) => {
+      }, async (err, response) => {
         if (err) return reject(err);
 
         let request = response.payment_request;
