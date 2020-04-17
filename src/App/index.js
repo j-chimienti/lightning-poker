@@ -12,6 +12,7 @@ import Lobby from "../Lobby";
 import reducer, { addHandler } from "./reducer";
 import "./styles.scss";
 import mobile from "is-mobile";
+import { Helmet } from "react-helmet";
 
 export const AppContext = createContext();
 
@@ -19,7 +20,7 @@ export const PORTRAIT = "portrait";
 export const LANDSCAPE = "landscape";
 export const TOGGLE_ORIENTATION = "TOGGLE_ORIENTATION";
 
-addHandler(TOGGLE_ORIENTATION, action => {
+addHandler(TOGGLE_ORIENTATION, (action) => {
   if (!mobile()) {
     return;
   }
@@ -27,13 +28,14 @@ addHandler(TOGGLE_ORIENTATION, action => {
     orientation:
       action.orientation === 0 || action.orientation === 180
         ? PORTRAIT
-        : LANDSCAPE
+        : LANDSCAPE,
   };
 });
 
 const initialState = {
   orientation: LANDSCAPE,
-  mobile: mobile()
+  showRooms: false,
+  mobile: mobile(),
 };
 
 function App() {
@@ -43,14 +45,14 @@ function App() {
   useEffect(() => {
     dispatch({
       type: TOGGLE_ORIENTATION,
-      orientation: window.orientation
+      orientation: window.orientation,
     });
     window.addEventListener(
       "orientationchange",
-      function() {
+      function () {
         dispatch({
           type: TOGGLE_ORIENTATION,
-          orientation: window.orientation
+          orientation: window.orientation,
         });
       },
       false
@@ -74,10 +76,7 @@ function App() {
   const [{ balance, hash } = { balance: 0 }] = useDocumentData(
     user &&
       user.uid &&
-      firebase
-        .firestore()
-        .collection("profiles")
-        .doc(user.uid)
+      firebase.firestore().collection("profiles").doc(user.uid)
   );
 
   return (
@@ -87,10 +86,13 @@ function App() {
         balance,
         profileId: user && user.uid,
         profileHash: hash,
-        dispatch
+        dispatch,
       }}
     >
       <Router>
+        <Helmet>
+          <body data-games={state.showRooms ? "visible" : "hidden"} />
+        </Helmet>
         <Nav />
         <div
           className={`app${mobile ? " mobile" : ""}${
@@ -101,7 +103,7 @@ function App() {
           <Route path="/" exact component={Lobby} />
         </div>
         <Menu />
-        {!mobile && (
+        {!state.mobile && (
           <aside className="games-drawer">
             <Route path="/:tableId" component={ToggleButton} />
             <Route path="/:tableId" component={Games} />
