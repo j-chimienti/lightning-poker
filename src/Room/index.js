@@ -8,7 +8,7 @@ import {
   ASPECT_RATIO_LANDSCAPE,
   ASPECT_RATIO_PORTRAIT,
   UPDATE_ACTIVE_STATE,
-  CHIP_SIZE
+  CHIP_SIZE,
 } from "./utils";
 import useTable from "../use-table";
 import usePlayers from "../use-players";
@@ -19,7 +19,7 @@ import Pot, { getPotChipStackWidth } from "./Pot";
 
 import "./styles.scss";
 
-addHandler(UPDATE_ACTIVE_STATE, action => {
+addHandler(UPDATE_ACTIVE_STATE, (action) => {
   // update app state
   delete action.type;
   return action;
@@ -47,16 +47,24 @@ const CommunityCards = ({ cards = [] }) => {
 function Table({ orientation, children, cards }) {
   const { width, height, tablePositions } = useContext(RoomContext);
   const points = [...Array(tablePositions).keys()]
-    .map(i => {
+    .map((i) => {
       return point(width, height, (360 / tablePositions) * i, {
-        offset: 40
+        offset: 40,
       }).join(",");
     })
     .join(" ");
+  const innerPoints = [...Array(tablePositions).keys()]
+    .map((i) => {
+      return point(width, height, (360 / tablePositions) * i, {
+        offset: 120,
+      }).join(",");
+    })
+    .join(" ");
+
   return (
     <svg viewBox={`0 0 ${width} ${height}`} className="table">
       <polygon points={points} />
-      <polygon className="separator" points={points} />
+      <polygon className="inner-poly" points={innerPoints} />
       <CommunityCards
         orientation={orientation}
         width={width}
@@ -72,7 +80,7 @@ function Room({ match }) {
   let {
     state: { orientation, activePlayerId },
     dispatch,
-    profileHash
+    profileHash,
   } = useContext(AppContext);
 
   const { tableId } = match.params;
@@ -96,7 +104,7 @@ function Room({ match }) {
       dispatch({
         type: UPDATE_ACTIVE_STATE,
         activePlayerId: id,
-        activeTableId: tableId
+        activeTableId: tableId,
       });
     }
   }, [loadingPlayers, activePlayerId, tableId, me, dispatch, table]);
@@ -140,7 +148,7 @@ function Room({ match }) {
         me,
         maxBet,
         betSum,
-        potsOffset
+        potsOffset,
       }}
     >
       <div className="room">
@@ -148,7 +156,7 @@ function Room({ match }) {
           <>
             <Table orientation={orientation} cards={table.cards}>
               <g>
-                {[...Array(tablePositions).keys()].map(i => (
+                {[...Array(tablePositions).keys()].map((i) => (
                   <Position key={i} tablePosition={i} />
                 ))}
               </g>

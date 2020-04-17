@@ -20,10 +20,8 @@
       stroke-width: 20;
     }
 
-    .separator {
+    .inner-poly {
       fill: none;
-      transform: scale(0.86, 0.86);
-      transform-origin: center;
       stroke-width: 3;
       stroke: rgba(0, 0, 0, 0.1);
     }
