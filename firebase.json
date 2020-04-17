@@ -21,6 +21,10 @@
         "function": "leave"
       },
       {
+        "source": "/lnurlpay",
+        "function": "lnurlpay"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
