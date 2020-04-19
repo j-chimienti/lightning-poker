@@ -27,6 +27,32 @@ export function mapPosition(maxPlayers, position) {
   }
 }
 
+function Dealer({ x, y, width, height }) {
+  return (
+    <svg x={x} y={y} width={width} height={height} viewBox="0 0 100 100">
+      <circle
+        cx="50"
+        cy="50"
+        r="40"
+        fill="#ff8c00"
+        stroke="#fee"
+        strokeWidth="5"
+      />
+      <text
+        fill="#fee"
+        x="50%"
+        y="50%"
+        fontSize="50"
+        fontWeight="500"
+        textAnchor="middle"
+        dy="20"
+      >
+        D
+      </text>
+    </svg>
+  );
+}
+
 function Position({ tablePosition }) {
   let {
     width,
@@ -34,7 +60,7 @@ function Position({ tablePosition }) {
     tablePositions,
     maxPlayers,
     players,
-    table: { posMap = [] } = {},
+    table: { posMap = [], dealer } = {},
     tableId,
     orientation,
     activePlayerId
@@ -95,6 +121,15 @@ function Position({ tablePosition }) {
           <Join tableId={tableId} position={position} />
         ) : null}
       </svg>
+      {active && dealer === position && (
+        <Dealer
+          className="dealer-chip"
+          x={x1 - CHIP_SIZE / 2}
+          y={y1 - CHIP_SIZE / 2}
+          width={CHIP_SIZE}
+          height={CHIP_SIZE}
+        />
+      )}
       {active && (
         <svg
           className="player-bet"
@@ -107,6 +142,7 @@ function Position({ tablePosition }) {
             tablePosition={tablePosition}
             position={position}
             chips={chips}
+            dealer={active && dealer === position}
           />
         </svg>
       )}

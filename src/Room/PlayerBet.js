@@ -1,9 +1,8 @@
 import React from "react";
-// import { generateChipStack } from "../lib/utils";
-import { Chip2 as Chip } from "../Chip";
+import Chip from "../Chip";
 import { CHIP_SIZE } from "./utils";
 
-function PlayerBet({ chips, position }) {
+function PlayerBet({ chips, position, dealer }) {
   let dx = 0;
   let justifySelf = "start";
   let padding = "4px 4px 4px 17px";
@@ -34,7 +33,11 @@ function PlayerBet({ chips, position }) {
               </div>
             </div>
           </foreignObject>
-          <Chip width={CHIP_SIZE} height={CHIP_SIZE} />
+          <Chip
+            width={CHIP_SIZE}
+            height={CHIP_SIZE}
+            customColor={dealer && "#ff8c00"}
+          />
         </>
       )}
     </g>

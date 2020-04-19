@@ -1,7 +1,7 @@
 import React from "react";
 import { generateChipStack, CHIP_VALUES_REVERSED } from "../lib/utils";
 import { formatSats, CHIP_SIZE } from "./utils";
-import { Chip2 as Chip } from "../Chip";
+import Chip from "../Chip";
 
 export function getPotChipStackWidth(pot) {
   let chipStacks = generateChipStack(pot);
