@@ -121,10 +121,10 @@ function Room({ match }) {
 
   let potsOffset = 0;
 
-  let potText;
+  let fullPot;
   let pots;
   if (ready) {
-    potText = betSum + table.pot;
+    fullPot = betSum + table.pot;
     pots = [...table.pots].map(({ pot }) => pot);
     if (pots.length === 0) {
       pots.push(table.pot);
@@ -178,7 +178,7 @@ function Room({ match }) {
                 height="50"
               >
                 <div className="bet-text">
-                  <div>{`POT:  ${formatSats(potText)}`}</div>
+                  {fullPot > 0 && <div>{`POT:  ${formatSats(fullPot)}`}</div>}
                 </div>
               </foreignObject>
             </Table>
