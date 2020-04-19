@@ -105,6 +105,7 @@ exports.lnurlpay = functions.https.onRequest(async (request, response) => {
         return response.send({
           pr: request,
           disposable: false,
+          routes: [],
         });
       } else {
         // return params
@@ -116,7 +117,6 @@ exports.lnurlpay = functions.https.onRequest(async (request, response) => {
           minSendable: 1000,
           metadata,
           tag: "payRequest",
-          routes: [],
         });
       }
     } catch (e) {
