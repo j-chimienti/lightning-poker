@@ -24,16 +24,34 @@ function Menu() {
         </div>
         <div className="title">CONTACT</div>
         <div className="info">
-          <a href="mailto:lightning-poker@protonmail.com">Mail</a>
+          <a href={`mailto:${process.env.REACT_APP_EMAIL}`}>Mail</a>
         </div>
         <div className="info">
-          <a href="https://twitter.com/BitcoinLNPoker">Twitter</a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`${process.env.REACT_APP_TWITTER}`}
+          >
+            Twitter
+          </a>
         </div>
         <div className="info">
-          <a href="https://t.me/LightningPoker">Telegram</a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`${process.env.REACT_APP_TELEGRAM}`}
+          >
+            Telegram
+          </a>
         </div>
         <div className="info">
-          <a href="https://github.com/igreshev/lightning-poker">GitHub</a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`${process.env.REACT_APP_GITHUB}`}
+          >
+            GitHub
+          </a>
         </div>
       </div>
     </aside>
