@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "crypto-js": "^4.0.0",
-    "firebase-admin": "^8.11.0",
+    "firebase-admin": "^8.12.0",
     "grpc": "^1.24.2",
     "ln-service": "^48.0.5",
     "poker-combinations": "^1.2.2",
