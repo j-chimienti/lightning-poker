@@ -24,7 +24,8 @@
     "react-scripts": "^3.4.1",
     "react-slider": "^1.0.4",
     "sha.js": "^2.4.11",
-    "typeface-oswald": "^1.1.4"
+    "typeface-oswald": "^1.1.4",
+    "ua-parser-js": "^0.7.21"
   },
   "proxy": "http://localhost:5000",
   "scripts": {

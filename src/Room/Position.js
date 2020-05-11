@@ -9,7 +9,7 @@ import {
   CHIP_SIZE,
   point
 } from "./utils";
-import { PORTRAIT, LANDSCAPE } from "../App";
+import { PORTRAIT } from "../App";
 import PlayerBet from "./PlayerBet";
 
 export function mapPosition(maxPlayers, position) {

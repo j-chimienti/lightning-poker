@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import Deposit from "../Deposit";
 import Widhtdraw from "../Withdraw";
 import { AppContext } from "../App";
+import { AUTH_WITH_TWITTER } from "../App/use-profile";
 
 import "./styles.scss";
 
 function Menu() {
-  let { profileId, balance } = useContext(AppContext);
+  let { profileId, balance, dispatch } = useContext(AppContext);
 
   return (
     <aside className="menu">
@@ -52,6 +53,17 @@ function Menu() {
           >
             GitHub
           </a>
+        </div>
+        <div className="twitter-auth">
+          <button
+            onClick={() => {
+              dispatch({
+                type: AUTH_WITH_TWITTER
+              });
+            }}
+          >
+            Sign In With Twitter
+          </button>
         </div>
       </div>
     </aside>

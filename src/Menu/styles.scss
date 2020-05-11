@@ -79,4 +79,13 @@
   .content {
     padding: 10vmin 1.5vmin;
   }
+
+  .twitter-auth {
+    margin: 20px;
+    text-align: center;
+    button {
+      border: 1px solid white;
+      padding: 10px 20px;
+    }
+  }
 }
