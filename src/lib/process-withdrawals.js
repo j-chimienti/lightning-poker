@@ -16,104 +16,88 @@ module.exports = async (db, lnd) => {
 
   if (querySnap.empty) return;
 
-  for (let paymentSnap of querySnap.docs) {
-    const { profileId, payment_request: request } = paymentSnap.data();
+  let paymentSnap = querySnap.docs[0];
 
-    try {
-      let {
-        tokens = 0,
-        id,
-        destination,
-        is_expired
-      } = await lnService.decodePaymentRequest({ lnd, request });
+  const { profileId, payment_request: request } = paymentSnap.data();
 
-      if (is_expired) {
-        throw new Error(`invoice expired.`);
-      }
+  try {
+    let {
+      tokens = 0,
+      id,
+      destination,
+      is_expired
+    } = await lnService.decodePaymentRequest({ lnd, request });
 
-      // load account here
-      const profileSnap = await db
-        .collection("profiles")
-        .doc(profileId)
-        .get();
-
-      let { balance = 0, withdrawLock = false } = profileSnap.data();
-
-      if (
-        isNaN(balance) ||
-        isNaN(tokens) ||
-        typeof balance === "string" ||
-        tokens <= 0 ||
-        balance < tokens
-      ) {
-        throw new Error(
-          `invoice amount should be less than or equal to ${balance} satoshis`
-        );
-      }
-
-      if (tokens > 250000) {
-        throw new Error(
-          `invoice amount is too big. max 250k. You can withdraw more times if needed`
-        );
-      }
-
-      if (withdrawLock) {
-        throw new Error("this account is locked. Use contact to resolve");
-      }
-
-      // payment is processing
-      await profileSnap.ref.update({
-        withdrawLock: true
-      });
-
-      // call withdraw here  !!!
-      const { secret, fee } = await lnService.pay({
-        lnd,
-        request,
-        max_fee: MAX_FEE
-      });
-
-      await paymentSnap.ref.update({
-        confirmedAt: new Date(),
-        state: CONFIRMED_PAYMENT,
-        destination,
-        tokens,
-        id,
-        fee,
-        secret
-      });
-
-      balance = balance - tokens - fee;
-
-      await profileSnap.ref.update({
-        balance,
-        withdrawLock: false
-      });
-
-      console.log("[withdraw]", profileId, tokens, fee, secret);
-    } catch (e) {
-      //
-      let error = "";
-      try {
-        error = e.toString().substring(0, 100);
-      } catch (e) {}
-
-      console.log("[error]", profileId, error);
-
-      // load account here
-      const profileSnap = await db
-        .collection("profiles")
-        .doc(profileId)
-        .get();
-
-      await profileSnap.ref.update({
-        withdrawLock: false
-      });
-
-      await paymentSnap.ref.update({
-        state: ERROR_PAYMENT,
-        error
-      });
+    if (is_expired) {
+      throw new Error(`invoice expired.`);
     }
+
+    // load account here
+    const profileSnap = await db
+      .collection("profiles")
+      .doc(profileId)
+      .get();
+
+    let { balance = 0, withdrawLock = false } = profileSnap.data();
+
+    if (
+      isNaN(balance) ||
+      isNaN(tokens) ||
+      typeof balance === "string" ||
+      tokens <= 0 ||
+      balance < tokens
+    ) {
+      throw new Error(
+        `invoice amount should be less than or equal to ${balance} satoshis`
+      );
+    }
+
+    if (tokens > 250000) {
+      throw new Error(
+        `invoice amount is too big. max 250k. You can withdraw more times if needed`
+      );
+    }
+
+    if (withdrawLock) {
+      throw new Error("this account is locked. Use contact to resolve");
+    }
+
+    // call withdraw here  !!!
+    const { secret, fee } = await lnService.pay({
+      lnd,
+      request,
+      max_fee: MAX_FEE
+    });
+
+    balance = balance - tokens - fee;
+
+    await profileSnap.ref.update({
+      balance
+    });
+
+    await paymentSnap.ref.update({
+      confirmedAt: new Date(),
+      state: CONFIRMED_PAYMENT,
+      destination,
+      tokens,
+      id,
+      fee,
+      secret
+    });
+
+    console.log("[withdraw]", profileId, tokens, fee, secret);
+  } catch (e) {
+    //
+    let error = "";
+    try {
+      error = e.toString().substring(0, 100);
+    } catch (e) {}
+
+    console.log("[error]", profileId, error);
+
+    await paymentSnap.ref.update({
+      state: ERROR_PAYMENT,
+      error
+    });
   }
 };
