@@ -5,7 +5,7 @@ const {
   ERROR_PAYMENT
 } = require("./types");
 
-const MAX_FEE = 33; // sats [tokens]
+const MAX_FEE = 49; // sats [tokens]
 
 module.exports = async (db, lnd) => {
   const querySnap = await db
@@ -61,6 +61,11 @@ module.exports = async (db, lnd) => {
         throw new Error("this account is locked. Use contact to resolve");
       }
 
+      // payment is processing
+      await profileSnap.ref.update({
+        withdrawLock: true
+      });
+
       // call withdraw here  !!!
       const { secret, fee } = await lnService.pay({
         lnd,
@@ -81,7 +86,8 @@ module.exports = async (db, lnd) => {
       balance = balance - tokens - fee;
 
       await profileSnap.ref.update({
-        balance
+        balance,
+        withdrawLock: false
       });
 
       console.log("[withdraw]", profileId, tokens, fee, secret);
@@ -93,6 +99,16 @@ module.exports = async (db, lnd) => {
       } catch (e) {}
 
       console.log("[error]", profileId, error);
+
+      // load account here
+      const profileSnap = await db
+        .collection("profiles")
+        .doc(profileId)
+        .get();
+
+      await profileSnap.ref.update({
+        withdrawLock: false
+      });
 
       await paymentSnap.ref.update({
         state: ERROR_PAYMENT,
