@@ -40,18 +40,8 @@ processDeposits(db, lnd);
 (async () => {
   do {
     try {
-      await createInvoices(db, lnd);
-    } catch (e) {
-      console.log("ERROR", e);
-    }
-    await new Promise(resolve => setTimeout(resolve, 3000));
-  } while (true);
-})();
-
-(async () => {
-  do {
-    try {
       await processWithdrawals(db, lnd);
+      await createInvoices(db, lnd);
     } catch (e) {
       console.log("ERROR", e);
     }
