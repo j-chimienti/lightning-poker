@@ -32,60 +32,56 @@ module.exports = async (db, lnd) => {
       throw new Error(`invoice expired.`);
     }
 
-    // load account here
-    const profileSnap = await db
-      .collection("profiles")
-      .doc(profileId)
-      .get();
-
-    let { balance = 0, withdrawLock = false } = profileSnap.data();
-
-    if (
-      isNaN(balance) ||
-      isNaN(tokens) ||
-      typeof balance === "string" ||
-      tokens <= 0 ||
-      balance < tokens
-    ) {
-      throw new Error(
-        `invoice amount should be less than or equal to ${balance} satoshis`
+    await db.runTransaction(async tx => {
+      // load with write lock!
+      const profileSnap = await tx.get(
+        db.collection("profiles").doc(profileId)
       );
-    }
+      let { balance = 0, withdrawLock = false } = profileSnap.data();
 
-    if (tokens > 250000) {
-      throw new Error(
-        `invoice amount is too big. max 250k. You can withdraw more times if needed`
-      );
-    }
+      if (
+        isNaN(balance) ||
+        isNaN(tokens) ||
+        typeof balance === "string" ||
+        tokens <= 0 ||
+        balance < tokens
+      ) {
+        throw new Error(
+          `invoice amount should be less than or equal to ${balance} satoshis`
+        );
+      }
 
-    if (withdrawLock) {
-      throw new Error("this account is locked. Use contact to resolve");
-    }
+      if (tokens > 250000) {
+        throw new Error(
+          `invoice amount is too big. max 250k. You can withdraw more times if needed`
+        );
+      }
 
-    // call withdraw here  !!!
-    const { secret, fee } = await lnService.pay({
-      lnd,
-      request,
-      max_fee: MAX_FEE
+      if (withdrawLock) {
+        throw new Error("this account is locked. Use contact to resolve");
+      }
+
+      const { secret, fee } = await lnService.pay({
+        lnd,
+        request,
+        max_fee: MAX_FEE
+      });
+
+      balance = balance - tokens - fee;
+
+      tx.update(profileSnap.ref, { balance });
+      tx.update(paymentSnap.ref, {
+        confirmedAt: new Date(),
+        state: CONFIRMED_PAYMENT,
+        destination,
+        tokens,
+        id,
+        fee,
+        secret
+      });
+
+      console.log("[withdraw]", profileId, tokens, fee, secret);
     });
-
-    balance = balance - tokens - fee;
-
-    await profileSnap.ref.update({
-      balance
-    });
-
-    await paymentSnap.ref.update({
-      confirmedAt: new Date(),
-      state: CONFIRMED_PAYMENT,
-      destination,
-      tokens,
-      id,
-      fee,
-      secret
-    });
-
-    console.log("[withdraw]", profileId, tokens, fee, secret);
   } catch (e) {
     //
     let error = "";
