@@ -6,6 +6,7 @@ const {
 } = require("./types");
 
 const MAX_FEE = 49; // sats [tokens]
+const WITDHRAW_LOCK = 10 * 60 * 1000; // 10min in miliseconds
 
 module.exports = async (db, lnd) => {
   const querySnap = await db
@@ -29,7 +30,7 @@ module.exports = async (db, lnd) => {
     } = await lnService.decodePaymentRequest({ lnd, request });
 
     if (is_expired) {
-      throw new Error(`invoice expired.`);
+      throw new Error(`Invoice expired`);
     }
 
     await db.runTransaction(async tx => {
@@ -37,7 +38,11 @@ module.exports = async (db, lnd) => {
       const profileSnap = await tx.get(
         db.collection("profiles").doc(profileId)
       );
-      let { balance = 0, withdrawLock = false } = profileSnap.data();
+      let {
+        balance = 0,
+        withdrawLock = false,
+        withdrawAt
+      } = profileSnap.data();
 
       if (
         isNaN(balance) ||
@@ -47,18 +52,23 @@ module.exports = async (db, lnd) => {
         balance < tokens
       ) {
         throw new Error(
-          `invoice amount should be less than or equal to ${balance} satoshis`
+          `Invoice amount should be less than or equal to ${balance} satoshis`
         );
       }
 
       if (tokens > 250000) {
         throw new Error(
-          `invoice amount is too big. max 250k. You can withdraw more times if needed`
+          `Invoice amount is too big. max 250k. You can withdraw more times if needed`
         );
       }
 
       if (withdrawLock) {
-        throw new Error("this account is locked. Use contact to resolve");
+        throw new Error("This account is locked. Use contact to resolve");
+      }
+
+      if (withdrawAt && Date.now() < withdrawAt.toMillis() + WITDHRAW_LOCK) {
+        throw new Error("You can withdraw once every 10 minutes");
+        // ok do it!
       }
 
       const { secret, fee } = await lnService.pay({
@@ -69,7 +79,7 @@ module.exports = async (db, lnd) => {
 
       balance = balance - tokens - fee;
 
-      tx.update(profileSnap.ref, { balance });
+      tx.update(profileSnap.ref, { balance, withdrawAt: new Date() });
       tx.update(paymentSnap.ref, {
         confirmedAt: new Date(),
         state: CONFIRMED_PAYMENT,
@@ -84,16 +94,18 @@ module.exports = async (db, lnd) => {
     });
   } catch (e) {
     //
-    let error = "";
-    try {
-      error = e.toString().substring(0, 100);
-    } catch (e) {}
+    let error = "Withdraw error";
 
+    if (Array.isArray(e)) {
+      error = e[1];
+    } else {
+      if (e.message) error = e.message;
+    }
     console.log("[error]", profileId, error);
 
     await paymentSnap.ref.update({
       state: ERROR_PAYMENT,
-      error
+      error: String(error)
     });
   }
 };
