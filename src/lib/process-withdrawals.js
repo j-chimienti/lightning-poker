@@ -22,6 +22,10 @@ module.exports = async (db, lnd) => {
   const { profileId, payment_request: request } = paymentSnap.data();
 
   try {
+    if (!isNaN(Number(request))) {
+      throw new Error("You need to paste Payment request here, not amount!");
+    }
+
     let {
       tokens = 0,
       id,
