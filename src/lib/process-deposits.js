@@ -21,22 +21,41 @@ module.exports = (db, lnd) => {
         const { state, profileId } = invoiceSnap.data();
 
         if (state === PENDING_INVOICE && is_confirmed && received) {
-          await invoiceSnap.ref.update({
-            tokens,
-            secret,
-            state: SETTLED_INVOICE
+          await db.runTransaction(async (tx) => {
+            const profileSnap = await tx.get(
+              db.collection("profiles").doc(profileId)
+            );
+
+            if (profileSnap.exists) {
+              let { balance = 0 } = profileSnap.data();
+              balance = balance + tokens;
+              tx.update(profileSnap.ref, { balance });
+              tx.update(invoiceSnap.ref, {
+                tokens,
+                secret,
+                state: SETTLED_INVOICE,
+              });
+
+              console.log("[deposit]", profileId, tokens, secret);
+            }
           });
-          const profileSnap = await db
-            .collection("profiles")
-            .doc(profileId)
-            .get();
-          if (profileSnap.exists) {
-            const { balance = 0 } = profileSnap.data();
-            await profileSnap.ref.update({
-              balance: balance + tokens
-            });
-          }
-          console.log("[deposit]", profileId, tokens, secret);
+
+          // await invoiceSnap.ref.update({
+          //   tokens,
+          //   secret,
+          //   state: SETTLED_INVOICE
+          // });
+          // const profileSnap = await db
+          //   .collection("profiles")
+          //   .doc(profileId)
+          //   .get();
+          // if (profileSnap.exists) {
+          //   const { balance = 0 } = profileSnap.data();
+          //   await profileSnap.ref.update({
+          //     balance: balance + tokens
+          //   });
+          // }
+          // console.log("[deposit]", profileId, tokens, secret);
         }
       }
     );
