@@ -2,8 +2,8 @@ const texasHoldem = require("./texas-holdem");
 const { getState, updateState } = require("./db-utils");
 const { DEAL, SHOWDOWN, NEW_ROUND } = require("./types");
 
-const SHOWDOWN_EXTRA_DELAY = 3000;
-const NEW_ROUND_DELAY = 700;
+const SHOWDOWN_EXTRA_DELAY = 6000;
+const NEW_ROUND_DELAY = 1100;
 
 const newHand = async (db, tableId) => {
   await db.runTransaction(async tx => {
