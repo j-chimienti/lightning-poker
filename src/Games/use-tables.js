@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-export default (limit = 20) => {
+const useTables = (limit = 20) => {
   const [tables, loading, error] = useCollectionData(
     firebase
       .firestore()
@@ -15,3 +15,5 @@ export default (limit = 20) => {
 
   return [tables, loading, error];
 };
+
+export default useTables;

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default () => (
+const Settled = () => (
   <svg className="payment-settled" viewBox="0 0 24 24">
     <path
       d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627
@@ -9,3 +9,5 @@ export default () => (
     />
   </svg>
 );
+
+export default Settled;

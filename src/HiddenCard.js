@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function() {
+const HiddenCard = () => {
   return (
     <svg className="hidden-card" viewBox="0 0 60 90">
       <defs>
@@ -101,4 +101,6 @@ export default function() {
       />
     </svg>
   );
-}
+};
+
+export default HiddenCard;

@@ -2,13 +2,11 @@ import firebase from "firebase/app";
 import { useCollection } from "react-firebase-hooks/firestore";
 
 // TODO: change database rules, add only if tableId provided, do not allow dump all players
-export default (tableId, profileHash) => {
+
+const usePlayers = (tableId, profileHash) => {
   const [value, loading, error] = useCollection(
     tableId &&
-      firebase
-        .firestore()
-        .collection("players")
-        .where("tableId", "==", tableId)
+      firebase.firestore().collection("players").where("tableId", "==", tableId)
   );
 
   if (error) {
@@ -20,10 +18,10 @@ export default (tableId, profileHash) => {
 
   if (!loading) {
     if (value) {
-      value.docs.forEach(doc => {
+      value.docs.forEach((doc) => {
         const position = doc.get("position");
         players[position] = Object.assign({}, doc.data(), {
-          id: doc.ref.id
+          id: doc.ref.id,
         });
         if (profileHash === doc.get("profileHash")) {
           me = players[position];
@@ -33,3 +31,5 @@ export default (tableId, profileHash) => {
   }
   return [players, me, loading];
 };
+
+export default usePlayers;
