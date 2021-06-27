@@ -1,16 +1,16 @@
-const deck = require("poker-deck");
+const deck = require("./poker-deck");
 const crypto = require("crypto");
 
 const CHIP_VALUES = [1, 5, 20, 50, 100, 500, 1000, 5000, 50000];
 const CHIP_VALUES_REVERSED = [...CHIP_VALUES].reverse();
 
-const shuffleDeck = seed => {
+const shuffleDeck = (seed) => {
   const gameDeck = Array.from(deck);
   let currentIndex = deck.length,
     temporaryValue,
     randomIndex;
 
-  const random = function() {
+  const random = function () {
     const x = Math.sin(seed++) * 10000;
     return x - Math.floor(x);
   };
@@ -28,7 +28,7 @@ const shuffleDeck = seed => {
 
 const generateSeed = () => Math.round(Math.random() * 10000000000);
 
-const generateHash = account => {
+const generateHash = (account) => {
   return crypto
     .createHash("sha256")
     .update(account)
@@ -36,7 +36,7 @@ const generateHash = account => {
     .substr(0, 10);
 };
 
-const generateChipStack = amount => {
+const generateChipStack = (amount) => {
   const stacks = {};
   for (let i = CHIP_VALUES.length - 1; i >= 0; i--) {
     if (Math.floor(amount / CHIP_VALUES[i]) > 0) {
@@ -53,5 +53,5 @@ module.exports = {
   generateHash,
   generateChipStack,
   CHIP_VALUES,
-  CHIP_VALUES_REVERSED
+  CHIP_VALUES_REVERSED,
 };

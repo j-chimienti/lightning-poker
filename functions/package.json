@@ -9,18 +9,15 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "8"
+    "node": "14"
   },
   "dependencies": {
     "crypto-js": "^4.0.0",
-    "firebase-admin": "^8.12.0",
-    "firebase-functions": "^3.6.1",
-    "poker-combinations": "^1.2.2",
-    "poker-deck": "^1.0.2",
-    "poker-rank": "^2.0.2"
+    "firebase-admin": "^9.10.0",
+    "firebase-functions": "^3.14.1"
   },
   "devDependencies": {
-    "firebase-functions-test": "^0.2.1"
+    "firebase-functions-test": "^0.3.0"
   },
   "private": true
 }

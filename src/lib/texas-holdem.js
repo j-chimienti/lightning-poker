@@ -1,5 +1,5 @@
-const sortByRank = require("poker-rank");
-const getAllCombination = require("poker-combinations");
+const sortByRank = require("./poker-rank");
+const getAllCombination = require("./poker-combinations");
 const CryptoJS = require("crypto-js");
 const { shuffleDeck, generateSeed } = require("./utils");
 
@@ -29,13 +29,16 @@ const {
   CHECKED,
   FOLDED,
 
-  AUTO_FOLD_DELAY
+  AUTO_FOLD_DELAY,
 } = require("./types");
 
 module.exports = (table, players, action) => {
   players.sort((a, b) => a.position - b.position);
 
-  const maxBet = Math.max.apply(null, players.map(({ bet }) => bet || 0));
+  const maxBet = Math.max.apply(
+    null,
+    players.map(({ bet }) => bet || 0)
+  );
 
   let {
     round = WAITING,
@@ -51,7 +54,7 @@ module.exports = (table, players, action) => {
     rake = 0,
     winners = [],
     newRoundRequest = false,
-    hands = 0
+    hands = 0,
   } = table;
   const { type, playerId } = action;
 
@@ -67,15 +70,15 @@ module.exports = (table, players, action) => {
     return players[0];
   };
 
-  const active = () => players.find(p => p.active);
+  const active = () => players.find((p) => p.active);
   const first = () => next(button());
 
-  const circle = player => {
+  const circle = (player) => {
     const index = players.indexOf(player);
     return index === players.length - 1 ? players[0] : players[index + 1];
   };
 
-  const next = player => {
+  const next = (player) => {
     let i = 0;
     do {
       player = circle(player);
@@ -92,7 +95,7 @@ module.exports = (table, players, action) => {
     } while (i < players.length);
   };
 
-  const setActive = player => {
+  const setActive = (player) => {
     for (const player of players) {
       player.active = false;
       player.foldAt = null;
@@ -159,13 +162,13 @@ module.exports = (table, players, action) => {
   };
 
   const splitPot = () => {
-    const sub = val => val - bet;
+    const sub = (val) => val - bet;
     // Array of bets,
     // sort in ascending order.
     let bets = players
-      .filter(player => player.state !== SITTING)
+      .filter((player) => player.state !== SITTING)
       // .filter(player => player.state !== FOLDED)
-      .map(player => player.chipsBet)
+      .map((player) => player.chipsBet)
       .sort((bet1, bet2) => bet1 - bet2);
 
     pots = [];
@@ -185,7 +188,7 @@ module.exports = (table, players, action) => {
 
         pots.push({
           minChipsBet: threshold,
-          pot: bet * (bets.length + 1)
+          pot: bet * (bets.length + 1),
         });
 
         bets = bets.map(sub);
@@ -194,7 +197,7 @@ module.exports = (table, players, action) => {
   };
 
   const moveBets = () => {
-    if ([...activePlayers()].filter(p => p.allin).length > 0) {
+    if ([...activePlayers()].filter((p) => p.allin).length > 0) {
       // at least 1 all-in player
       splitPot();
     }
@@ -237,7 +240,7 @@ module.exports = (table, players, action) => {
     winners = [];
     newRoundRequest = false;
 
-    players.forEach(p => {
+    players.forEach((p) => {
       p.state = SITTING;
       p.cards = [];
       p.winner = false;
@@ -275,14 +278,14 @@ module.exports = (table, players, action) => {
     player.profit += amount;
     player.winner = player.profit > player.chipsBet;
 
-    const winner = winners.find(w => w.position === player.position);
+    const winner = winners.find((w) => w.position === player.position);
 
     if (winner) {
       winner.amount += amount;
     } else {
       winners.push({
         amount,
-        position: player.position
+        position: player.position,
       });
     }
   };
@@ -373,7 +376,7 @@ module.exports = (table, players, action) => {
         newRoundRequest = true;
       }
 
-      if (players.filter(p => !p.leaving).length < minPlayers) {
+      if (players.filter((p) => !p.leaving).length < minPlayers) {
         resetTable();
       } else {
         // set next player to become active, if the active one goes away
@@ -457,7 +460,7 @@ module.exports = (table, players, action) => {
   if (type === DEAL && round === SHOWDOWN) {
     // remove players without chips
     newRoundRequest = false;
-    players.forEach(p => {
+    players.forEach((p) => {
       // increase hands played for each player
       p.hands = p.hands + 1;
       if (p.chips <= 0) {
@@ -467,7 +470,7 @@ module.exports = (table, players, action) => {
 
     // check if there are enought players with chips
     // more or equal to the minPlayers
-    if (players.filter(p => !p.leaving).length >= minPlayers) {
+    if (players.filter((p) => !p.leaving).length >= minPlayers) {
       newHand();
     } else {
       resetTable();
@@ -511,18 +514,18 @@ module.exports = (table, players, action) => {
       }
 
       const playersBestCombination = sortByRank(
-        [...activePlayers()].map(player => player.bestPoint.slice())
+        [...activePlayers()].map((player) => player.bestPoint.slice())
       );
 
-      [...activePlayers()].forEach(player => delete player.bestPoint);
+      [...activePlayers()].forEach((player) => delete player.bestPoint);
 
-      const handRank = playersBestCombination.map(data => {
+      const handRank = playersBestCombination.map((data) => {
         const player = [...activePlayers()][data.index];
         return {
           player,
           bestCards: data.slice(),
           bestCardsInfo: data.rank,
-          exequo: data.exequo
+          exequo: data.exequo,
         };
       });
       moveBets();
@@ -530,11 +533,11 @@ module.exports = (table, players, action) => {
       if (pots.length === 0) {
         pots.push({
           minChipsBet: 0,
-          pot: pot
+          pot: pot,
         });
       }
 
-      pots.forEach(sidepot => {
+      pots.forEach((sidepot) => {
         const sidepotContenders = handRank.filter(
           ({ player }) => player.chipsBet >= sidepot.minChipsBet
         );
@@ -582,7 +585,7 @@ module.exports = (table, players, action) => {
       cards = [
         gameDeck[flopIndex + 0],
         gameDeck[flopIndex + 1],
-        gameDeck[flopIndex + 2]
+        gameDeck[flopIndex + 2],
       ];
     }
   }
@@ -598,6 +601,6 @@ module.exports = (table, players, action) => {
     winners,
     hands,
     newRoundRequest,
-    modifiedAt: new Date()
+    modifiedAt: new Date(),
   });
 };
