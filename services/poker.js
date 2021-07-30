@@ -24,7 +24,7 @@ const processAutoFolds = require("./lib/auto-folds");
 const processHands = require("./lib/process-hands");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount),
 });
 
 const db = admin.firestore();
@@ -36,7 +36,7 @@ const db = admin.firestore();
     } catch (e) {
       console.log("ERROR", e);
     }
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   } while (true);
 })();
 
@@ -47,6 +47,6 @@ const db = admin.firestore();
     } catch (e) {
       console.log("ERROR", e);
     }
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
   } while (true);
 })();

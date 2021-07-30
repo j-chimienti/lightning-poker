@@ -272,6 +272,9 @@ module.exports = (table, players, action) => {
     if (round === PRE_FLOP) {
       rake = 0; // no rake on pre-flop
     }
+    if (rake > 0) {
+      console.log("[rake]", Math.floor((amount * rake) / 100));
+    }
     amount = Math.floor((amount * (100 - rake)) / 100);
 
     player.chips += amount;
@@ -305,7 +308,6 @@ module.exports = (table, players, action) => {
         JSON.stringify(cards),
         player.profileId
       ).toString();
-      // console.log(player);
     }
 
     flopIndex = players.length * 2;
@@ -502,9 +504,7 @@ module.exports = (table, players, action) => {
 
       for (let player of activePlayers()) {
         // decode cards!
-        // console.log(player.cards);
         let bytes = CryptoJS.AES.decrypt(player.cards, player.profileId);
-        // console.log(bytes);
         player.cards = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         // fulfill cards if all players go all-in earlier
 
