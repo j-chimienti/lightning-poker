@@ -411,6 +411,9 @@ module.exports = (table, players, action) => {
 
   if (type === CALL) {
     checkPlayersTurn();
+
+    active().autofoldCount = 0;
+
     let bet = active() && (active().bet || 0);
 
     if (maxBet - bet === 0) {
@@ -436,7 +439,7 @@ module.exports = (table, players, action) => {
     if (amount < 0 || isNaN(amount)) {
       throw new Error("invalid bet");
     }
-    
+
     active().autofoldCount = 0;
 
     let bet = active() && (active().bet || 0);
