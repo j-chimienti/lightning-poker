@@ -36,7 +36,7 @@ module.exports = (db, lnd) => {
                 state: SETTLED_INVOICE,
               });
 
-              console.log("[deposit]", profileId, tokens, secret);
+              console.log("[deposit]", profileId, tokens, id);
             }
           });
 

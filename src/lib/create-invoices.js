@@ -41,6 +41,6 @@ module.exports = async (db, lnd) => {
       state: PENDING_INVOICE,
     });
 
-    console.log("[request]", profileId, tokens);
+    console.log("[request]", profileId, tokens, id);
   }
 };
