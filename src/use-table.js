@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
 const useTable = (tableId) => {

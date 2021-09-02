@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { useCollection } from "react-firebase-hooks/firestore";
 
 // TODO: change database rules, add only if tableId provided, do not allow dump all players

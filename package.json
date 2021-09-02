@@ -9,7 +9,7 @@
     "clipboard": "^2.0.8",
     "concurrently": "^6.2.0",
     "crypto-js": "^4.0.0",
-    "firebase": "^8.6.8",
+    "firebase": "^9.0.1",
     "is-mobile": "^3.0.0",
     "node-sass": "^6.0.0",
     "react": "^17.0.2",

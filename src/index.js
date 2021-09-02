@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 import App from "./App";
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import "firebase/firestore";
 import "firebase/auth";
 import "typeface-oswald";

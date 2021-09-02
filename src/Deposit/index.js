@@ -5,7 +5,7 @@ import QR from "./QR";
 import Settled from "../Settled";
 import TokenInput from "./TokenInput";
 import DepositActions from "./DepositActions";
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { REQUESTED_INVOICE, SETTLED_INVOICE } from "../lib/types";
 
 import "./styles.scss";
@@ -18,11 +18,7 @@ function Deposit() {
   const { profileId } = useContext(AppContext);
 
   let [{ payment_request: request, state } = {}] = useDocumentData(
-    invoiceId &&
-      firebase
-        .firestore()
-        .collection("invoices")
-        .doc(invoiceId)
+    invoiceId && firebase.firestore().collection("invoices").doc(invoiceId)
   );
 
   function clearDeposit() {
@@ -37,7 +33,7 @@ function Deposit() {
       .add({
         tokens: Math.floor(Number(amount)),
         profileId,
-        state: REQUESTED_INVOICE
+        state: REQUESTED_INVOICE,
       });
     setInvoiceId(invoiceRef.id);
   }
@@ -51,7 +47,7 @@ function Deposit() {
         amount,
         clearDeposit,
         addInvoice,
-        setAmount
+        setAmount,
       }}
     >
       <div className="deposit">

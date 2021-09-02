@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import parser from "ua-parser-js";
 import { addHandler } from "./reducer";
+
+import "firebase/compat/auth";
 
 export const PROFILE_CREATED = "PROFILE_CREATED";
 export const PROFILE_LOADED = "PROFILE_LOADED";
@@ -16,10 +18,7 @@ function useProfile(dispatch) {
   const [profile] = useDocumentData(
     user &&
       user.uid &&
-      firebase
-        .firestore()
-        .collection("profiles")
-        .doc(user.uid),
+      firebase.firestore().collection("profiles").doc(user.uid),
     { idField: "id" }
   );
 
@@ -31,7 +30,7 @@ function useProfile(dispatch) {
     if (error) {
       dispatch({
         type: CREATE_PROFILE_ERROR,
-        error: error.message
+        error: error.message,
       });
       return;
     }
@@ -47,7 +46,7 @@ function useProfile(dispatch) {
             profile: user.uid,
             ref: window.location.pathname.replace("/", ""),
             search: window.location.search,
-            ...browser
+            ...browser,
           });
         } else {
           addHandler(AUTH_WITH_TWITTER, () => {
@@ -56,10 +55,10 @@ function useProfile(dispatch) {
             firebase
               .auth()
               .signInWithRedirect(twitterProvider)
-              .then(function(result) {
+              .then(function (result) {
                 console.log("1", result);
               })
-              .catch(function(error) {
+              .catch(function (error) {
                 console.log(error);
               });
           });
@@ -68,7 +67,7 @@ function useProfile(dispatch) {
             referrer: document.referrer,
             profile: user.uid,
             ref: window.location.pathname.replace("/", ""),
-            search: window.location.search
+            search: window.location.search,
           });
         }
 
@@ -87,7 +86,7 @@ function useProfile(dispatch) {
       profileId: profile.id,
       profileHash: profile.hash,
       balance: profile.balance,
-      userInfo: user.providerData[0] || {}
+      userInfo: user.providerData[0] || {},
     };
   }
 }

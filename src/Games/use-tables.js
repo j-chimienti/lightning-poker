@@ -1,5 +1,7 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+
+import "firebase/compat/firestore";
 
 const useTables = (limit = 20) => {
   const [tables, loading, error] = useCollectionData(

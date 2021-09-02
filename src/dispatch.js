@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 
 function dispatchf(args) {
   return firebase.firestore().collection("actions").add(args);

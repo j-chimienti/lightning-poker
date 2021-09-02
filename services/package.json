@@ -13,6 +13,6 @@
     "crypto-js": "^4.0.0",
     "firebase-admin": "^9.10.0",
     "grpc": "^1.24.10",
-    "ln-service": "^51.8.4"
+    "ln-service": "^52.0.0"
   }
 }
