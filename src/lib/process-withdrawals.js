@@ -5,7 +5,7 @@ const {
   ERROR_PAYMENT,
 } = require("./types");
 
-const MAX_FEE = 49; // sats [tokens]
+const MAX_FEE = 500; // sats [tokens]
 const WITDHRAW_LOCK = 10 * 60 * 1000; // 10min in miliseconds
 const MAX_WITHDRAWAL = 500000; // 500k max withdrawal limit
 
