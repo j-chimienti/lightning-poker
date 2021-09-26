@@ -7,6 +7,7 @@ const {
 
 const MAX_FEE = 49; // sats [tokens]
 const WITDHRAW_LOCK = 10 * 60 * 1000; // 10min in miliseconds
+const MAX_WITHDRAWAL = 500000; // 500k max withdrawal limit
 
 module.exports = async (db, lnd) => {
   const querySnap = await db
@@ -69,9 +70,11 @@ module.exports = async (db, lnd) => {
           );
         }
 
-        if (tokens > 250000) {
+        if (tokens > MAX_WITHDRAWAL) {
           throw new Error(
-            `Invoice amount is too big. max 250k. You can withdraw more times if needed`
+            `Invoice amount is too big. max ${
+              MAX_WITHDRAWAL / 1000
+            }k. You can withdraw more times if needed`
           );
         }
 
