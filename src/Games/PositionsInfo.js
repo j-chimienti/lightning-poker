@@ -7,6 +7,8 @@ function PositionsInfo({ map = [], maxPlayers }) {
   let width = 540;
   let height = 400;
 
+  console.log("PositionsInfo", maxPlayers, map)
+
   const positions = [...Array(tablePositions).keys()]
     .map(i => {
       let position = mapPosition(maxPlayers, i);

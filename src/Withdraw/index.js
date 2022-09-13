@@ -2,10 +2,8 @@ import React, { useState, useContext, createContext } from "react";
 import PaymentRequestInput from "./PaymentRequestInput";
 import WithdrawActions from "./WithdrawActions";
 import WithdrawError from "./WithdrawError";
-import { useDocumentData } from "react-firebase-hooks/firestore";
 import { AppContext } from "../App";
 import Settled from "../Settled";
-import firebase from "firebase/compat/app";
 
 import {
   REQUESTED_PAYMENT,
@@ -22,9 +20,9 @@ function Withdraw() {
   const [paymentId, setPaymentId] = useState(null);
   const { profileId, withdrawLock = false } = useContext(AppContext);
 
-  let [{ state, error } = {}] = useDocumentData(
-    paymentId && firebase.firestore().collection("payments").doc(paymentId)
-  );
+  let { state, error } = {} //= useDocumentData(
+    // paymentId && firebase.firestore().collection("payments").doc(paymentId)
+// );
 
   const clearWithdrawal = () => {
     setPaymentId(null);
@@ -32,12 +30,12 @@ function Withdraw() {
   };
 
   const addPayment = async () => {
-    const paymentRef = await firebase.firestore().collection("payments").add({
-      payment_request,
-      profileId,
-      state: REQUESTED_PAYMENT,
-    });
-    setPaymentId(paymentRef.id);
+    // const paymentRef = await firebase.firestore().collection("payments").add({
+    //   payment_request,
+    //   profileId,
+    //   state: REQUESTED_PAYMENT,
+    // });
+    // setPaymentId(paymentRef.id);
   };
 
   return (

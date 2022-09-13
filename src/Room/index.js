@@ -1,23 +1,22 @@
-import React, { createContext, useContext, useEffect } from "react";
-import { AppContext, PORTRAIT } from "../App";
-import Card, { CARD_WIDTH, CARD_HEIGHT } from "../Card";
+import React, {createContext, useContext, useEffect, useState} from "react";
+import {AppContext, PORTRAIT} from "../App";
+import Card, {CARD_HEIGHT, CARD_WIDTH} from "../Card";
 import {
-  point,
-  formatSats,
-  SIZE,
-  ASPECT_RATIO_LANDSCAPE,
-  ASPECT_RATIO_PORTRAIT,
-  UPDATE_ACTIVE_STATE,
-  CHIP_SIZE
+    ASPECT_RATIO_LANDSCAPE,
+    ASPECT_RATIO_PORTRAIT,
+    CHIP_SIZE,
+    formatSats,
+    point,
+    SIZE,
+    UPDATE_ACTIVE_STATE
 } from "./utils";
-import useTable from "../use-table";
-import usePlayers from "../use-players";
 import Position from "./Position";
 import Actions from "../Actions";
-import { addHandler } from "../App/reducer";
-import Pot, { getPotChipStackWidth } from "./Pot";
+import {addHandler} from "../App/reducer";
+import Pot, {getPotChipStackWidth} from "./Pot";
 
 import "./styles.scss";
+import {fetchPlayers, fetchTable} from "../api";
 
 addHandler(UPDATE_ACTIVE_STATE, action => {
   // update app state
@@ -84,9 +83,12 @@ function Room({ match }) {
   } = useContext(AppContext);
 
   const { tableId } = match.params;
-  const [table, loadingTable] = useTable(tableId);
-  const [players, me, loadingPlayers] = usePlayers(tableId, profileHash);
+  const [table, setTable] = useState([])
+  const [players, setPlayers] = useState([])
+    const [loadingTable, setLoadingTable] = useState(true)
+    const [loadingPlayers, setLoadingPlayers] = useState(true)
 
+    const [me, setMe] = useState({})
   let width = SIZE;
   let height = Math.round(width / ASPECT_RATIO_LANDSCAPE);
 
@@ -96,6 +98,17 @@ function Room({ match }) {
   }
 
   useEffect(() => {
+
+      fetchPlayers(tableId, profileHash).then(({players, me, loading}) => {
+          setPlayers(players)
+          setLoadingPlayers(loading)
+          setMe(me)
+      })
+      fetchTable(tableId).then(({table, loading, error}) => {
+          if (error) throw error
+          setTable(table)
+          setLoadingTable(loading)
+      })
     if (loadingPlayers) {
       return;
     }

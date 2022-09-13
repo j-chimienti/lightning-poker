@@ -1,10 +1,3 @@
-import firebase from "firebase/compat/app";
-
-function dispatchf(args) {
-  return firebase.firestore().collection("actions").add(args);
-}
-
-export { dispatchf };
 
 const Dispatch = async (args = {}) =>
   window

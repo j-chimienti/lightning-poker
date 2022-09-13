@@ -4,8 +4,8 @@ const createProfile = db => async user => {
   const hash = generateHash(user.uid);
   await db
     .collection("profiles")
-    .doc(user.uid)
-    .set({
+    .insertOne({
+      id: user.uid,
       balance: 0,
       createdAt: new Date(),
       hash

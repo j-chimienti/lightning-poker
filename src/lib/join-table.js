@@ -7,8 +7,7 @@ module.exports = async (db, { tableId, profileId, position }) => {
     throw new Error("Invalid position, should be between 1 and 10");
   }
 
-  await db.runTransaction(async tx => {
-    let [players, table] = await getState(db, tx, tableId);
+    let [players, table] = await getState(db, tableId);
 
     if (players.find(player => player.position === position)) {
       throw new Error("Player position is assigned");
@@ -18,7 +17,7 @@ module.exports = async (db, { tableId, profileId, position }) => {
       throw new Error("Table is full");
     }
 
-    let { balance, hash: profileHash } = await loadProfile(db, tx, profileId);
+    let { balance, hash: profileHash } = await loadProfile(db, profileId);
 
     if (players.find(p => p.profileHash === profileHash)) {
       throw new Error("You are already playing on this table");
@@ -54,8 +53,12 @@ module.exports = async (db, { tableId, profileId, position }) => {
     players.push(player);
     const newPlayerRef = db.collection("players").doc();
 
-    tx.create(newPlayerRef, player);
-    tx.update(db.collection("profiles").doc(profileId), { balance });
+    // tx.create(newPlayerRef, player);
+    db.collection("profiles").updateOne({profileId}, {
+      $set: {
+        balance
+      }
+    })
 
     player.id = newPlayerRef.id;
 
@@ -64,6 +67,6 @@ module.exports = async (db, { tableId, profileId, position }) => {
       type: JOIN
     });
 
-    await updateState(db, tx, tableId, table, players);
-  });
+    await updateState(db, tableId, table, players);
+
 };

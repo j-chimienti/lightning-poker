@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
-import firebase from "firebase/compat/app";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useDocumentData } from "react-firebase-hooks/firestore";
 import parser from "ua-parser-js";
 import { addHandler } from "./reducer";
 
-import "firebase/compat/auth";
 
 export const PROFILE_CREATED = "PROFILE_CREATED";
 export const PROFILE_LOADED = "PROFILE_LOADED";
@@ -14,13 +10,15 @@ export const CREATE_PROFILE_ERROR = "CREATE_PROFILE_ERROR";
 export const AUTH_WITH_TWITTER = "AUTH_WITH_TWITTER";
 
 function useProfile(dispatch) {
-  const [user, loading, error] = useAuthState(firebase.auth());
-  const [profile] = useDocumentData(
-    user &&
-      user.uid &&
-      firebase.firestore().collection("profiles").doc(user.uid),
-    { idField: "id" }
-  );
+  const [user, loading, error] = useState(null) //useAuthState(firebase.auth());
+  const [profile] =  useState(null)
+
+  //     useDocumentData(
+  //   user &&
+  //     user.uid &&
+  //     firebase.firestore().collection("profiles").doc(user.uid),
+  //   { idField: "id" }
+  // );
 
   const [creating, setCreating] = useState(false);
   const [ready, setReady] = useState(false);
@@ -49,19 +47,19 @@ function useProfile(dispatch) {
             ...browser,
           });
         } else {
-          addHandler(AUTH_WITH_TWITTER, () => {
-            const twitterProvider = new firebase.auth.TwitterAuthProvider();
-
-            firebase
-              .auth()
-              .signInWithRedirect(twitterProvider)
-              .then(function (result) {
-                console.log("1", result);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-          });
+          // addHandler(AUTH_WITH_TWITTER, () => {
+          //   const twitterProvider = new firebase.auth.TwitterAuthProvider();
+          //
+          //   firebase
+          //     .auth()
+          //     .signInWithRedirect(twitterProvider)
+          //     .then(function (result) {
+          //       console.log("1", result);
+          //     })
+          //     .catch(function (error) {
+          //       console.log(error);
+          //     });
+          // });
           dispatch({
             type: PROFILE_LOADED,
             referrer: document.referrer,
@@ -75,7 +73,8 @@ function useProfile(dispatch) {
       }
     } else {
       if (!creating) {
-        firebase.auth().signInAnonymously();
+        // todo: signin
+        // firebase.auth().signInAnonymously();
         setCreating(true);
       }
     }

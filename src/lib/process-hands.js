@@ -42,3 +42,4 @@ module.exports = async (db) => {
     } else await newRound(db, tableSnap.id);
   }
 };
+

@@ -1,18 +1,10 @@
-const loadPlayers = async (db, tx, tableId) => {
-  let players = (await tx.get(
-    db.collection("players").where("tableId", "==", tableId)
-  )).docs.map(doc => ({ ...doc.data(), id: doc.id }));
+const loadPlayers = async (db,  tableId) => {
+  let players = await db.collection("players").findMany({tableId})
 
   // load profileId for each player, needed for cards encryption
   const profileSnaps = await Promise.all(
     players.map(({ profileHash }) => {
-      return tx.get(
-        db
-          .collection("profiles")
-          .where("hash", "==", profileHash)
-          .select()
-          .limit(1)
-      );
+      return db.collection("profiles").findOne({hash: profileHash})
     })
   );
 
@@ -23,14 +15,12 @@ const loadPlayers = async (db, tx, tableId) => {
   return players;
 };
 
-const loadTable = async (db, tx, tableId) => {
-  const tableSnap = await tx.get(db.collection("tables").doc(tableId));
+const loadTable = async (db, tableId) => {
+  const tableSnap = await db.collection("tables").findOne({tableId});
   if (!tableSnap.exists) {
     throw new Error("table not found");
   }
-  const tablePrivatesSnap = await tx.get(
-    db.collection("tablePrivates").doc(tableId)
-  );
+  const tablePrivatesSnap = await db.collection("tablePrivates").findOne({tableId})
 
   let seed;
   if (tablePrivatesSnap.exists) {
@@ -41,7 +31,7 @@ const loadTable = async (db, tx, tableId) => {
 };
 
 const loadProfile = async (db, tx, profileId) => {
-  const profileSnap = await tx.get(db.collection("profiles").doc(profileId));
+  const profileSnap = await  db.collection("profiles").findOne({profileId})
 
   if (!profileSnap.exists) {
     throw new Error("account not found");
@@ -57,18 +47,18 @@ const getState = async (db, tx, tableId) => {
   ]);
 };
 
-const updateState = async (db, tx, tableId, table, players) => {
+const updateState = async (db, tableId, table, players) => {
   for (let player of players) {
     const { id: playerId } = player;
-    const ref = db.collection("players").doc(playerId);
+    const ref = db.collection("players").findOne({playerId});
 
     // used intern, don't save
     delete player.id;
     delete player.profileId;
 
     if (player.leaving) {
-      tx.delete(ref);
-    } else tx.update(ref, player);
+      db.collection("players").deleteOne({playerId});
+    } else db.collection("players").replaceOne({playerId}, player);
   }
 
   // save players position
@@ -77,15 +67,9 @@ const updateState = async (db, tx, tableId, table, players) => {
     .map(player => player.position);
 
   // save table state back to database
-  tx.set(
-    db.collection("tablePrivates").doc(tableId),
-    { seed: table.seed },
-    { merge: true }
-  );
-
+  db.collection("tablePrivates").updateOne({tableId}, {$set: { seed: table.seed, merge: true }})
   delete table.seed;
-
-  tx.update(db.collection("tables").doc(tableId), table);
+  db.collection("tables").replaceOne({tableId}, table);
 };
 
 module.exports = {

@@ -24,7 +24,7 @@ const createInvoices = require("./lib/create-invoices");
 const processDeposits = require("./lib/process-deposits");
 const processWithdrawals = require("./lib/process-withdrawals");
 
-const serviceAccount = require("./lightning-poker-firebase-adminsdk-pdomv-82e6bf58f2.json");
+const serviceAccount = require("./poker-1e703-firebase-adminsdk-k9vyh-8d2d16c588.json");
 const config = require("./lnd-config");
 
 admin.initializeApp({

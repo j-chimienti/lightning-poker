@@ -1,11 +1,9 @@
 import React, { useState, useContext, createContext } from "react";
-import { useDocumentData } from "react-firebase-hooks/firestore";
 import { AppContext } from "../App";
 import QR from "./QR";
 import Settled from "../Settled";
 import TokenInput from "./TokenInput";
 import DepositActions from "./DepositActions";
-import firebase from "firebase/compat/app";
 import { REQUESTED_INVOICE, SETTLED_INVOICE } from "../lib/types";
 
 import "./styles.scss";
@@ -17,9 +15,11 @@ function Deposit() {
   const [amount, setAmount] = useState("");
   const { profileId } = useContext(AppContext);
 
-  let [{ payment_request: request, state } = {}] = useDocumentData(
-    invoiceId && firebase.firestore().collection("invoices").doc(invoiceId)
-  );
+  let { payment_request: request, state } = {}
+
+      // useDocumentData(
+    // invoiceId && firebase.firestore().collection("invoices").doc(invoiceId)
+  // );
 
   function clearDeposit() {
     setAmount("");
@@ -27,15 +27,15 @@ function Deposit() {
   }
 
   async function addInvoice() {
-    const invoiceRef = await firebase
-      .firestore()
-      .collection("invoices")
-      .add({
-        tokens: Math.floor(Number(amount)),
-        profileId,
-        state: REQUESTED_INVOICE,
-      });
-    setInvoiceId(invoiceRef.id);
+    // const invoiceRef = await firebase
+    //   .firestore()
+    //   .collection("invoices")
+    //   .add({
+    //     tokens: Math.floor(Number(amount)),
+    //     profileId,
+    //     state: REQUESTED_INVOICE,
+    //   });
+    // setInvoiceId(invoiceRef.id);
   }
 
   return (
