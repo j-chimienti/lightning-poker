@@ -2,13 +2,11 @@ import React, { useContext } from "react";
 import Deposit from "../Deposit";
 import Widhtdraw from "../Withdraw";
 import { AppContext } from "../App";
-import { AUTH_WITH_TWITTER } from "../App/use-profile";
 
 import "./styles.scss";
 
 function Menu() {
   let { profileId, balance, dispatch } = useContext(AppContext);
-
   return (
     <aside className="menu">
       <div className="content">
@@ -20,8 +18,8 @@ function Menu() {
         <div className="info courier">{profileId}</div>
         <div className="title">Lightning Node</div>
         <div className="info courier">
-          <span>03ad156742a9a9d0e82e0022f264d6857</span>
-          <span>addfd534955d5e97de4a695bf8dd12af0</span>
+          <span>02e9abd50c0d0868eb8ae081dd01d885a</span>
+          <span>395379c9a4c108a4565c81c45c9ca9d07</span>
         </div>
         <div className="title">CONTACT</div>
         <div className="info">
@@ -58,7 +56,7 @@ function Menu() {
           <button
             onClick={() => {
               dispatch({
-                type: AUTH_WITH_TWITTER
+                type: "AUTH_WITH_TWITTER"
               });
             }}
           >

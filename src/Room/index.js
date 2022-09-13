@@ -85,8 +85,8 @@ function Room({ match }) {
   const { tableId } = match.params;
   const [table, setTable] = useState([])
   const [players, setPlayers] = useState([])
-    const [loadingTable, setLoadingTable] = useState(true)
-    const [loadingPlayers, setLoadingPlayers] = useState(true)
+  const [loadingTable, setLoadingTable] = useState(true)
+  const [loadingPlayers, setLoadingPlayers] = useState(true)
 
     const [me, setMe] = useState({})
   let width = SIZE;
@@ -99,28 +99,27 @@ function Room({ match }) {
 
   useEffect(() => {
 
-      fetchPlayers(tableId, profileHash).then(({players, me, loading}) => {
-          setPlayers(players)
-          setLoadingPlayers(loading)
-          setMe(me)
+      fetchPlayers(tableId, profileHash).then(res => {
+          setPlayers([])
+          setLoadingPlayers(false)
       })
-      fetchTable(tableId).then(({table, loading, error}) => {
-          if (error) throw error
+      fetchTable(tableId).then(table => {
           setTable(table)
-          setLoadingTable(loading)
+          setLoadingTable(false)
       })
-    if (loadingPlayers) {
-      return;
-    }
-    const id = me ? me.id : null;
-    if (activePlayerId !== id) {
-      dispatch({
-        type: UPDATE_ACTIVE_STATE,
-        activePlayerId: id,
-        activeTableId: tableId
-      });
-    }
-  }, [loadingPlayers, activePlayerId, tableId, me, dispatch, table]);
+    // if (loadingPlayers || loadingTable) {
+    //   return;
+    // }
+    // const id = me ? me.id : null;
+    // if (activePlayerId !== id) {
+    //   dispatch({
+    //     type: UPDATE_ACTIVE_STATE,
+    //     activePlayerId: id,
+    //     activeTableId: tableId
+    //   });
+    // }
+      // todo
+  }, [[], []]);
 
   let maxPlayers = table ? table.maxPlayers : 0;
   let tablePositions = Math.max(8, maxPlayers);

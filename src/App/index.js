@@ -1,17 +1,17 @@
-import React, { useEffect, createContext, useReducer } from "react";
+import React, {createContext, useEffect, useReducer, useState} from "react";
 import Menu from "../Menu";
 import Nav from "../Nav";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import Games from "../Games";
 import ToggleButton from "./ToggleButton";
 import Room from "../Room";
 import Lobby from "../Lobby";
-import reducer, { addHandler } from "./reducer";
+import reducer, {addHandler} from "./reducer";
 import mobile from "is-mobile";
-import { Helmet } from "react-helmet";
+import {Helmet} from "react-helmet";
 import ErrorMessage from "./ErrorMessage";
-import useProfile from "./use-profile";
 import "./styles.scss";
+import {resumeSession} from "../api";
 
 export const AppContext = createContext();
 
@@ -53,7 +53,15 @@ const initialState = {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const profile = useProfile(dispatch);
+  const [profile, setProfile] =  useState(null)
+
+  useEffect(() => {
+    resumeSession().then(profile => {
+      setProfile(profile)
+    }).catch(err => {
+      alert(err)
+    })
+  }, []);
 
   useEffect(() => {
     dispatch({
